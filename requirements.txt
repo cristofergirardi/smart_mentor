@@ -1,0 +1,4 @@
+llamaapi==0.1.36
+langchain-openai==0.2.3
+langchain-anthropic==0.2.3
+pydantic==2.9.2
