@@ -1,5 +1,5 @@
 class PromptHandler:    
-    def __init__(self, answer, rag):        
+    def __init__(self, answer: str, rag: str):        
         self.answer = answer        
         self.rag = rag
 

@@ -27,6 +27,7 @@ MANIFEST
 api_key.json
 dump.json
 database/
+*.csv
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
