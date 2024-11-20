@@ -1,4 +1,7 @@
 llamaapi==0.1.36
-langchain-openai==0.2.3
-langchain-anthropic==0.2.3
+langchain-openai==0.2.9
+langchain-anthropic==0.3.0
+langchain-community==0.3.7
+langchain-chroma==0.1.4
 pydantic==2.9.2
+pandas==2.2.3

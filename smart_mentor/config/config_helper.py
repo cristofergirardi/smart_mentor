@@ -13,9 +13,9 @@ class ConfigHelper:
             os.path.join('api_key.json'),
         ]
 
-        file = self._get_config(possibility_config_locations)
-        if file is not None:
-            self.settings = file.model_dump()
+        self.file = self._get_config(possibility_config_locations)        
+        if self.file is not None:
+            self.settings = self.file.model_dump()
 
         if not self.settings:
             raise ValueError("Configuration file variable not found!")
@@ -26,7 +26,12 @@ class ConfigHelper:
                 with open(config_location, 'r') as file: 
                     return ConfigModel.model_validate(json.load(file))
         return None
+    
+    @property
+    def get_config(self):
+        return self.file
+    
+    @property
+    def get_json(self):
+        return self.settings
 
-if __name__ == "__main__":
-    config = ConfigHelper()
-    print(config.settings)
