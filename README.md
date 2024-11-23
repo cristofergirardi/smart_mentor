@@ -12,3 +12,8 @@ It goes to terminal and run
 python -m smart_mentor.config.config_helper
 ```
 
+### Running observability
+#### Creating a vectordb
+```shell
+python -m smart_mentor.observability.vectordb_creator
+```

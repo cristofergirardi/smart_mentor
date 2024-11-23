@@ -33,8 +33,11 @@ class SmartMentorOrchestrator:
         self.clientOpenAI = ClientOpenAi(client_config)
 
     def request(self, question):
+        logger.info("Researching vectordb")
         docs = self.rag.retrieve(question) 
-        prompt = PromptHandler(question, docs).generatePrompt()
+        logger.info("Calling prompt")
+        prompt = PromptHandler(question, docs).generatePromptH10()
+        logger.info("Requesting OpenAI")
         response = self.clientOpenAI.send_request(
             messages=prompt,
         )

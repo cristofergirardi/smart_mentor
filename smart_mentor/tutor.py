@@ -19,5 +19,5 @@ class SmartMentor():
 if __name__ == "__main__":
     config = ConfigHelper()
     tutor = SmartMentor(config)
-    prompt = "Writting a python code that print Hello Word. Only source-code."   
+    prompt = "Escreva Hello Word"   
     print(tutor.get_response(prompt))    

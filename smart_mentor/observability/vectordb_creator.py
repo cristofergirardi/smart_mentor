@@ -20,7 +20,7 @@ if __name__ == "__main__":
     rag = RAG(embedding_config=embedding_config, 
               name_deployment=config.get_config.AZURE_OPENAI_DEPLOYMENT_NAME_EMBEDDING,
               persist_dir=db_dir,
-              top_k=5)
+              top_k=3)
     
     if reader.checkFile("smart_mentor/resources/ground_truth_data.csv"):
         df = reader.readFile("smart_mentor/resources/ground_truth_data.csv")
@@ -50,16 +50,18 @@ if __name__ == "__main__":
     #  19  fields.problem_rating_delta_y         100 non-null    float64
     #  20  fields.program_y                      100 non-null    objec
 
-    for row in df.itertuples(index=False):
-        text_question = f"{row._2} \n {row._5} \n {row._6} \n {row._7}"
-        text_answer = f"{row._20}"
-        rag.save_documents(question=text_question, answer=text_answer)
+    for row in df.itertuples(index=False):        
+        text_question = f"{row._2} \n {row._5} \n {row._6} \n {row._7} \n # Dica sobre a questão {row._9} \n Resposta: \n {row._20}"
+        # text_answer = f"{row._20}"
+        rag.save_documents(question=text_question)
     
-    prompt = "Writting a python code that print Hello Word. Only source-code."  
+    prompt = "Escreva o mundo é dos homens"  
     docs = rag.retrieve(prompt) 
     logger.info(f"Retrieved docs: {docs}")
     logger.info(f"Metadatas: {rag.retrieve_metadata()}")
     docs_question = rag.retrieve(prompt,['question']) 
     logger.info(f"Retrieved docs: {docs_question}")
-    docs_answer = rag.retrieve(prompt,['answer']) 
-    logger.info(f"Retrieved docs: {docs_answer}")
+    for doc in docs_question:
+        logger.info(f" Question and Answer: {doc.page_content}")
+    # docs_answer = rag.retrieve(prompt,['answer']) 
+    # logger.info(f"Retrieved docs: {docs_answer}")
