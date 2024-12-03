@@ -1,16 +1,15 @@
 from ...lib.core import ModelAIFactory
 from ...config import logging_config
-from openai import AzureOpenAI
+from openai import OpenAI
 
 logger = logging_config.setup_logging()
 
-class ClientOpenAi(ModelAIFactory):
+class ClientLlamaOpenAi(ModelAIFactory):
 
     def __init__(self, config: dict):
-        self.model = AzureOpenAI(
-            api_version=config["client_version"],
+        self.model = OpenAI(
             api_key= config["key"], 
-            azure_endpoint = config["endpoint"],
+            base_url = config["endpoint"],
         )
         self.model_name = config["model"]
     

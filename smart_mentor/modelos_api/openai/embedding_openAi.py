@@ -8,8 +8,8 @@ class EmbeddingOpenAi(ModelAIFactory):
 
     def __init__(self, config: dict, **kwargs):
         self.api_version = config["embedding_version"]
-        self.api_key = config["openai_key"] 
-        self.azure_endpoint = config["openai_endpoint"]
+        self.api_key = config["key"] 
+        self.azure_endpoint = config["endpoint"]
         self.embedding = AzureOpenAIEmbeddings(
                     azure_deployment = kwargs.get("name_deployment","text-embedding-3"),
                     openai_api_version = self.api_version,

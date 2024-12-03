@@ -7,5 +7,9 @@ class ConfigModel(BaseModel):
     AZURE_OPENAI_API_KEY: str
     AZURE_OPENAI_ENDPOINT: str
     AZURE_OPENAI_DEPLOYMENT_NAME_EMBEDDING: str    
-    llama_key : str
-    claude_key : str
+    CLAUDEAI_KEY: str
+    CLAUDEAI_MODEL: str
+    LLAMA_API_KEY: str
+    LLAMA_ENDPOINT: str
+    LLAMA_MODEL: str
+    QWEN_MODEL: str
