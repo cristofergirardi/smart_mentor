@@ -28,9 +28,9 @@ class WriterFile(ABC):
 
 class PromptEng(ABC):
     @abstractmethod
-    def generatePrompt(self): # pragma: no cover
+    def generatePrompt(self, hypotheses:str, **kwargs): # pragma: no cover
         pass
 
     @abstractmethod
-    def prompt_message(sefl): # pragma: no cover
+    def prompt_message(self, **kwargs): # pragma: no cover
         pass
