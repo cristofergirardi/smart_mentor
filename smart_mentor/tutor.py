@@ -2,6 +2,7 @@ from .config.config_helper import ConfigHelper
 from .orchestrator import SmartMentorOrchestrator
 from .config import logging_config
 from .observability.rouge_eval import RougeEval
+from .observability.bert_similarity import BertSimilarity
 from .file.smart_reader import SmartReader
 from .file.smart_writer import SmartWriter
 from typing import Final
@@ -15,12 +16,14 @@ logger = logging_config.setup_logging()
 class SmartMentor():
 
     ROUGE_METRICS: Final = ['rouge1', 'rouge2', 'rougeL']
-    COLUMNS_METRICS: Final = ["h", "model", "metric", "precision", "recall", "f1_score"]
+    COLUMNS_METRICS_ROUGE: Final = ["h", "model", "metric", "precision", "recall", "f1_score"]
+    COLUMNS_METRICS_BERT: Final = ["h", "model", "metric", "similarity"]
 
     def __init__(self, config: ConfigHelper):
         super().__init__()
         self.orchestrator = SmartMentorOrchestrator(config)      
-        self.rouge = RougeEval()  
+        self.rouge = RougeEval()
+        self.bert_similar = BertSimilarity()
         logger.info("Smart Tutor is on!")
     
     def get_prompt(self, question, hypothesis, **kwargs):
@@ -32,7 +35,7 @@ class SmartMentor():
     def get_response_llama_by_prompt(self, prompt):
         return self.orchestrator.request_llama_by_prompt(prompt)
     
-    def get_metrics(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:        
+    def get_metrics_rouge(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:        
         self.rouge.get_scores(reference=orig_data, result=predict)
         metrics_list = []
         for metric in self.ROUGE_METRICS:
@@ -40,6 +43,15 @@ class SmartMentor():
             metrics_list.append(
                 {"h": hypothesis, "model": model, "metric": metric, "precision": precision, "recall": recall, "f1_score": fmeasure}
             )
+        return metrics_list
+    
+    def get_metrics_bert(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:
+        metrics_list = []
+        similarity = self.bert_similar.get_similarity(ground_truth=orig_data,
+                                                      result=predict)
+        metrics_list.append(
+                {"h": hypothesis, "model": model, "metric": "bert_metric", "similarity": similarity}
+            )        
         return metrics_list
 
     def add_new_row(self, df_orig : pd.DataFrame, new_rows: list):        
@@ -93,8 +105,7 @@ if __name__ == "__main__":
         df_indexes = reader.readFile(file_random)
 
     df = reader.readFile("smart_mentor/resources/ground_truth_data.csv")
-    df_selected = df.iloc[df_indexes['index']]
-    df_metrics = pd.DataFrame(columns=tutor.COLUMNS_METRICS)
+    df_selected = df.iloc[df_indexes['index']]    
 
     for row in df_selected.itertuples(index=False): 
         # text_question = f"{row._2} \n {row._5} \n {row._6} \n {row._7} \n # Dica sobre a questão {row._9} \n Resposta: \n {row._20}"
@@ -119,13 +130,20 @@ if __name__ == "__main__":
             
             logger.info(f"#### OPENAI response \n {response}") 
             json_data = json.loads(response)
-            list_metrics = tutor.get_metrics(hypothesis=hypothesis,
-                                            model="openai",
-                                            orig_data=reference,
-                                            predict=json_data["program_created"])
+            list_metrics = tutor.get_metrics_rouge(hypothesis=hypothesis,
+                                                   model="openai",
+                                                   orig_data=reference,
+                                                   predict=json_data["program_created"])
             for metrics in list_metrics:
                 logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
 
+            list_metrics = tutor.get_metrics_bert(hypothesis=hypothesis,
+                                                  model="openai",
+                                                  orig_data=reference,
+                                                  predict=json_data["program_created"])
+            
+            for metrics in list_metrics:
+                logger.info(f'From {metrics["metric"]} by bert_metric library -> Similarity: {metrics["similarity"]}')
 
             logger.info("#### LLAMA")
             new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt)
@@ -144,24 +162,39 @@ if __name__ == "__main__":
             except Exception as e:
                 response = tutor.get_response(response)
 
-            list_metrics = tutor.get_metrics(hypothesis=hypothesis,
-                                            model="llama",
-                                            orig_data=reference,
-                                            predict=response)
+            list_metrics = tutor.get_metrics_rouge(hypothesis=hypothesis,
+                                                   model="llama",
+                                                   orig_data=reference,
+                                                   predict=response)
             for metrics in list_metrics:
                 logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
 
+            list_metrics = tutor.get_metrics_bert(hypothesis=hypothesis,
+                                                  model="llama",
+                                                  orig_data=reference,
+                                                  predict=response)
+            
+            for metrics in list_metrics:
+                logger.info(f'From {metrics["metric"]} by bert_metric library -> Similarity: {metrics["similarity"]}')
         else:
             ### Others hypotheses
             response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
             print(f"#### OPENAI \n {response}") 
             json_data = json.loads(response)
-            list_metrics = tutor.get_metrics(hypothesis=hypothesis,
-                                            model="openai",
-                                            orig_data=reference,
-                                            predict=json_data["program_created"])
+            list_metrics = tutor.get_metrics_rouge(hypothesis=hypothesis,
+                                                   model="openai",
+                                                   orig_data=reference,
+                                                   predict=json_data["program_created"])
             for metrics in list_metrics:
                 logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
+
+            list_metrics = tutor.get_metrics_bert(hypothesis=hypothesis,
+                                                  model="openai",
+                                                  orig_data=reference,
+                                                  predict=json_data["program_created"])
+            
+            for metrics in list_metrics:
+                logger.info(f'From {metrics["metric"]} by bert_metric library -> Similarity: {metrics["similarity"]}')
 
             response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
             print(f"#### LLAMA \n {response}") 
@@ -171,12 +204,18 @@ if __name__ == "__main__":
             except Exception as e:
                 response = tutor.get_response(response)
 
-            list_metrics = tutor.get_metrics(hypothesis=hypothesis,
-                                            model="llama",
-                                            orig_data=reference,
-                                            predict=response)
+            list_metrics = tutor.get_metrics_rouge(hypothesis=hypothesis,
+                                                   model="llama",
+                                                   orig_data=reference,
+                                                   predict=response)
             for metrics in list_metrics:
                 logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
 
-
+            list_metrics = tutor.get_metrics_bert(hypothesis=hypothesis,
+                                                  model="llama",
+                                                  orig_data=reference,
+                                                  predict=response)
+            
+            for metrics in list_metrics:
+                logger.info(f'From {metrics["metric"]} by bert_metric library -> Similarity: {metrics["similarity"]}')
 

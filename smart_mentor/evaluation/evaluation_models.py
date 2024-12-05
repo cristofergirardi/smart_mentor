@@ -1,6 +1,7 @@
 from ..config import logging_config
 from ..config.config_helper import ConfigHelper
 from ..observability.rouge_eval import RougeEval
+from ..observability.bert_similarity import BertSimilarity
 from ..orchestrator import SmartMentorOrchestrator
 from ..file.smart_reader import SmartReader
 from ..file.smart_writer import SmartWriter
@@ -15,12 +16,14 @@ logger = logging_config.setup_logging()
 class EvaluationModels():
 
     ROUGE_METRICS: Final = ['rouge1', 'rouge2', 'rougeL']
-    COLUMNS_METRICS: Final = ["h", "model", "metric", "precision", "recall", "f1_score"]
+    COLUMNS_METRICS_ROUGE: Final = ["h", "model", "metric", "precision", "recall", "f1_score"]
+    COLUMNS_METRICS_BERT: Final = ["h", "model", "metric", "similarity"]
 
     def __init__(self, config: ConfigHelper):
         super().__init__()
         self.orchestrator = SmartMentorOrchestrator(config)    
-        self.rouge = RougeEval()    
+        self.rouge = RougeEval()
+        self.bert_similar = BertSimilarity()    
         logger.info("Evaluation Models is on!")
     
     def get_prompt(self, question, hypothesis, **kwargs):
@@ -32,7 +35,7 @@ class EvaluationModels():
     def get_response_llama_by_prompt(self, prompt):
         return self.orchestrator.request_llama_by_prompt(prompt)
 
-    def get_metrics(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:        
+    def get_metrics_rouge(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:        
         self.rouge.get_scores(reference=orig_data, result=predict)
         metrics_list = []
         for metric in self.ROUGE_METRICS:
@@ -40,6 +43,15 @@ class EvaluationModels():
             metrics_list.append(
                 {"h": hypothesis, "model": model, "metric": metric, "precision": precision, "recall": recall, "f1_score": fmeasure}
             )
+        return metrics_list
+    
+    def get_metrics_bert(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:
+        metrics_list = []
+        similarity = self.bert_similar.get_similarity(ground_truth=orig_data,
+                                                      result=predict)
+        metrics_list.append(
+                {"h": hypothesis, "model": model, "metric": "bert_metric", "similarity": similarity}
+            )        
         return metrics_list
 
     def add_new_row(self, df_orig : pd.DataFrame, new_rows: list):        
@@ -93,22 +105,31 @@ if __name__ == "__main__":
 
     df = reader.readFile("smart_mentor/resources/ground_truth_data.csv")
     df_selected = df.iloc[df_indexes['index']]
-    df_metrics = pd.DataFrame(columns=models.COLUMNS_METRICS)
+    df_metrics_rouge = pd.DataFrame(columns=models.COLUMNS_METRICS_ROUGE)
+    df_metrics_bert = pd.DataFrame(columns=models.COLUMNS_METRICS_BERT)
 
     hypothesis = "h0"
-    file_written = f"smart_mentor/resources/Metrics_{hypothesis}.csv"
+    file_written_rouge = f"smart_mentor/resources/Metrics_{hypothesis}_rouge.csv"
     ## Creating file
     try:
-        reader.removeFile(file_written)
+        reader.removeFile(file_written_rouge)
     except FileNotFoundError as e:
         logger.error("File does not found")
+
+    file_written_bert = f"smart_mentor/resources/Metrics_{hypothesis}_bert.csv"
+    ## Creating file
+    try:
+        reader.removeFile(file_written_bert)
+    except FileNotFoundError as e:
+        logger.error("File does not found")        
     
-    writer.write(file_written, df_metrics)
+    writer.write(file_written_rouge, df_metrics_rouge)
+    writer.write(file_written_bert, df_metrics_bert)
 
     # how many times I'm going to call the models
     for count in range(2):
         logger.info(f"###### Counting {count} times ######")
-        df_metrics = pd.DataFrame(columns=models.COLUMNS_METRICS)
+        df_metrics_rouge = pd.DataFrame(columns=models.COLUMNS_METRICS_ROUGE)
         for row in df_selected.itertuples(): 
             user_question = ""
             if len(str(row._9).replace("Dicas&Dicas","")) > 0:
@@ -130,11 +151,17 @@ if __name__ == "__main__":
                 
                 logger.info(f"#### OPENAI response \n {response}") 
                 json_data = json.loads(response)
-                list_metrics = models.get_metrics(hypothesis=hypothesis,
-                                                  model="openai",
-                                                  orig_data=reference,
-                                                  predict=json_data["program_created"])
-                df_metrics = models.add_new_row(df_metrics, list_metrics)
+                list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                                                        model="openai",
+                                                        orig_data=reference,
+                                                        predict=json_data["program_created"])
+                df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
+                
+                list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
+                                                       model="openai",
+                                                       orig_data=reference,
+                                                       predict=json_data["program_created"])
+                df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
 
                 logger.info("#### LLAMA")
                 new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)
@@ -153,40 +180,58 @@ if __name__ == "__main__":
                 except Exception as e:
                     response = models.get_response(response)
 
-                list_metrics = models.get_metrics(hypothesis=hypothesis,
-                                                  model="llama", 
-                                                  orig_data=reference,
-                                                  predict=response)
-                df_metrics = models.add_new_row(df_metrics, list_metrics)
+                list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                                                        model="llama",
+                                                        orig_data=reference,
+                                                        predict=response)
+                df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
+
+                list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
+                                                       model="llama",
+                                                       orig_data=reference,
+                                                       predict=response)
+                df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
             else:
                 ### Others hypotheses
                 new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)
                 response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                print(f"#### OPENAI \n {response}") 
+                logger.info(f"#### OPENAI \n {response}") 
                 json_data = json.loads(response)
-                list_metrics = models.get_metrics(hypothesis=hypothesis,
-                                                  model="openai",
-                                                  orig_data=reference,
-                                                  predict=json_data["program_created"])
-                for metrics in list_metrics:
-                    logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
+                list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                                                        model="openai",
+                                                        orig_data=reference,
+                                                        predict=json_data["program_created"])
+                df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
+
+                list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
+                                                       model="openai",
+                                                       orig_data=reference,
+                                                       predict=json_data["program_created"])
+                df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
 
                 response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                print(f"#### LLAMA \n {response}") 
+                logger.info(f"#### LLAMA \n {response}") 
                 try:
                     json_data = json.loads(response)
                     response = json_data["program_created"]
                 except Exception as e:
                     response = models.get_response(response)
 
-                list_metrics = models.get_metrics(hypothesis=hypothesis,
-                                                  model="llama", 
-                                                  orig_data=reference,
-                                                  predict=response)
-                df_metrics = models.add_new_row(df_metrics, list_metrics)
+                list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                                                        model="llama",
+                                                        orig_data=reference,
+                                                        predict=response)
+                df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
+
+                list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
+                                                       model="llama",
+                                                       orig_data=reference,
+                                                       predict=response)
+                df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
             
             logger.info(f'Finished the index {row.Index}')
             time.sleep(60)
 
         ## Appending dataframe
-        writer.write(file_written, df_metrics)            
+        writer.write(file_written_rouge, df_metrics_rouge)
+        writer.write(file_written_bert, df_metrics_bert)            
