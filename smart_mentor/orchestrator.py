@@ -1,7 +1,6 @@
 from typing import Final
 from .config.config_helper import ConfigHelper
 from .modelos_api.openai.client_openAi import ClientOpenAi
-from .modelos_api.claudeai.client_claudeAi import ClientClaudeAi
 from .modelos_api.llamaai.client_llamaAi import ClientLlamaOpenAi
 from .prompts.promptHandler import PromptHandler
 from .rags.retriever import RAG
@@ -43,7 +42,6 @@ class SmartMentorOrchestrator:
                        persist_dir=self.db_dir, 
                        top_k=self.TOP_K) 
         self.clientOpenAI = ClientOpenAi(openai_config)
-        self.clientClaudeAI = ClientClaudeAi(claudeai_config)
         self.clientLlamaAI = ClientLlamaOpenAi(llama_config)
 
     def get_rag(self, question:str):
@@ -54,7 +52,7 @@ class SmartMentorOrchestrator:
     def prepare_prompt(self, question:str, hypothesis: str, **kwargs):
         thought = kwargs.get("thought", 1)
         docs = []
-        if hypothesis != 'h11' or (hypothesis == 'h11'and thought == 1):
+        if hypothesis != 'h4' or (hypothesis == 'h4'and thought == 1):
             docs = self.get_rag(question)
 
         logger.info("Calling generatePrompt")

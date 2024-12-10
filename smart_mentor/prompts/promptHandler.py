@@ -18,16 +18,16 @@ class PromptHandler(PromptEng):
         self.rar = PromptRaR()
         self.prompt_response = PromptResponse()
 
-    def _generatePromptH8(self):
-        logger.info("Calling Hypotheses 8")
+    def _generatePromptH1(self):
+        logger.info("Calling Hypotheses 1")
         system_content = f'{self.role.string_role_complete}' 
         return self.prompt_message(system_content=system_content,
                                    rag_content = self._get_rag(),
                                    user_content=self.answer,
                                    role_type= "assistant" if self.assistant else "system")         
 
-    def _generatePromptH9(self):
-        logger.info("Calling Hypotheses 9")
+    def _generatePromptH2(self):
+        logger.info("Calling Hypotheses 2")
         system_content = f'{self.role.string_role_complete}' 
         user_content = f'{self.answer} \n {self.rar.rar}'
         return self.prompt_message(system_content=system_content,
@@ -35,8 +35,8 @@ class PromptHandler(PromptEng):
                                    user_content=user_content,
                                    role_type= "assistant" if self.assistant else "system")   
 
-    def _generatePromptH10(self):
-        logger.info("Calling Hypotheses 10")
+    def _generatePromptH3(self):
+        logger.info("Calling Hypotheses 3")
         zcot = PromptZeroCoT()
         system_content = f'{self.role.string_role_complete}' 
         user_content = f'{self.answer} \n {zcot.zero_cot_opt1}'
@@ -45,8 +45,8 @@ class PromptHandler(PromptEng):
                                    user_content=user_content,
                                    role_type= "assistant" if self.assistant else "system")
     
-    def _generatePromptH11(self, **kwargs):
-        logger.info("Calling Hypotheses 11")
+    def _generatePromptH4(self, **kwargs):
+        logger.info("Calling Hypotheses 4")
         thought = kwargs.get("thought", 1)
         system_content = f'{self.role.string_role_complete}'
         skeleton = PromptSkeleton(question=self.answer)
@@ -67,6 +67,9 @@ class PromptHandler(PromptEng):
                                    rag_content = rag_content,
                                    user_content=user_content,
                                    role_type= "assistant" if self.assistant else "system")
+    
+    def _generatePromptH5():
+        pass
 
     def prompt_message(self,**kwargs):
         message = []
@@ -105,13 +108,13 @@ class PromptHandler(PromptEng):
     
     def generatePrompt(self, hypotheses:str, **kwargs):
         match hypotheses:
-            case "h8":
-                return self._generatePromptH8()
-            case "h9":
-                return self._generatePromptH9()
-            case "h10":
-                return self._generatePromptH10()
-            case "h11":
-                return self._generatePromptH11(**kwargs)
+            case "h1":
+                return self._generatePromptH1()
+            case "h2":
+                return self._generatePromptH2()
+            case "h3":
+                return self._generatePromptH3()
+            case "h4":
+                return self._generatePromptH4(**kwargs)
             case _:
                 return "Unknown hypotheses choise again."

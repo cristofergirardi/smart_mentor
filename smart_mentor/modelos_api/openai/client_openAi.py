@@ -26,3 +26,17 @@ class ClientOpenAi(ModelAIFactory):
             max_tokens=max_tokens
         )        
         return response.choices[0].message.content
+    
+    def get_response_than_one(self, **kwargs):
+        logger.info("Creating a model response for the given chat conversation...")
+        messages = kwargs.get("messages",[])
+        max_tokens = kwargs.get("max_tokens",1000)
+        temperature = kwargs.get("temperature",0)
+        response = self.model.chat.completions.create(
+            model=self.model_name,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            n=3
+        )        
+        return response.choices

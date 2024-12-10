@@ -138,96 +138,97 @@ if __name__ == "__main__":
                 user_question = f"{row._2} \n {row._5} \n {row._6} \n {row._7}"
             reference = row._20
 
-            if hypothesis == "h11":
-                logger.info("#### OPENAI")
-                new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)            
-                response = "" 
-                for i in range(1,3):                
+            match hypothesis:
+                case "h4":
+                    logger.info("#### OPENAI")
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)            
+                    response = "" 
+                    for i in range(1,3):                
+                        response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                        thought = i+1
+                        new_response = f'{user_question} \n {response}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response,thought=thought)
+                        time.sleep(60)
+                    
+                    logger.info(f"#### OPENAI response \n {response}") 
+                    json_data = json.loads(response)
+                    list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                                                            model="openai",
+                                                            orig_data=reference,
+                                                            predict=json_data["program_created"])
+                    df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
+                    
+                    list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
+                                                        model="openai",
+                                                        orig_data=reference,
+                                                        predict=json_data["program_created"])
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
+
+                    logger.info("#### LLAMA")
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)
+                    response = "" 
+                    for i in range(1,3):               
+                        response = models.get_response_llama_by_prompt(prompt=new_prompt)
+                        thought = i+1
+                        new_response = f'{user_question} \n {response}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response,thought=thought)
+                        time.sleep(60)
+
+                    logger.info(f"#### LLAMA response \n {response}") 
+                    try:
+                        json_data = json.loads(response)
+                        response = json_data["program_created"]
+                    except Exception as e:
+                        response = models.get_response(response)
+
+                    list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                                                            model="llama",
+                                                            orig_data=reference,
+                                                            predict=response)
+                    df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
+
+                    list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
+                                                        model="llama",
+                                                        orig_data=reference,
+                                                        predict=response)
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
+                case _:
+                    ### Others hypotheses
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)
                     response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                    thought = i+1
-                    new_response = f'{user_question} \n {response}'
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response,thought=thought)
-                    time.sleep(60)
-                
-                logger.info(f"#### OPENAI response \n {response}") 
-                json_data = json.loads(response)
-                list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                    logger.info(f"#### OPENAI \n {response}") 
+                    json_data = json.loads(response)
+                    list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                                                            model="openai",
+                                                            orig_data=reference,
+                                                            predict=json_data["program_created"])
+                    df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
+
+                    list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
                                                         model="openai",
                                                         orig_data=reference,
                                                         predict=json_data["program_created"])
-                df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
-                
-                list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
-                                                       model="openai",
-                                                       orig_data=reference,
-                                                       predict=json_data["program_created"])
-                df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
 
-                logger.info("#### LLAMA")
-                new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)
-                response = "" 
-                for i in range(1,3):               
                     response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                    thought = i+1
-                    new_response = f'{user_question} \n {response}'
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response,thought=thought)
-                    time.sleep(60)
+                    logger.info(f"#### LLAMA \n {response}") 
+                    try:
+                        json_data = json.loads(response)
+                        response = json_data["program_created"]
+                    except Exception as e:
+                        response = models.get_response(response)
 
-                logger.info(f"#### LLAMA response \n {response}") 
-                try:
-                    json_data = json.loads(response)
-                    response = json_data["program_created"]
-                except Exception as e:
-                    response = models.get_response(response)
+                    list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                                                            model="llama",
+                                                            orig_data=reference,
+                                                            predict=response)
+                    df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
 
-                list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
+                    list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
                                                         model="llama",
                                                         orig_data=reference,
                                                         predict=response)
-                df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
-
-                list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
-                                                       model="llama",
-                                                       orig_data=reference,
-                                                       predict=response)
-                df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
-            else:
-                ### Others hypotheses
-                new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)
-                response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                logger.info(f"#### OPENAI \n {response}") 
-                json_data = json.loads(response)
-                list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
-                                                        model="openai",
-                                                        orig_data=reference,
-                                                        predict=json_data["program_created"])
-                df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
-
-                list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
-                                                       model="openai",
-                                                       orig_data=reference,
-                                                       predict=json_data["program_created"])
-                df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
-
-                response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                logger.info(f"#### LLAMA \n {response}") 
-                try:
-                    json_data = json.loads(response)
-                    response = json_data["program_created"]
-                except Exception as e:
-                    response = models.get_response(response)
-
-                list_metrics = models.get_metrics_rouge(hypothesis=hypothesis,
-                                                        model="llama",
-                                                        orig_data=reference,
-                                                        predict=response)
-                df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics)
-
-                list_metrics = models.get_metrics_bert(hypothesis=hypothesis,
-                                                       model="llama",
-                                                       orig_data=reference,
-                                                       predict=response)
-                df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics)
             
             logger.info(f'Finished the index {row.Index}')
             time.sleep(60)
