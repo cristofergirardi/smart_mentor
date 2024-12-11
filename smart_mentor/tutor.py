@@ -87,13 +87,43 @@ class SmartMentor():
         random_numbers = [random.randint(0, 70) for _ in range(1)]
         return pd.DataFrame({'index': random_numbers})
 
+    def get_metrics_overall(self, hypothesis: str, model:str, response: str, reference:str):
+        new_response = self.extract_programa_gen(response)
+
+        list_metrics_rouge = self.get_metrics_rouge(hypothesis=hypothesis,
+                                                    model=model, 
+                                                    orig_data=reference,
+                                                    predict=new_response)
+
+        list_metrics_bert = self.get_metrics_bert(hypothesis=hypothesis,
+                                                  model=model, 
+                                                  orig_data=reference,
+                                                  predict=new_response)
+
+        return list_metrics_rouge, list_metrics_bert
+     
+    def show_metrics(self, list_metrics_rouge: list, list_metrics_bert: list):
+        for metrics in list_metrics_rouge:
+            logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
+                
+        for metrics in list_metrics_bert:
+            logger.info(f'From {metrics["metric"]} library -> Similarity: {metrics["similarity"]}')
+    
+    def extract_programa_gen(self, response:str):
+        new_response = ""
+        try:
+            json_data = json.loads(response)
+            new_response = json_data["program_created"]
+        except Exception as e:
+            new_response = self.get_response(response)
+        return new_response
 
 if __name__ == "__main__":
     config = ConfigHelper()
     reader = SmartReader()
     writer = SmartWriter()
     tutor = SmartMentor(config)
-    hypothesis = "h1"
+    hypothesis = "h5"
 
     ## Creating file
     file_random = "smart_mentor/resources/random_numbers.csv"
@@ -131,21 +161,12 @@ if __name__ == "__main__":
                     time.sleep(60)
                 
                 logger.info(f"#### OPENAI response \n {response}") 
-                json_data = json.loads(response)
-                list_metrics = tutor.get_metrics_rouge(hypothesis=hypothesis,
-                                                    model="openai",
-                                                    orig_data=reference,
-                                                    predict=json_data["program_created"])
-                for metrics in list_metrics:
-                    logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
+                list_metrics_rouge, list_metrics_bert = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                  model="openai", 
+                                                                                  reference=reference, 
+                                                                                  response=response)
 
-                list_metrics = tutor.get_metrics_bert(hypothesis=hypothesis,
-                                                    model="openai",
-                                                    orig_data=reference,
-                                                    predict=json_data["program_created"])
-                
-                for metrics in list_metrics:
-                    logger.info(f'From {metrics["metric"]} library -> Similarity: {metrics["similarity"]}')
+                tutor.show_metrics(list_metrics_rouge, list_metrics_bert)
 
                 logger.info("#### LLAMA")
                 new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt)
@@ -158,66 +179,27 @@ if __name__ == "__main__":
                     time.sleep(60)
 
                 logger.info(f"#### LLAMA response \n {response}") 
-                try:
-                    json_data = json.loads(response)
-                    response = json_data["program_created"]
-                except Exception as e:
-                    response = tutor.get_response(response)
+                list_metrics_rouge, list_metrics_bert = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                  model="llama", 
+                                                                                  reference=reference, 
+                                                                                  response=response)
+                tutor.show_metrics(list_metrics_rouge, list_metrics_bert)
 
-                list_metrics = tutor.get_metrics_rouge(hypothesis=hypothesis,
-                                                    model="llama",
-                                                    orig_data=reference,
-                                                    predict=response)
-                for metrics in list_metrics:
-                    logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
-
-                list_metrics = tutor.get_metrics_bert(hypothesis=hypothesis,
-                                                    model="llama",
-                                                    orig_data=reference,
-                                                    predict=response)
-                
-                for metrics in list_metrics:
-                    logger.info(f'From {metrics["metric"]} library -> Similarity: {metrics["similarity"]}')
             case _:
                 ### Others hypotheses
                 response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
                 print(f"#### OPENAI \n {response}") 
-                json_data = json.loads(response)
-                list_metrics = tutor.get_metrics_rouge(hypothesis=hypothesis,
-                                                    model="openai",
-                                                    orig_data=reference,
-                                                    predict=json_data["program_created"])
-                for metrics in list_metrics:
-                    logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
-
-                list_metrics = tutor.get_metrics_bert(hypothesis=hypothesis,
-                                                    model="openai",
-                                                    orig_data=reference,
-                                                    predict=json_data["program_created"])
-                
-                for metrics in list_metrics:
-                    logger.info(f'From {metrics["metric"]} library -> Similarity: {metrics["similarity"]}')
+                list_metrics_rouge, list_metrics_bert = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                  model="openai", 
+                                                                                  reference=reference, 
+                                                                                  response=response)
+                tutor.show_metrics(list_metrics_rouge, list_metrics_bert)
 
                 response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
                 print(f"#### LLAMA \n {response}") 
-                try:
-                    json_data = json.loads(response)
-                    response = json_data["program_created"]
-                except Exception as e:
-                    response = tutor.get_response(response)
-
-                list_metrics = tutor.get_metrics_rouge(hypothesis=hypothesis,
-                                                    model="llama",
-                                                    orig_data=reference,
-                                                    predict=response)
-                for metrics in list_metrics:
-                    logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
-
-                list_metrics = tutor.get_metrics_bert(hypothesis=hypothesis,
-                                                    model="llama",
-                                                    orig_data=reference,
-                                                    predict=response)
-                
-                for metrics in list_metrics:
-                    logger.info(f'From {metrics["metric"]} library -> Similarity: {metrics["similarity"]}')
+                list_metrics_rouge, list_metrics_bert = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                  model="llama", 
+                                                                                  reference=reference, 
+                                                                                  response=response)
+                tutor.show_metrics(list_metrics_rouge, list_metrics_bert)
 

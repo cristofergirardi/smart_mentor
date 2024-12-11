@@ -22,7 +22,7 @@ class PromptHandler(PromptEng):
         logger.info("Calling Hypotheses 1")
         system_content = f'{self.role.string_role_complete}' 
         return self.prompt_message(system_content=system_content,
-                                   rag_content = self._get_rag(),
+                                   rag_content=self._get_rag(),
                                    user_content=self.answer,
                                    role_type= "assistant" if self.assistant else "system")         
 
@@ -31,7 +31,7 @@ class PromptHandler(PromptEng):
         system_content = f'{self.role.string_role_complete}' 
         user_content = f'{self.answer} \n {self.rar.rar}'
         return self.prompt_message(system_content=system_content,
-                                   rag_content = self._get_rag(),
+                                   rag_content=self._get_rag(),
                                    user_content=user_content,
                                    role_type= "assistant" if self.assistant else "system")   
 
@@ -41,7 +41,7 @@ class PromptHandler(PromptEng):
         system_content = f'{self.role.string_role_complete}' 
         user_content = f'{self.answer} \n {zcot.zero_cot_opt1}'
         return self.prompt_message(system_content=system_content,
-                                   rag_content = self._get_rag(),
+                                   rag_content=self._get_rag(),
                                    user_content=user_content,
                                    role_type= "assistant" if self.assistant else "system")
     
@@ -64,11 +64,12 @@ class PromptHandler(PromptEng):
                 rag_content = self._get_rag() 
                 user_content = f'{self.answer} \n {skeleton.third_think}'
         return self.prompt_message(system_content=system_content,
-                                   rag_content = rag_content,
+                                   rag_content=rag_content,
                                    user_content=user_content,
                                    role_type= "assistant" if self.assistant else "system")
     
-    def _generatePromptH5():
+    def _generatePromptH5(self):
+        logger.info("Calling Hypotheses 5")
         pass
 
     def prompt_message(self,**kwargs):
@@ -116,5 +117,7 @@ class PromptHandler(PromptEng):
                 return self._generatePromptH3()
             case "h4":
                 return self._generatePromptH4(**kwargs)
+            case "h5":
+                return self._generatePromptH5()
             case _:
                 return "Unknown hypotheses choise again."
