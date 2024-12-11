@@ -1,18 +1,19 @@
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from torch.nn.functional import cosine_similarity
 from ..config import logging_config
+import torch
 
 logger = logging_config.setup_logging()
 
-class BertSimilarity():
+class CodeT5Similarity():
 
     # Using torch to calculate the similarity between generate code and ground-truth
     # torch is used to work with neural networks
 
     def __init__(self):
-        model = "microsoft/codebert-base"
-        self.tokenizer = AutoTokenizer.from_pretrained(model)
-        self.model = AutoModel.from_pretrained(model)
+        model_name = "Salesforce/codet5-base" 
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
     def _generateTokenizer(self, ground_truth:str, result:str):
         # Tokenize both snippets
@@ -22,8 +23,9 @@ class BertSimilarity():
     
     def _get_embedding(self, ground_truth:str, result:str):
         truth_tokens, gen_tokens = self._generateTokenizer(ground_truth, result)
-        gen_embedding = self.model(**gen_tokens).last_hidden_state.mean(dim=1)
-        truth_embedding = self.model(**truth_tokens).last_hidden_state.mean(dim=1)
+        with torch.no_grad():
+            gen_embedding = self.model.encoder(**gen_tokens).last_hidden_state.mean(dim=1)
+            truth_embedding = self.model.encoder(**truth_tokens).last_hidden_state.mean(dim=1)
         return truth_embedding, gen_embedding
     
     def get_similarity(self, ground_truth:str, result:str):

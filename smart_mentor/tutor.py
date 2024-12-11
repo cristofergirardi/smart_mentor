@@ -3,6 +3,7 @@ from .orchestrator import SmartMentorOrchestrator
 from .config import logging_config
 from .observability.rouge_eval import RougeEval
 from .observability.bert_similarity import BertSimilarity
+from .observability.codet5_similarity import CodeT5Similarity
 from .file.smart_reader import SmartReader
 from .file.smart_writer import SmartWriter
 from typing import Final
@@ -24,6 +25,7 @@ class SmartMentor():
         self.orchestrator = SmartMentorOrchestrator(config)      
         self.rouge = RougeEval()
         self.bert_similar = BertSimilarity()
+        self.codet5_similar = CodeT5Similarity()
         logger.info("Smart Tutor is on!")
     
     def get_prompt(self, question, hypothesis, **kwargs):
@@ -51,6 +53,15 @@ class SmartMentor():
                                                       result=predict)
         metrics_list.append(
                 {"h": hypothesis, "model": model, "metric": "bert_metric", "similarity": similarity}
+            )        
+        return metrics_list
+    
+    def get_metrics_codet5(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:
+        metrics_list = []
+        similarity = self.codet5_similar.get_similarity(ground_truth=orig_data, 
+                                                        result=predict)
+        metrics_list.append(
+                {"h": hypothesis, "model": model, "metric": "codet5_metric", "similarity": similarity}
             )        
         return metrics_list
 
@@ -99,14 +110,22 @@ class SmartMentor():
                                                   model=model, 
                                                   orig_data=reference,
                                                   predict=new_response)
+        
+        list_metrics_codet5 = self.get_metrics_codet5(hypothesis=hypothesis,
+                                                      model=model, 
+                                                      orig_data=reference,
+                                                      predict=new_response)
 
-        return list_metrics_rouge, list_metrics_bert
+        return list_metrics_rouge, list_metrics_bert, list_metrics_codet5
      
-    def show_metrics(self, list_metrics_rouge: list, list_metrics_bert: list):
+    def show_metrics(self, list_metrics_rouge: list, list_metrics_bert: list, list_metrics_codet5: list):
         for metrics in list_metrics_rouge:
             logger.info(f'From {metrics["metric"]} by rouge_score library -> Precision: {metrics["precision"]} Recall: {metrics["recall"]} fmeasure: {metrics["f1_score"]} ')
                 
         for metrics in list_metrics_bert:
+            logger.info(f'From {metrics["metric"]} library -> Similarity: {metrics["similarity"]}')
+        
+        for metrics in list_metrics_codet5:
             logger.info(f'From {metrics["metric"]} library -> Similarity: {metrics["similarity"]}')
     
     def extract_programa_gen(self, response:str):
@@ -123,7 +142,7 @@ if __name__ == "__main__":
     reader = SmartReader()
     writer = SmartWriter()
     tutor = SmartMentor(config)
-    hypothesis = "h5"
+    hypothesis = "h1"
 
     ## Creating file
     file_random = "smart_mentor/resources/random_numbers.csv"
@@ -161,12 +180,14 @@ if __name__ == "__main__":
                     time.sleep(60)
                 
                 logger.info(f"#### OPENAI response \n {response}") 
-                list_metrics_rouge, list_metrics_bert = tutor.get_metrics_overall(hypothesis=hypothesis,
-                                                                                  model="openai", 
-                                                                                  reference=reference, 
-                                                                                  response=response)
+                list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                       model="openai", 
+                                                                                                       reference=reference, 
+                                                                                                       response=response)
 
-                tutor.show_metrics(list_metrics_rouge, list_metrics_bert)
+                tutor.show_metrics(list_metrics_rouge, 
+                                   list_metrics_bert, 
+                                   list_metrics_codet5)
 
                 logger.info("#### LLAMA")
                 new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt)
@@ -179,27 +200,33 @@ if __name__ == "__main__":
                     time.sleep(60)
 
                 logger.info(f"#### LLAMA response \n {response}") 
-                list_metrics_rouge, list_metrics_bert = tutor.get_metrics_overall(hypothesis=hypothesis,
-                                                                                  model="llama", 
-                                                                                  reference=reference, 
-                                                                                  response=response)
-                tutor.show_metrics(list_metrics_rouge, list_metrics_bert)
+                list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                       model="llama", 
+                                                                                                       reference=reference, 
+                                                                                                       response=response)
+                tutor.show_metrics(list_metrics_rouge, 
+                                   list_metrics_bert, 
+                                   list_metrics_codet5)
 
             case _:
                 ### Others hypotheses
                 response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
                 print(f"#### OPENAI \n {response}") 
-                list_metrics_rouge, list_metrics_bert = tutor.get_metrics_overall(hypothesis=hypothesis,
-                                                                                  model="openai", 
-                                                                                  reference=reference, 
-                                                                                  response=response)
-                tutor.show_metrics(list_metrics_rouge, list_metrics_bert)
+                list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                       model="openai", 
+                                                                                                       reference=reference, 
+                                                                                                       response=response)
+                tutor.show_metrics(list_metrics_rouge, 
+                                   list_metrics_bert, 
+                                   list_metrics_codet5)
 
                 response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
                 print(f"#### LLAMA \n {response}") 
-                list_metrics_rouge, list_metrics_bert = tutor.get_metrics_overall(hypothesis=hypothesis,
-                                                                                  model="llama", 
-                                                                                  reference=reference, 
-                                                                                  response=response)
-                tutor.show_metrics(list_metrics_rouge, list_metrics_bert)
+                list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                       model="llama", 
+                                                                                                       reference=reference, 
+                                                                                                       response=response)
+                tutor.show_metrics(list_metrics_rouge, 
+                                   list_metrics_bert, 
+                                   list_metrics_codet5)
 
