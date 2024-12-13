@@ -24,11 +24,11 @@ class VectorDatabase():
 
     def retriever_data(self, **kwargs):        
         search_kwargs = kwargs.get("search_kwargs","")
-        logger.info(f"Retriever data from vectorStore using those parameters {search_kwargs}")
+        # logger.info(f"Retriever data from vectorStore using those parameters \n {search_kwargs}")
         return self.vectordb.as_retriever(search_kwargs = search_kwargs)
 
     def invoke(self, vectorRetriver: VectorStoreRetriever, user_question: str ):
-        logger.info(f"Invoking vectorStoreRetriver using this parameter {user_question}")
+        # logger.info(f"Invoking vectorStoreRetriver using this parameter \n {user_question}")
         return vectorRetriver.invoke(user_question)
 
     def get_metadata(self):

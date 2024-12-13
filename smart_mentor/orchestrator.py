@@ -49,14 +49,15 @@ class SmartMentorOrchestrator:
         docs = self.rag.retrieve(question)
         return docs
         
-    def prepare_prompt(self, question:str, hypothesis: str, **kwargs):
+    def prepare_prompt(self, question:str, hypothesis: str, model:str, **kwargs):
         thought = kwargs.get("thought", 1)
         docs = []
         if hypothesis != 'h4' or (hypothesis == 'h4'and thought == 1):
             docs = self.get_rag(question)
 
         logger.info("Calling generatePrompt")
-        prompt = PromptHandler(question, docs).generatePrompt(hypothesis, **kwargs)
+        assistant = False if model == "openai" else True
+        prompt = PromptHandler(question, docs, assistant=assistant).generatePrompt(hypothesis, **kwargs)
         return prompt 
 
     def request_openai_by_prompt(self, prompt: list):

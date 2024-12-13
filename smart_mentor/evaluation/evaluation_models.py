@@ -26,8 +26,8 @@ class EvaluationModels():
         self.bert_similar = BertSimilarity()    
         logger.info("Evaluation Models is on!")
     
-    def get_prompt(self, question, hypothesis, **kwargs):
-        return self.orchestrator.prepare_prompt(question, hypothesis, **kwargs)
+    def get_prompt(self, question:str, hypothesis:str, model:str, **kwargs):
+        return self.orchestrator.prepare_prompt(question, hypothesis, model, **kwargs)
 
     def get_response_openai_by_prompt(self, prompt):
         return self.orchestrator.request_openai_by_prompt(prompt)
@@ -135,16 +135,16 @@ if __name__ == "__main__":
 
     df = reader.readFile("smart_mentor/resources/ground_truth_data.csv")
     df_selected = df.iloc[df_indexes['index']]
-    df_metrics_rouge = pd.DataFrame(columns=models.COLUMNS_METRICS_ROUGE)
+    # df_metrics_rouge = pd.DataFrame(columns=models.COLUMNS_METRICS_ROUGE)
     df_metrics_bert = pd.DataFrame(columns=models.COLUMNS_METRICS_BERT)
 
     hypothesis = "h0"
-    file_written_rouge = f"smart_mentor/resources/Metrics_{hypothesis}_rouge.csv"
-    ## Creating file
-    try:
-        reader.removeFile(file_written_rouge)
-    except FileNotFoundError as e:
-        logger.error("File does not found")
+    # file_written_rouge = f"smart_mentor/resources/Metrics_{hypothesis}_rouge.csv"
+    # ## Creating file
+    # try:
+    #     reader.removeFile(file_written_rouge)
+    # except FileNotFoundError as e:
+    #     logger.error("File does not found")
 
     file_written_bert = f"smart_mentor/resources/Metrics_{hypothesis}_bert.csv"
     ## Creating file
@@ -153,13 +153,13 @@ if __name__ == "__main__":
     except FileNotFoundError as e:
         logger.error("File does not found")        
     
-    writer.write(file_written_rouge, df_metrics_rouge)
+    # writer.write(file_written_rouge, df_metrics_rouge)
     writer.write(file_written_bert, df_metrics_bert)
 
     # how many times I'm going to call the models
     for count in range(2):
         logger.info(f"###### Counting {count} times ######")
-        df_metrics_rouge = pd.DataFrame(columns=models.COLUMNS_METRICS_ROUGE)
+        # df_metrics_rouge = pd.DataFrame(columns=models.COLUMNS_METRICS_ROUGE)
         for row in df_selected.itertuples(): 
             user_question = ""
             if len(str(row._9).replace("Dicas&Dicas","")) > 0:
@@ -169,15 +169,15 @@ if __name__ == "__main__":
             reference = row._20
 
             match hypothesis:
-                case "h4":
+                case "h5":
                     logger.info("#### OPENAI")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)            
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")
                     response = "" 
                     for i in range(1,3):                
                         response = models.get_response_openai_by_prompt(prompt=new_prompt)
                         thought = i+1
-                        new_response = f'{user_question} \n {response}'
-                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response,thought=thought)
+                        new_response = f'{user_question} \n {models.extract_programa_gen(response)}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=thought)
                         time.sleep(60)
                     
                     logger.info(f"#### OPENAI response \n {response}") 
@@ -185,17 +185,17 @@ if __name__ == "__main__":
                                                                                        model="openai", 
                                                                                        reference=reference, 
                                                                                        response=response)
-                    df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics_rouge)
+                    # df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics_rouge)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
 
                     logger.info("#### LLAMA")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")
                     response = "" 
                     for i in range(1,3):               
                         response = models.get_response_llama_by_prompt(prompt=new_prompt)
                         thought = i+1
-                        new_response = f'{user_question} \n {response}'
-                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response,thought=thought)
+                        new_response = f'{user_question} \n {models.extract_programa_gen(response)}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=thought)
                         time.sleep(60)
 
                     logger.info(f"#### LLAMA response \n {response}") 
@@ -203,33 +203,80 @@ if __name__ == "__main__":
                                                                                        model="llama", 
                                                                                        reference=reference, 
                                                                                        response=response)
-                    df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics_rouge)
+                    # df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics_rouge)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
-            
+                case "h6":
+                    logger.info("#### OPENAI")
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")
+                    response = "" 
+                    list_response = []
+                    for i in range(1,3):                
+                        response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                        list_metrics_rouge, list_metrics_bert = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                           model="openai", 
+                                                                                           reference=reference, 
+                                                                                           response=response)
+                        
+                        list_response.append({
+                            "response": response,
+                            "metric": list_metrics_bert[0]["similarity"],
+                            "metric_comp": list_metrics_bert
+                        })
+
+                        new_response = f'{user_question} \n {models.extract_programa_gen(response)}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai")
+                        time.sleep(60)
+                    
+                    highest_response = max(list_response, key=lambda item: item.get("metric",0))
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_comp",[]))
+
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")
+                    response = "" 
+                    list_response = []
+                    for i in range(1,3):                
+                        response = models.get_response_llama_by_prompt(prompt=new_prompt)
+                        list_metrics_rouge, list_metrics_bert = models.get_metrics_overall(hypothesis=hypothesis, 
+                                                                                           model="llama", 
+                                                                                           reference=reference, 
+                                                                                           response=response)
+                        
+                        list_response.append({
+                            "response": response,
+                            "metric": list_metrics_bert[0]["similarity"],
+                            "metric_comp": list_metrics_bert
+                        })
+
+                        new_response = f'{user_question} \n {models.extract_programa_gen(response)}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama")
+                        time.sleep(60)
+                    
+                    highest_response = max(list_response, key=lambda item: item.get("metric",0))
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_comp",[]))
                 case _:
                     ### Others hypotheses
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")
                     response = models.get_response_openai_by_prompt(prompt=new_prompt)
                     logger.info(f"#### OPENAI \n {response}") 
                     list_metrics_rouge, list_metrics_bert = models.get_metrics_overall(hypothesis=hypothesis,
                                                                                        model="openai", 
                                                                                        reference=reference, 
                                                                                        response=response)
-                    df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics_rouge)
+                    # df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics_rouge)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
 
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")
                     response = models.get_response_llama_by_prompt(prompt=new_prompt)
                     logger.info(f"#### LLAMA \n {response}") 
                     list_metrics_rouge, list_metrics_bert = models.get_metrics_overall(hypothesis=hypothesis,
                                                                                        model="llama", 
                                                                                        reference=reference, 
                                                                                        response=response)
-                    df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics_rouge)
+                    # df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics_rouge)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
             
             logger.info(f'Finished the index {row.Index}')
             time.sleep(60)
 
         ## Appending dataframe
-        writer.write(file_written_rouge, df_metrics_rouge)
+        # writer.write(file_written_rouge, df_metrics_rouge)
         writer.write(file_written_bert, df_metrics_bert)            
