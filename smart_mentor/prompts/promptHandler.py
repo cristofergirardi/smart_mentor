@@ -35,7 +35,7 @@ class PromptHandler(PromptEng):
         return self.prompt_message(system_content=system_content,
                                    rag_content=self._get_rag(),
                                    user_content=user_content,
-                                   role_type= "assistant" if self.assistant else "system")   
+                                   role_type= "assistant" if self.assistant else "system")
 
     def _generatePromptH3(self):
         logger.info("Calling Hypotheses 3")
@@ -63,6 +63,7 @@ class PromptHandler(PromptEng):
         skeleton = PromptSkeleton(question=self.question)
         user_content = ""
         rag_content = None
+        output_content = False
         match thought:
             case 1:
                 logger.info(f"Creating thought {thought}")
@@ -74,30 +75,112 @@ class PromptHandler(PromptEng):
                 logger.info(f"Creating thought {thought}")
                 rag_content = self._get_rag() 
                 user_content = f'{self.question} \n {skeleton.third_think}'
+                output_content = True
         return self.prompt_message(system_content=system_content,
                                    rag_content=rag_content,
                                    user_content=user_content,
+                                   output_content=output_content,
                                    role_type= "assistant" if self.assistant else "system")
     
     def _generatePromptH6(self):
         logger.info("Calling Hypotheses 6")
         system_content = f'{self.role.string_role_complete}' 
-        user_content = f'{self.question} \n {self.self_verification.self_verification}'        
+        user_content = f'{self.question}'        
         return self.prompt_message(system_content=system_content,
                                    rag_content=self._get_rag(),
                                    user_content=user_content,
                                    role_type= "assistant" if self.assistant else "system")
+    
+    def _generatePromptH6_conclusions(self):
+        logger.info("Calling Hypotheses 6 Conclusions")
+        system_content = f'{self.role.string_role_complete}' 
+        user_content = f'{self.question} \n {self.self_verification.self_verification}'        
+        return self.prompt_message(system_content=system_content,
+                                   user_content=user_content,
+                                   role_type= "assistant" if self.assistant else "system")
+
+    def _generatePromptH7(self, **kwargs):
+        logger.info("Calling Hypotheses 7")
+        thought = kwargs.get("thought", 0)
+        system_content = f'{self.role.string_role_complete}'
+        skeleton = PromptSkeleton(question=self.question)
+        user_content = ""
+        rag_content = None
+        match thought:
+            case 0:
+                logger.info(f"Adding RAR prompt")
+                user_content = f'{self.question} \n {self.rar.rar}'
+            case 1:
+                logger.info(f"Creating thought {thought}")
+                user_content = f'{self.question} \n {skeleton.first_think}'                               
+            case 2:
+                logger.info(f"Creating thought {thought}")
+                user_content = f'{self.question} \n {skeleton.second_think}'
+            case 3:
+                logger.info(f"Creating thought {thought}")                 
+                rag_content = self._get_rag() 
+                user_content = f'{self.question} \n {skeleton.third_think}'
+        return self.prompt_message(system_content=system_content,
+                                   rag_content=rag_content,
+                                   user_content=user_content,
+                                   role_type= "assistant" if self.assistant else "system")
+
+    def _generatePromptH8(self, **kwargs):
+        logger.info("Calling Hypotheses 8")
+        first_step = kwargs.get("first_step", True)
+        system_content = f'{self.role.string_role_complete}' 
+        user_content = ""
+        rag_content = None
+        if first_step:
+            logger.info("Calling Hypotheses 8 and RAR prompt")
+            user_content = f'{self.question} \n {self.rar.rar}'
+            rag_content = self._get_rag() 
+        else:
+            logger.info("Calling Hypotheses 8 and Self-Verification")
+            user_content = f'{self.question} \n {self.self_verification.self_verification}'
+        return self.prompt_message(system_content=system_content,
+                                   rag_content=rag_content,
+                                   user_content=user_content,
+                                   role_type= "assistant" if self.assistant else "system")
+
+    def _generatePromptH9(self, **kwargs):
+        logger.info("Calling Hypotheses 9")
+        thought = kwargs.get("thought", 1)
+        system_content = f'{self.role.string_role_complete}' 
+        skeleton = PromptSkeleton(question=self.question)
+        zcot = PromptZeroCoT()
+        user_content = ""
+        rag_content = None
+        output_content = False
+        match thought:
+            case 1:
+                logger.info(f"Creating thought {thought} and Zero-Shot-CoT")
+                user_content = f'{self.question} \n {skeleton.first_think} \n {zcot.zero_cot_opt1}'
+            case 2:
+                logger.info(f"Creating thought {thought} and Zero-Shot-CoT")
+                user_content = f'{self.question} \n {skeleton.second_think} \n {zcot.zero_cot_opt1}'
+            case 3:
+                logger.info(f"Creating thought {thought}")                 
+                rag_content = self._get_rag() 
+                user_content = f'{self.question} \n {skeleton.third_think}'
+                output_content = True
+        return self.prompt_message(system_content=system_content,
+                                   rag_content=rag_content,
+                                   user_content=user_content,
+                                   output_content=output_content,
+                                   role_type= "assistant" if self.assistant else "system")
 
     def prompt_message(self,**kwargs):
         message = []
-        system = kwargs.get("system_content", "")
+        system_content = kwargs.get("system_content", "")
         user_content = kwargs.get("user_content", None)
         rag_content = kwargs.get("rag_content", None)
         role_type = kwargs.get("role_type", "system")
+        output_content = kwargs.get("output_content", True)
 
         message.append({
             "role": role_type,
-            "content": system
+            "content": system_content
             })
 
         if rag_content is not None:
@@ -106,10 +189,11 @@ class PromptHandler(PromptEng):
                 "content": rag_content
                 })
             
-        message.append({
-            "role": role_type,
-            "content": self.prompt_response.response
-            })
+        if output_content:
+            message.append({
+                "role": role_type,
+                "content": self.prompt_response.response
+                })
 
         message.append({
             "role": "user",
@@ -132,10 +216,18 @@ class PromptHandler(PromptEng):
             case "h3":
                 return self._generatePromptH3()
             case "h4":
-                return self._generatePromptH4(**kwargs)
+                return self._generatePromptH4()
             case "h5":
-                return self._generatePromptH5()
+                return self._generatePromptH5(**kwargs)
             case "h6":
                 return self._generatePromptH6()
+            case "h6_conclusions":
+                return self._generatePromptH6_conclusions()
+            case "h7":
+                return self._generatePromptH7(**kwargs)
+            case "h8":
+                return self._generatePromptH8(**kwargs)
+            case "h9":
+                return self._generatePromptH9(**kwargs)
             case _:
                 return "Unknown hypotheses choise again."

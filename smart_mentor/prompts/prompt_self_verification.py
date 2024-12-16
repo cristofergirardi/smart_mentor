@@ -2,4 +2,6 @@ class PromptSelfVerification():
     
     @property
     def self_verification(self):
-        return "Respond a new program that you received like sample."
+        return f'''
+            Please rewritte the question and answer to give better response.
+        '''

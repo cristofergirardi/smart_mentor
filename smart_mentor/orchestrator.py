@@ -35,7 +35,7 @@ class SmartMentorOrchestrator:
                             "endpoint": config.get_config.AZURE_OPENAI_ENDPOINT,
                             }
         
-        self.db_dir = f'src/database/vectordb/{config.get_config.AZURE_OPENAI_DEPLOYMENT_NAME_EMBEDDING}/chroma_db'
+        self.db_dir = f'smart_mentor/database/vectordb/{config.get_config.AZURE_OPENAI_DEPLOYMENT_NAME_EMBEDDING}/chroma_db'
      
         self.rag = RAG(embedding_config=embedding_config, 
                        name_deployment=config.get_config.AZURE_OPENAI_DEPLOYMENT_NAME_EMBEDDING, 
@@ -51,9 +51,21 @@ class SmartMentorOrchestrator:
         
     def prepare_prompt(self, question:str, hypothesis: str, model:str, **kwargs):
         thought = kwargs.get("thought", 1)
+        first_step = kwargs.get("first_step", True)
         docs = []
-        if hypothesis != 'h4' or (hypothesis == 'h4'and thought == 1):
-            docs = self.get_rag(question)
+        match hypothesis:
+            case 'h5' | 'h9':
+                if thought == 3:
+                    logger.info("Calling rag")
+                    docs = self.get_rag(question)
+            case 'h8':
+                if first_step:
+                    logger.info("Calling rag")
+                    docs = self.get_rag(question)
+            case _:
+                if hypothesis != 'h6_conclusions':
+                    logger.info("Calling rag")
+                    docs = self.get_rag(question)
 
         logger.info("Calling generatePrompt")
         assistant = False if model == "openai" else True

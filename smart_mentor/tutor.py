@@ -142,7 +142,7 @@ if __name__ == "__main__":
     reader = SmartReader()
     writer = SmartWriter()
     tutor = SmartMentor(config)
-    hypothesis = "h6"
+    hypothesis = "h9"
 
     ## Creating file
     file_random = "smart_mentor/resources/random_numbers.csv"
@@ -167,15 +167,114 @@ if __name__ == "__main__":
         reference = row._20
 
         match hypothesis:
-            case "h5":
+            case "h5" | "h9":
+                logger.info("#### OPENAI")
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")            
+                response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
+                time.sleep(60)
+                for i in range(2,4): 
+                    # This conditional i != 3 to give more context to the LLM               
+                    new_response = f'{prompt} \n {response if i != 3 else tutor.extract_programa_gen(response)}'
+                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=i)
+                    response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+                
+                logger.info(f"#### OPENAI response \n {response}") 
+                list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                       model="openai", 
+                                                                                                       reference=reference, 
+                                                                                                       response=response)
+
+                tutor.show_metrics(list_metrics_rouge, 
+                                   list_metrics_bert, 
+                                   list_metrics_codet5)
+
+                logger.info("#### LLAMA")
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")
+                response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                time.sleep(60)
+                for i in range(2,4):               
+                    # This conditional i != 3 to give more context to the LLM               
+                    new_response = f'{prompt} \n {response if i != 3 else tutor.extract_programa_gen(response)}'
+                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=i)
+                    response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+
+                logger.info(f"#### LLAMA response \n {response}") 
+                list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                       model="llama", 
+                                                                                                       reference=reference, 
+                                                                                                       response=response)
+                tutor.show_metrics(list_metrics_rouge, 
+                                   list_metrics_bert, 
+                                   list_metrics_codet5)
+                
+            case "h6":
+                logger.info("#### OPENAI")
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")
+                response = tutor.get_response_openai_by_prompt(prompt=new_prompt)  
+                time.sleep(60)        
+                list_response = []
+                for i in range(0,3):    
+                    hypothesis = 'h6_conclusions'           
+                    new_response = f'{prompt} \n Response: {tutor.extract_programa_gen(response)}'
+                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="openai")
+                    logger.info(f"#### Prompt \n {new_prompt}")
+                    response = tutor.get_response_openai_by_prompt(prompt=new_prompt) 
+                    list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis, 
+                                                                                                           model="openai", 
+                                                                                                           reference=reference, 
+                                                                                                           response=response)
+                    tutor.show_metrics(list_metrics_rouge,
+                                       list_metrics_bert, 
+                                       list_metrics_codet5)
+                    
+                    list_response.append({
+                        "response": response,
+                        "metric": list_metrics_bert[0]["similarity"]
+                    })
+                    time.sleep(60)
+                
+                highest_response = max(list_response, key=lambda item: item.get("metric",0))
+                logger.info(f"#### OPENAI response \n {highest_response.get("response","")} \n metric {highest_response.get("metric",0)}") 
+
+                logger.info("#### LLAMA")
+                hypothesis = 'h6'
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")
+                response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                time.sleep(60)
+                list_response = []
+                for i in range(0,3): 
+                    hypothesis = 'h6_conclusions'           
+                    new_response = f'{prompt} \n Response: {tutor.extract_programa_gen(response)}'
+                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="llama")
+                    logger.info(f"#### Prompt \n {new_prompt}")
+                    response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                    list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis, 
+                                                                                                           model="llama", 
+                                                                                                           reference=reference, 
+                                                                                                           response=response)
+                    tutor.show_metrics(list_metrics_rouge,
+                                       list_metrics_bert, 
+                                       list_metrics_codet5)
+                    
+                    list_response.append({
+                        "response": response,
+                        "metric": list_metrics_bert[0]["similarity"]
+                    })
+                    time.sleep(60)
+                
+                highest_response = max(list_response, key=lambda item: item.get("metric",0))
+                logger.info(f"#### LLAMA response \n {highest_response.get("response","")} \n metric {highest_response.get("metric",0)}") 
+            
+            case "h7":
                 logger.info("#### OPENAI")
                 new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")            
                 response = "" 
-                for i in range(1,3):                
+                for i in range(0,4):                
                     response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
-                    thought = i+1
                     new_response = f'{prompt} \n {tutor.extract_programa_gen(response)}'
-                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=thought)
+                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=i)
                     time.sleep(60)
                 
                 logger.info(f"#### OPENAI response \n {response}") 
@@ -191,11 +290,10 @@ if __name__ == "__main__":
                 logger.info("#### LLAMA")
                 new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")
                 response = "" 
-                for i in range(1,3):               
+                for i in range(0,4):               
                     response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
-                    thought = i+1
                     new_response = f'{prompt} \n {tutor.extract_programa_gen(response)}'
-                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=thought)
+                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=i)
                     time.sleep(60)
 
                 logger.info(f"#### LLAMA response \n {response}") 
@@ -206,13 +304,18 @@ if __name__ == "__main__":
                 tutor.show_metrics(list_metrics_rouge, 
                                    list_metrics_bert, 
                                    list_metrics_codet5)
-            case "h6":
+    
+            case "h8":
                 logger.info("#### OPENAI")
-                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")            
-                response = "" 
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")  
+                response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
+                time.sleep(60)        
                 list_response = []
-                for i in range(1,3):                
-                    response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
+                for i in range(0,3):    
+                    new_response = f'{prompt} \n Response: {tutor.extract_programa_gen(response)}'
+                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", first_step=False)
+                    logger.info(f"#### Prompt \n {new_prompt}")
+                    response = tutor.get_response_openai_by_prompt(prompt=new_prompt) 
                     list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis, 
                                                                                                            model="openai", 
                                                                                                            reference=reference, 
@@ -225,19 +328,21 @@ if __name__ == "__main__":
                         "response": response,
                         "metric": list_metrics_bert[0]["similarity"]
                     })
-
-                    new_response = f'{prompt} \n {tutor.extract_programa_gen(response)}'
-                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="openai")
                     time.sleep(60)
                 
                 highest_response = max(list_response, key=lambda item: item.get("metric",0))
-                logger.info(f"#### OPENAI response \n metric {highest_response.get("metric",0)} \n {highest_response.get("response","")}") 
-
-                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")            
-                response = "" 
+                logger.info(f"#### OPENAI response \n {highest_response.get("response","")} \n metric {highest_response.get("metric",0)}") 
+                
+                logger.info("#### LLAMA")
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")  
+                response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                time.sleep(60)        
                 list_response = []
-                for i in range(1,3):                
-                    response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                for i in range(0,3):    
+                    new_response = f'{prompt} \n Response: {tutor.extract_programa_gen(response)}'
+                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", first_step=False)
+                    logger.info(f"#### Prompt \n {new_prompt}")
+                    response = tutor.get_response_llama_by_prompt(prompt=new_prompt) 
                     list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis, 
                                                                                                            model="llama", 
                                                                                                            reference=reference, 
@@ -250,17 +355,18 @@ if __name__ == "__main__":
                         "response": response,
                         "metric": list_metrics_bert[0]["similarity"]
                     })
-
-                    new_response = f'{prompt} \n {tutor.extract_programa_gen(response)}'
-                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="llama")
                     time.sleep(60)
                 
                 highest_response = max(list_response, key=lambda item: item.get("metric",0))
-                logger.info(f"#### LLAMA response \n metric {highest_response.get("metric",0)} \n {highest_response.get("response","")}") 
+                logger.info(f"#### LLAMA response \n {highest_response.get("response","")} \n metric {highest_response.get("metric",0)}")
+
+            case 'h10':
+                logger.info("#### OPENAI")
+
 
             case _:
                 ### Others hypotheses
-                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")            
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")  
                 response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
                 print(f"#### OPENAI \n {response}") 
                 list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
@@ -271,7 +377,7 @@ if __name__ == "__main__":
                                    list_metrics_bert, 
                                    list_metrics_codet5)
 
-                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")   
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")
                 response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
                 print(f"#### LLAMA \n {response}") 
                 list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
