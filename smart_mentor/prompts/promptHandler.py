@@ -224,6 +224,39 @@ class PromptHandler(PromptEng):
                                    output_content=output_content,
                                    role_type= "assistant" if self.assistant else "system")
 
+    def _generatePromptH12(self, **kwargs):
+        logger.info("Calling Hypotheses 12")
+        first_step = kwargs.get("first_step", True)
+        thought = kwargs.get("thought", 1)
+        system_content = f'{self.role.string_role_complete}'
+        zcot = PromptZeroCoT()
+        skeleton = PromptSkeleton(question=self.question)
+        user_content = ""
+        rag_content = None
+        output_content = False
+        match thought:
+            case 1:
+                logger.info(f"Creating thought {thought} and Zero-Shot-CoT")
+                user_content = f'{self.question} \n {skeleton.first_think} \n {zcot.zero_cot_opt1}'
+            case 2:
+                logger.info(f"Creating thought {thought} and Zero-Shot-CoT")
+                user_content = f'{self.question} \n {skeleton.second_think} \n {zcot.zero_cot_opt1}'
+            case 3:
+                logger.info(f"Creating thought {thought}")
+                user_content = f'{self.question} \n {skeleton.third_think}'
+                rag_content = self._get_rag()
+                output_content = True
+            case _:
+                logger.info("Calling Hypotheses 12 and Self-Verification")                    
+                user_content = f'{self.question} \n {self.self_verification.self_verification}'
+                output_content = True
+        return self.prompt_message(system_content=system_content,
+                                   rag_content=rag_content,
+                                   user_content=user_content,
+                                   output_content=output_content,
+                                   role_type= "assistant" if self.assistant else "system")
+
+
     def prompt_message(self,**kwargs):
         message = []
         system_content = kwargs.get("system_content", "")
@@ -286,6 +319,8 @@ class PromptHandler(PromptEng):
             case "h10":
                 return self._generatePromptH10(**kwargs)
             case "h11":
-                return self._generatePromptH11(**kwargs)              
+                return self._generatePromptH11(**kwargs)
+            case "h12":
+                return self._generatePromptH12(**kwargs)
             case _:
                 return "Unknown hypotheses choise again."

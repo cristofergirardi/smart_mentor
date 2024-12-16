@@ -379,7 +379,7 @@ if __name__ == "__main__":
                                 time.sleep(60)
 
                             highest_response = max(list_response, key=lambda item: item.get("metric",0))
-                            logger.info(f"#### OPENAI response \n {highest_response.get("response","")} \n metric {highest_response.get("metric",0)}")                            
+                            df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_comp",[]))                           
 
                     logger.info("#### LLAMA")
                     new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")  
@@ -412,7 +412,74 @@ if __name__ == "__main__":
                                 time.sleep(60)
 
                             highest_response = max(list_response, key=lambda item: item.get("metric",0))
-                            logger.info(f"#### LLAMA response \n {highest_response.get("response","")} \n metric {highest_response.get("metric",0)}")  
+                            df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_comp",[]))
+                            
+                case 'h12':
+                    logger.info("#### OPENAI")
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")            
+                    response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+                    list_response = []
+                    for i in range(2,5): 
+                        # This conditional i <= 3 to give more context to the LLM    
+                        if i <= 3:              
+                            new_response = f'{user_question} \n {response}'
+                            new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=i)
+                            response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                            time.sleep(60)
+                        else:
+                            # In this step we there will be response and prompt with all information 
+                            for j in range(0,3):
+                                new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
+                                new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", thought=i, first_step=False)
+                                response = models.get_response_openai_by_prompt(prompt=new_prompt) 
+                                list_metrics_rouge, list_metrics_bert = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                   model="openai", 
+                                                                                                   reference=reference, 
+                                                                                                   response=response)
+                                                        
+                                list_response.append({
+                                    "response": response,
+                                    "metric": list_metrics_bert[0]["similarity"],
+                                    "metric_comp": list_metrics_bert
+                                })
+                                time.sleep(60)
+
+                            highest_response = max(list_response, key=lambda item: item.get("metric",0))
+                            df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_comp",[]))
+
+                    logger.info("#### LLAMA")
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")
+                    response = models.get_response_llama_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+                    list_response = []
+                    for i in range(2,5): 
+                        # This conditional i <= 3 to give more context to the LLM    
+                        if i <= 3:              
+                            new_response = f'{user_question} \n {response}'
+                            new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=i)
+                            response = models.get_response_llama_by_prompt(prompt=new_prompt)
+                            time.sleep(60)
+                        else:
+                            # In this step we there will be response and prompt with all information 
+                            for j in range(0,3):
+                                new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
+                                new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", thought=i, first_step=False)
+                                response = models.get_response_llama_by_prompt(prompt=new_prompt) 
+                                list_metrics_rouge, list_metrics_bert = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                   model="llama",
+                                                                                                   reference=reference,
+                                                                                                   response=response)
+                                
+                                list_response.append({
+                                    "response": response,
+                                    "metric": list_metrics_bert[0]["similarity"],
+                                    "metric_comp": list_metrics_bert
+                                })
+                                time.sleep(60)
+
+                            highest_response = max(list_response, key=lambda item: item.get("metric",0))
+                            df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_comp",[]))                    
 
                 case _:
                     ### Others hypotheses
