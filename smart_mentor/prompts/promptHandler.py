@@ -170,6 +170,26 @@ class PromptHandler(PromptEng):
                                    output_content=output_content,
                                    role_type= "assistant" if self.assistant else "system")
 
+    def _generatePromptH10(self, **kwargs):
+        logger.info("Calling Hypotheses 10")
+        first_step = kwargs.get("first_step", True)
+        system_content = f'{self.role.string_role_complete}'
+        zcot = PromptZeroCoT()
+        user_content = ""
+        rag_content = None
+        if first_step:
+            logger.info("Calling Hypotheses 10 and Zero-Shot-CoT")
+            user_content = f'{self.question} \n {zcot.zero_cot_opt1}'
+        else:
+            logger.info("Calling Hypotheses 10 and Self-Verification")
+            rag_content = self._get_rag() 
+            user_content = f'{self.question} \n {self.self_verification.self_verification}'
+        return self.prompt_message(system_content=system_content,
+                                   rag_content=rag_content,
+                                   user_content=user_content,
+                                   role_type= "assistant" if self.assistant else "system")
+
+
     def prompt_message(self,**kwargs):
         message = []
         system_content = kwargs.get("system_content", "")
@@ -229,5 +249,7 @@ class PromptHandler(PromptEng):
                 return self._generatePromptH8(**kwargs)
             case "h9":
                 return self._generatePromptH9(**kwargs)
+            case "h10":
+                return self._generatePromptH10(**kwargs)            
             case _:
                 return "Unknown hypotheses choise again."

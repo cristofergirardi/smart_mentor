@@ -294,14 +294,14 @@ if __name__ == "__main__":
                     # df_metrics_rouge = models.add_new_row(df_metrics_rouge, list_metrics_rouge)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
 
-                case "h8":
+                case "h8" | 'h10':
                     logger.info("#### OPENAI")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")  
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")  
                     response = models.get_response_openai_by_prompt(prompt=new_prompt)
                     time.sleep(60)        
                     list_response = []
                     for i in range(0,3):    
-                        new_response = f'{prompt} \n Response: {models.extract_programa_gen(response)}'
+                        new_response = f'{user_question} \n Response: {models.extract_programa_gen(response)}'
                         new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", first_step=False)
                         response = models.get_response_openai_by_prompt(prompt=new_prompt) 
                         list_metrics_rouge, list_metrics_bert = models.get_metrics_overall(hypothesis=hypothesis, 
@@ -320,12 +320,12 @@ if __name__ == "__main__":
                     df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_comp",[]))
                     
                     logger.info("#### LLAMA")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")  
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")  
                     response = models.get_response_llama_by_prompt(prompt=new_prompt)
                     time.sleep(60)        
                     list_response = []
                     for i in range(0,3):    
-                        new_response = f'{prompt} \n Response: {models.extract_programa_gen(response)}'
+                        new_response = f'{user_question} \n Response: {models.extract_programa_gen(response)}'
                         new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", first_step=False)
                         response = models.get_response_llama_by_prompt(prompt=new_prompt) 
                         list_metrics_rouge, list_metrics_bert = models.get_metrics_overall(hypothesis=hypothesis, 

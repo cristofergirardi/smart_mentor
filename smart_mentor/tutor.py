@@ -142,7 +142,7 @@ if __name__ == "__main__":
     reader = SmartReader()
     writer = SmartWriter()
     tutor = SmartMentor(config)
-    hypothesis = "h9"
+    hypothesis = "h10"
 
     ## Creating file
     file_random = "smart_mentor/resources/random_numbers.csv"
@@ -305,7 +305,7 @@ if __name__ == "__main__":
                                    list_metrics_bert, 
                                    list_metrics_codet5)
     
-            case "h8":
+            case "h8" | 'h10':
                 logger.info("#### OPENAI")
                 new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")  
                 response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
@@ -360,7 +360,7 @@ if __name__ == "__main__":
                 highest_response = max(list_response, key=lambda item: item.get("metric",0))
                 logger.info(f"#### LLAMA response \n {highest_response.get("response","")} \n metric {highest_response.get("metric",0)}")
 
-            case 'h10':
+            case 'h11':
                 logger.info("#### OPENAI")
 
 
