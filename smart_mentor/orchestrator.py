@@ -58,7 +58,7 @@ class SmartMentorOrchestrator:
                 if thought == 3:
                     logger.info("Calling rag")
                     docs = self.get_rag(question)
-            case 'h8' | 'h10':
+            case 'h8' | 'h10' | 'h11':
                 if first_step:
                     logger.info("Calling rag")
                     docs = self.get_rag(question)
