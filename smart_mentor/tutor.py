@@ -146,7 +146,7 @@ if __name__ == "__main__":
     reader = SmartReader()
     writer = SmartWriter()
     tutor = SmartMentor(config)
-    hypothesis = "h12"
+    hypothesis = "h1"
 
     ## Creating file
     file_random = "smart_mentor/resources/random_numbers.csv"
@@ -158,17 +158,25 @@ if __name__ == "__main__":
         df_indexes = reader.readFile(file_random)
 
     df = reader.readFile("smart_mentor/resources/ground_truth_data.csv")
+    df.columns = df.columns.str.replace('.', '_')
     df_selected = df.iloc[df_indexes['index']]    
 
     for row in df_selected.itertuples(index=False): 
-        # text_question = f"{row._2} \n {row._5} \n {row._6} \n {row._7} \n # Dica sobre a questão {row._9} \n Resposta: \n {row._20}"
-
         prompt = ""
-        if len(str(row._9).replace("Dicas&Dicas","")) > 0:
-            prompt = f"{row._2} \n {row._5} \n {row._6} \n {row._7} \n # Dica sobre a questão {row._9}"
+        if len(str(row.fields_dicas_x).replace("Dicas&Dicas","")) > 0:
+            prompt = f'''Title of issue: {row.fields_title_x} \n 
+                        Activity description: {row.fields_desc_x} \n 
+                        Input Data: {row.fields_input_desc_x} \n 
+                        Output Data: {row.fields_output_desc_x} \n 
+                        Question clue: {row.fields_dicas_x}
+                    '''
         else:
-            prompt = f"{row._2} \n {row._5} \n {row._6} \n {row._7}"
-        reference = row._20
+            prompt = f'''Title of issue: {row.fields_title_x} \n 
+                        Activity description: {row.fields_desc_x} \n 
+                        Input Data: {row.fields_input_desc_x} \n 
+                        Output Data: {row.fields_output_desc_x} 
+                    '''
+        reference = row.fields_program_y
 
         match hypothesis:
             case "h5" | "h9":

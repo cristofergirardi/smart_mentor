@@ -24,6 +24,7 @@ if __name__ == "__main__":
     
     if reader.checkFile("smart_mentor/resources/ground_truth_data.csv"):
         df = reader.readFile("smart_mentor/resources/ground_truth_data.csv")
+        df.columns = df.columns.str.replace('.', '_')
         
     # Data columns (total 21 columns):
     #  #   Column                                Non-Null Count  Dtype  
@@ -50,16 +51,22 @@ if __name__ == "__main__":
     #  19  fields.problem_rating_delta_y         100 non-null    float64
     #  20  fields.program_y                      100 non-null    objec
     
-    for row in df.itertuples(index=False):        
-        text_question = ""
-        if len(str(row._9).replace("Dicas&Dicas","")) > 0:
-            text_question = f"{row._2} \n {row._5} \n {row._6} \n {row._7} \n # Dica sobre a questão {row._9} \n Resposta: \n {row._20}"
-        else:
-            text_question = f"{row._2} \n {row._5} \n {row._6} \n {row._7} \n Resposta: \n {row._20}"
+    # for row in df.itertuples(index=False):        
+    #     text_question = ""
+    #     if len(str(row._9).replace("Dicas&Dicas","")) > 0:
+    #         text_question = f"{row._2} \n {row._5} \n {row._6} \n {row._7} \n # Dica sobre a questão {row._9} \n Resposta: \n {row._20}"
+    #     else:
+    #         text_question = f"{row._2} \n {row._5} \n {row._6} \n {row._7} \n Resposta: \n {row._20}"
         
-        # text_answer = f"{row._20}"
-        rag.save_documents(question=text_question)
+    #     # text_answer = f"{row._20}"
+    #     rag.save_documents(question=text_question)
     
+    for row in df.itertuples(index=False):
+        print(f'''
+            {row.fields_title_x} \n {row.fields_desc_x} \n {row.fields_input_desc_x} \n {row.fields_output_desc_x} 
+            \n # Dica sobre a questão {row.fields_dicas_x} \n Resposta: \n {row.fields_program_y}
+            ''')     
+
     # prompt = "Escreva o mundo é dos homens"  
     # docs = rag.retrieve(prompt) 
     # logger.info(f"Retrieved docs: {docs}")
