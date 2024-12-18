@@ -101,10 +101,10 @@ class EvaluationModels():
     def get_metrics_overall(self, hypothesis: str, model:str, response: str, reference:str):
         new_response = self.extract_programa_gen(response)
 
-        list_metrics_rouge = self.get_metrics_rouge(hypothesis=hypothesis,
-                                                    model=model, 
-                                                    orig_data=reference,
-                                                    predict=new_response)
+        # list_metrics_rouge = self.get_metrics_rouge(hypothesis=hypothesis,
+        #                                             model=model, 
+        #                                             orig_data=reference,
+        #                                             predict=new_response)
 
         list_metrics_bert = self.get_metrics_bert(hypothesis=hypothesis,
                                                   model=model, 
@@ -116,7 +116,7 @@ class EvaluationModels():
                                                       orig_data=reference,
                                                       predict=new_response)
 
-        return list_metrics_rouge, list_metrics_bert, list_metrics_codet5
+        return list_metrics_bert, list_metrics_codet5
 
     def show_metrics(self, list_metrics_rouge: list, list_metrics_bert: list):
         for metrics in list_metrics_rouge:
@@ -136,7 +136,11 @@ class EvaluationModels():
             else:
                 new_response = self.get_response(response)
 
-        return new_response
+        # Check if the new_response is a list
+        if type(new_response) == list:
+            return ' '.join(new_response)
+        else: 
+            return new_response
 
 if __name__ == "__main__":
     config = ConfigHelper()
@@ -161,7 +165,7 @@ if __name__ == "__main__":
     df_metrics_bert = pd.DataFrame(columns=models.COLUMNS_METRICS_BERT)
     df_metrics_codet5 = pd.DataFrame(columns=models.COLUMNS_METRICS_BERT)
 
-    hypothesis = "h1"
+    hypothesis = "h6"
     # file_written_rouge = f"smart_mentor/resources/Metrics_{hypothesis}_rouge.csv"
     # ## Creating file
     # try:
@@ -223,11 +227,11 @@ if __name__ == "__main__":
                         response = models.get_response_openai_by_prompt(prompt=new_prompt)
                         time.sleep(60)
                     
-                    logger.info(f"#### OPENAI response \n {response}") 
-                    _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                           model="openai",
-                                                                                           reference=reference, 
-                                                                                           response=response)
+                    # logger.info(f"#### OPENAI response \n {response}") 
+                    list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                        model="openai",
+                                                                                        reference=reference, 
+                                                                                        response=response)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
 
@@ -242,11 +246,11 @@ if __name__ == "__main__":
                         response = models.get_response_llama_by_prompt(prompt=new_prompt)
                         time.sleep(60)
 
-                    logger.info(f"#### LLAMA response \n {response}") 
-                    _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                           model="llama",
-                                                                                           reference=reference, 
-                                                                                           response=response)
+                    # logger.info(f"#### LLAMA response \n {response}") 
+                    list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                        model="llama",
+                                                                                        reference=reference, 
+                                                                                        response=response)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
 
@@ -261,10 +265,10 @@ if __name__ == "__main__":
                         new_response = f'{user_question} \n Response: {models.extract_programa_gen(response)}'
                         new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai")
                         response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                        _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                               model="openai", 
-                                                                                               reference=reference, 
-                                                                                               response=response)
+                        list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                            model="openai", 
+                                                                                            reference=reference, 
+                                                                                            response=response)
                         
                         list_response.append({
                             "response": response,
@@ -292,10 +296,10 @@ if __name__ == "__main__":
                         new_response = f'{user_question} \n Response: {models.extract_programa_gen(response)}'
                         new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama")
                         response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                        _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis, 
-                                                                                               model="llama", 
-                                                                                               reference=reference, 
-                                                                                               response=response)
+                        list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis, 
+                                                                                            model="llama", 
+                                                                                            reference=reference, 
+                                                                                            response=response)
                         
                         list_response.append({
                             "response": response,
@@ -322,11 +326,11 @@ if __name__ == "__main__":
                         new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=i)
                         time.sleep(60)
                     
-                    logger.info(f"#### OPENAI response \n {response}") 
-                    _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                           model="openai", 
-                                                                                           reference=reference, 
-                                                                                           response=response)
+                    # logger.info(f"#### OPENAI response \n {response}") 
+                    list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                        model="openai", 
+                                                                                        reference=reference, 
+                                                                                        response=response)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
 
@@ -339,11 +343,11 @@ if __name__ == "__main__":
                         new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=i)
                         time.sleep(60)
 
-                    logger.info(f"#### LLAMA response \n {response}") 
-                    _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                           model="llama", 
-                                                                                           reference=reference, 
-                                                                                           response=response)
+                    # logger.info(f"#### LLAMA response \n {response}") 
+                    list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                        model="llama", 
+                                                                                        reference=reference, 
+                                                                                        response=response)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
 
@@ -357,10 +361,10 @@ if __name__ == "__main__":
                         new_response = f'{user_question} \n Response: {models.extract_programa_gen(response)}'
                         new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", first_step=False)
                         response = models.get_response_openai_by_prompt(prompt=new_prompt) 
-                        _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis, 
-                                                                                           model="openai", 
-                                                                                           reference=reference, 
-                                                                                           response=response)
+                        list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis, 
+                                                                                            model="openai", 
+                                                                                            reference=reference, 
+                                                                                            response=response)
                         
                         list_response.append({
                             "response": response,
@@ -386,10 +390,10 @@ if __name__ == "__main__":
                         new_response = f'{user_question} \n Response: {models.extract_programa_gen(response)}'
                         new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", first_step=False)
                         response = models.get_response_llama_by_prompt(prompt=new_prompt) 
-                        _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis, 
-                                                                                           model="llama", 
-                                                                                           reference=reference, 
-                                                                                           response=response)
+                        list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis, 
+                                                                                            model="llama", 
+                                                                                            reference=reference, 
+                                                                                            response=response)
                         
                         list_response.append({
                             "response": response,
@@ -425,10 +429,10 @@ if __name__ == "__main__":
                                 new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
                                 new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", thought=i, first_step=False)
                                 response = models.get_response_openai_by_prompt(prompt=new_prompt) 
-                                _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                                   model="openai", 
-                                                                                                   reference=reference, 
-                                                                                                   response=response)
+                                list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                    model="openai", 
+                                                                                                    reference=reference, 
+                                                                                                    response=response)
 
                                 list_response.append({
                                     "response": response,
@@ -463,10 +467,10 @@ if __name__ == "__main__":
                                 new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
                                 new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", thought=i, first_step=False)
                                 response = models.get_response_llama_by_prompt(prompt=new_prompt) 
-                                _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                                   model="llama",
-                                                                                                   reference=reference,
-                                                                                                   response=response)
+                                list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                    model="llama",
+                                                                                                    reference=reference,
+                                                                                                    response=response)
                                 
                                 list_response.append({
                                     "response": response,
@@ -502,10 +506,10 @@ if __name__ == "__main__":
                                 new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
                                 new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", thought=i, first_step=False)
                                 response = models.get_response_openai_by_prompt(prompt=new_prompt) 
-                                _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                                   model="openai", 
-                                                                                                   reference=reference, 
-                                                                                                   response=response)
+                                list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                    model="openai", 
+                                                                                                    reference=reference, 
+                                                                                                    response=response)
 
                                 list_response.append({
                                     "response": response,
@@ -540,10 +544,10 @@ if __name__ == "__main__":
                                 new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
                                 new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", thought=i, first_step=False)
                                 response = models.get_response_llama_by_prompt(prompt=new_prompt) 
-                                _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                                   model="llama",
-                                                                                                   reference=reference,
-                                                                                                   response=response)
+                                list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                    model="llama",
+                                                                                                    reference=reference,
+                                                                                                    response=response)
                                 
                                 list_response.append({
                                     "response": response,
@@ -564,21 +568,21 @@ if __name__ == "__main__":
                     ### Others hypotheses
                     new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")
                     response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                    logger.info(f"#### OPENAI \n {response}") 
-                    _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                           model="openai", 
-                                                                                           reference=reference, 
-                                                                                           response=response)
+                    # logger.info(f"#### OPENAI \n {response}") 
+                    list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                        model="openai", 
+                                                                                        reference=reference, 
+                                                                                        response=response)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
 
                     new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")
                     response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                    logger.info(f"#### LLAMA \n {response}") 
-                    _, list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                           model="llama", 
-                                                                                           reference=reference, 
-                                                                                           response=response)
+                    # logger.info(f"#### LLAMA \n {response}") 
+                    list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                        model="llama", 
+                                                                                        reference=reference, 
+                                                                                        response=response)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
             

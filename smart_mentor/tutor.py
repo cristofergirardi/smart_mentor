@@ -139,14 +139,18 @@ class SmartMentor():
             else:
                 new_response = self.get_response(response)
 
-        return new_response
+        # Check if the new_response is a list
+        if type(new_response) == list:
+            return ' '.join(new_response)
+        else: 
+            return new_response
 
 if __name__ == "__main__":
     config = ConfigHelper()
     reader = SmartReader()
     writer = SmartWriter()
     tutor = SmartMentor(config)
-    hypothesis = "h1"
+    hypothesis = "h5"
 
     ## Creating file
     file_random = "smart_mentor/resources/random_numbers.csv"
