@@ -73,9 +73,12 @@ class PromptHandler(PromptEng):
                 user_content = f'{self.question} \n {skeleton.second_think}'
             case 3:
                 logger.info(f"Creating thought {thought}")
-                rag_content = self._get_rag() 
                 user_content = f'{self.question} \n {skeleton.third_think}'
-                output_content = True
+            case _:
+                logger.info(f"Creating thought Final")
+                rag_content = self._get_rag() 
+                user_content = f'{self.question}'
+                output_content = True                
         return self.prompt_message(system_content=system_content,
                                    rag_content=rag_content,
                                    user_content=user_content,
@@ -106,6 +109,7 @@ class PromptHandler(PromptEng):
         skeleton = PromptSkeleton(question=self.question)
         user_content = ""
         rag_content = None
+        output_content = False
         match thought:
             case 0:
                 logger.info(f"Adding RAR prompt")
@@ -118,11 +122,16 @@ class PromptHandler(PromptEng):
                 user_content = f'{self.question} \n {skeleton.second_think}'
             case 3:
                 logger.info(f"Creating thought {thought}")                 
-                rag_content = self._get_rag() 
                 user_content = f'{self.question} \n {skeleton.third_think}'
+            case _:
+                logger.info(f"Creating thought Final")                
+                rag_content = self._get_rag() 
+                user_content = f'{self.question}'
+                output_content = True
         return self.prompt_message(system_content=system_content,
                                    rag_content=rag_content,
                                    user_content=user_content,
+                                   output_content=output_content,
                                    role_type= "assistant" if self.assistant else "system")
 
     def _generatePromptH8(self, **kwargs):
@@ -160,10 +169,13 @@ class PromptHandler(PromptEng):
                 logger.info(f"Creating thought {thought} and Zero-Shot-CoT")
                 user_content = f'{self.question} \n {skeleton.second_think} \n {zcot.zero_cot_opt1}'
             case 3:
-                logger.info(f"Creating thought {thought}")                 
+                logger.info(f"Creating thought {thought} and Zero-Shot-CoT")                 
+                user_content = f'{self.question} \n {skeleton.third_think}  \n {zcot.zero_cot_opt1}'
+            case _:
+                logger.info(f"Creating thought Final")
                 rag_content = self._get_rag() 
-                user_content = f'{self.question} \n {skeleton.third_think}'
-                output_content = True
+                user_content = f'{self.question}'
+                output_content = True                
         return self.prompt_message(system_content=system_content,
                                    rag_content=rag_content,
                                    user_content=user_content,

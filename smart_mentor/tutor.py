@@ -7,6 +7,7 @@ from .observability.codet5_similarity import CodeT5Similarity
 from .file.smart_reader import SmartReader
 from .file.smart_writer import SmartWriter
 from typing import Final
+from concurrent.futures import ThreadPoolExecutor
 import pandas as pd
 import random
 import json
@@ -144,6 +145,31 @@ class SmartMentor():
             return ' '.join(new_response)
         else: 
             return new_response
+        
+    def get_list_parameters(self, hypothesis: str, question:str, model:str):
+        list_param = []
+        for thought in range(1,4):
+            list_param.append({
+                "hypothesis": hypothesis,
+                "question": question,
+                "model": model,
+                "thought": thought,
+                "fisrt_step": True if thought == 1 else False
+            })
+        return list_param
+    
+    def run_parallel_skeleton(self, df_param):
+        new_prompt = self.get_prompt(hypothesis = df_param["hypothesis"], 
+                                     question = df_param["question"], 
+                                     model = df_param["model"],
+                                     thought = df_param["thought"],
+                                     fisrt_step = df_param["fisrt_step"])  
+        response = ""
+        if df_param["model"] == "openai":
+            response = self.get_response_openai_by_prompt(prompt=new_prompt)
+        else:
+            response = self.get_response_llama_by_prompt(prompt=new_prompt)
+        return response
 
 if __name__ == "__main__":
     config = ConfigHelper()
@@ -185,16 +211,34 @@ if __name__ == "__main__":
         match hypothesis:
             case "h5" | "h9":
                 logger.info("#### OPENAI")
-                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")            
+                list_parameters = tutor.get_list_parameters(hypothesis=hypothesis, question=prompt, model="openai")
+                new_response = " "
+                results = []
+                with ThreadPoolExecutor() as executor:
+                    futures = [
+                        executor.submit(tutor.run_parallel_skeleton, parameters)
+                        for parameters in list_parameters
+                    ]
+                    
+                    for future in futures:
+                        results.append(future.result())
+
+                new_response = " ".join(results)
+                time.sleep(60)
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=4)
                 response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
                 time.sleep(60)
-                for i in range(2,4): 
-                    # This conditional i != 3 to give more context to the LLM               
-                    new_response = f'{prompt} \n {response if i != 3 else tutor.extract_programa_gen(response)}'
-                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=i)
-                    response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
-                    time.sleep(60)
-                
+                # First approach using Skeleton technique no parallelism
+                # new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")            
+                # response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
+                # time.sleep(60)
+                # for i in range(2,4): 
+                #     # This conditional i != 3 to give more context to the LLM               
+                #     new_response = f'{prompt} \n {response if i != 3 else tutor.extract_programa_gen(response)}'
+                #     new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=i)
+                #     response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
+                #     time.sleep(60)
+                #                 
                 logger.info(f"#### OPENAI response \n {response}") 
                 list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
                                                                                                        model="openai", 
@@ -206,15 +250,33 @@ if __name__ == "__main__":
                                    list_metrics_codet5)
 
                 logger.info("#### LLAMA")
-                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")
-                response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                list_parameters = tutor.get_list_parameters(hypothesis=hypothesis, question=prompt, model="openai")
+                new_response = " "
+                results = []
+                with ThreadPoolExecutor() as executor:
+                    futures = [
+                        executor.submit(tutor.run_parallel_skeleton, parameters)
+                        for parameters in list_parameters
+                    ]
+                    
+                    for future in futures:
+                        results.append(future.result())
+
+                new_response = " ".join(results)
                 time.sleep(60)
-                for i in range(2,4):               
-                    # This conditional i != 3 to give more context to the LLM               
-                    new_response = f'{prompt} \n {response if i != 3 else tutor.extract_programa_gen(response)}'
-                    new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=i)
-                    response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
-                    time.sleep(60)
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=4)
+                response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                time.sleep(60)                
+                # First approach using Skeleton technique no parallelism
+                # new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")
+                # response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                # time.sleep(60)
+                # for i in range(2,4):               
+                #     # This conditional i != 3 to give more context to the LLM               
+                #     new_response = f'{prompt} \n {response if i != 3 else tutor.extract_programa_gen(response)}'
+                #     new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=i)
+                #     response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                #     time.sleep(60)
 
                 logger.info(f"#### LLAMA response \n {response}") 
                 list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
