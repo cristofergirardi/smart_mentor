@@ -24,5 +24,10 @@ class ClientOpenAi(ModelAIFactory):
             messages=messages,
             temperature=temperature,
             max_tokens=max_tokens
-        )        
-        return response.choices[0].message.content
+        )
+        
+        try:
+            return response.choices[0].message.content
+        except Exception as e:
+            logger.error(f"Error in the model response: {e}")
+            return "Sorry, I am not able to answer that question."

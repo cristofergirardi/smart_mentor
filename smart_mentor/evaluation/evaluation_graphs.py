@@ -18,37 +18,38 @@ if __name__ == "__main__":
     reader = SmartReader()
     writer = SmartWriter()
     eg = EvaluationGraphs()
-    hypothese = "h0"
-    file_written = f"src/resources/Metrics_median_{hypothese}.csv"
-    df_read = reader.readFile(f"src/resources/Metrics_{hypothese}.csv")
 
-    df_median = pd.DataFrame(columns=["h", "model", "metric", "precision", "recall", "f1_score"])
+    columns_metrics = ["h", "model", "metric", "similarity"]
+    hypotheses = ["h1", "h2", "h3", "h4", "h5", "h6"]
+    metrics_name = ["bert", "codet5"]
+
+    file_written = f"smart_mentor/resources/Metrics_median_null_hypothese.csv"
     try:
         reader.removeFile(file_written)
     except FileNotFoundError as e:
         logger.error("File does not found")
-
+    
+    df_median = pd.DataFrame(columns=columns_metrics)
     writer.write(file_written, df_median)
 
-    df_hyp = df_read['h'].unique()
-    df_model = df_read['model'].unique()
-    df_metric_type = df_read['metric'].unique()
+    for hypothese in hypotheses:
+        for metric_name in metrics_name:
+            df_read = reader.readFile(f"smart_mentor/resources/Metrics_{hypothese}_{metric_name}.csv")
 
-    ## Looping of each hypothesis
-    for hyp in df_hyp:
-        for mode in df_model:
-            for metric in df_metric_type:
-                ## Select hypothesis and model
-                df_metrics = df_read.where(df_read['h'].str.contains(hyp) & 
-                                           df_read['model'].str.contains(mode) &
-                                           df_read['metric'].str.contains(metric)
-                                           ).dropna(how='all')
-                precision = hmean(df_metrics['precision'])
-                recall = hmean(df_metrics['recall'])
-                f1 = hmean(df_metrics['f1_score'])
+            df_model = df_read['model'].unique()
+            df_metric_type = df_read['metric'].unique()
 
-                new_list = [{"h": hyp, "model": mode, "metric": metric, "precision": precision, "recall": recall, "f1_score": f1}]
-                df_median = eg.add_new_row(df_median, new_list)
+            for mode in df_model:
+                for metric in df_metric_type:
+                    ## Select hypothesis and model
+                    df_metrics = df_read.where(df_read['h'].str.contains(hypothese) & 
+                                            df_read['model'].str.contains(mode) &
+                                            df_read['metric'].str.contains(metric)
+                                            ).dropna(how='all')
+                    similarity = hmean(df_metrics['similarity'].apply(abs))
+
+                    new_list = [{"h": hypothese, "model": mode, "metric": metric, "similarity": similarity}]
+                    df_median = eg.add_new_row(df_median, new_list)
 
     ## Appending dataframe
     writer.write(file_written, df_median)            

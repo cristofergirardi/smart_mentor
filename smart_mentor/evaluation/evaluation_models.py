@@ -6,6 +6,7 @@ from ..observability.codet5_similarity import CodeT5Similarity
 from ..orchestrator import SmartMentorOrchestrator
 from ..file.smart_reader import SmartReader
 from ..file.smart_writer import SmartWriter
+from concurrent.futures import ThreadPoolExecutor
 import time
 import pandas as pd
 import random
@@ -141,6 +142,31 @@ class EvaluationModels():
             return ' '.join(new_response)
         else: 
             return new_response
+        
+    def get_list_parameters(self, hypothesis: str, question:str, model:str):
+        list_param = []
+        for thought in range(1,4):
+            list_param.append({
+                "hypothesis": hypothesis,
+                "question": question,
+                "model": model,
+                "thought": thought,
+                "fisrt_step": True if thought == 1 else False
+            })
+        return list_param
+    
+    def run_parallel_skeleton(self, df_param):
+        new_prompt = self.get_prompt(hypothesis = df_param["hypothesis"], 
+                                     question = df_param["question"], 
+                                     model = df_param["model"],
+                                     thought = df_param["thought"],
+                                     fisrt_step = df_param["fisrt_step"])  
+        response = ""
+        if df_param["model"] == "openai":
+            response = self.get_response_openai_by_prompt(prompt=new_prompt)
+        else:
+            response = self.get_response_llama_by_prompt(prompt=new_prompt)
+        return response        
 
 if __name__ == "__main__":
     config = ConfigHelper()
@@ -217,17 +243,23 @@ if __name__ == "__main__":
             match hypothesis:
                 case "h5" | "h9":
                     logger.info("#### OPENAI")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")
+                    list_parameters = models.get_list_parameters(hypothesis=hypothesis, question=user_question, model="openai")
+                    results = []
+                    with ThreadPoolExecutor() as executor:
+                        futures = [
+                            executor.submit(models.run_parallel_skeleton, parameters)
+                            for parameters in list_parameters
+                        ]
+                        
+                        for future in futures:
+                            results.append(future.result())
+
+                    new_response = " ".join(results)
+                    time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=4)
                     response = models.get_response_openai_by_prompt(prompt=new_prompt)
                     time.sleep(60)
-                    for i in range(2,4):                
-                        # This conditional i != 3 to give more context to the LLM               
-                        new_response = f'{user_question} \n {response if i != 3 else models.extract_programa_gen(response)}'
-                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=i)
-                        response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                        time.sleep(60)
-                    
-                    # logger.info(f"#### OPENAI response \n {response}") 
+
                     list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
                                                                                         model="openai",
                                                                                         reference=reference, 
@@ -236,17 +268,23 @@ if __name__ == "__main__":
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
 
                     logger.info("#### LLAMA")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")
-                    response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                    time.sleep(60)
-                    for i in range(2,4):
-                        # This conditional i != 3 to give more context to the LLM               
-                        new_response = f'{user_question} \n {response if i != 3 else models.extract_programa_gen(response)}'
-                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=i)
-                        response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                        time.sleep(60)
+                    list_parameters = models.get_list_parameters(hypothesis=hypothesis, question=user_question, model="llama")
+                    results = []
+                    with ThreadPoolExecutor() as executor:
+                        futures = [
+                            executor.submit(models.run_parallel_skeleton, parameters)
+                            for parameters in list_parameters
+                        ]
+                        
+                        for future in futures:
+                            results.append(future.result())
 
-                    # logger.info(f"#### LLAMA response \n {response}") 
+                    new_response = " ".join(results)
+                    time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=4)
+                    response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+
                     list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
                                                                                         model="llama",
                                                                                         reference=reference, 
@@ -318,13 +356,27 @@ if __name__ == "__main__":
 
                 case "h7":
                     logger.info("#### OPENAI")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")
-                    response = "" 
-                    for i in range(0,4):                
-                        response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                        new_response = f'{user_question} \n {models.extract_programa_gen(response)}'
-                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=i)
-                        time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai",thought=0)  
+                    response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+
+                    list_parameters = models.get_list_parameters(hypothesis=hypothesis, question=response, model="openai")
+                    results = []
+                    
+                    with ThreadPoolExecutor() as executor:
+                        futures = [
+                            executor.submit(models.run_parallel_skeleton, parameters)
+                            for parameters in list_parameters
+                        ]
+                        
+                        for future in futures:
+                            results.append(future.result())
+
+                    new_response = " ".join(results)
+                    time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=4)
+                    response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
                     
                     # logger.info(f"#### OPENAI response \n {response}") 
                     list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
@@ -335,13 +387,26 @@ if __name__ == "__main__":
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
 
                     logger.info("#### LLAMA")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")
-                    response = "" 
-                    for i in range(0,4):              
-                        response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                        new_response = f'{user_question} \n {models.extract_programa_gen(response)}'
-                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=i)
-                        time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama",thought=0)  
+                    response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+
+                    list_parameters = models.get_list_parameters(hypothesis=hypothesis, question=response, model="llama")
+                    results = []
+                    with ThreadPoolExecutor() as executor:
+                        futures = [
+                            executor.submit(models.run_parallel_skeleton, parameters)
+                            for parameters in list_parameters
+                        ]
+                        
+                        for future in futures:
+                            results.append(future.result())
+
+                    new_response = " ".join(results)
+                    time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=4)
+                    response = models.get_response_llama_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
 
                     # logger.info(f"#### LLAMA response \n {response}") 
                     list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
@@ -412,157 +477,184 @@ if __name__ == "__main__":
 
                 case 'h11':
                     logger.info("#### OPENAI")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")  
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai",thought=0)  
                     response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                    time.sleep(60)        
+                    time.sleep(60)
+
+                    list_parameters = models.get_list_parameters(hypothesis=hypothesis, question=response, model="openai")
+                    results = []
                     list_response = []
-                    for i in range(1,5):
-                        # This conditional i <= 3 to give more context to the LLM    
-                        if i <= 3:           
-                            new_response = f'{user_question} \n {response}'
-                            new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", thought=i, first_step=False)
-                            response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                            time.sleep(60)
-                        else:
-                            # In this step we there will be response and prompt with all information 
-                            for j in range(0,3):
-                                new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
-                                new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", thought=i, first_step=False)
-                                response = models.get_response_openai_by_prompt(prompt=new_prompt) 
-                                list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                                    model="openai", 
-                                                                                                    reference=reference, 
-                                                                                                    response=response)
+                    with ThreadPoolExecutor() as executor:
+                        futures = [
+                            executor.submit(models.run_parallel_skeleton, parameters)
+                            for parameters in list_parameters
+                        ]
+                        
+                        for future in futures:
+                            results.append(future.result())
 
-                                list_response.append({
-                                    "response": response,
-                                    "metric_bert": list_metrics_bert[0]["similarity"],
-                                    "metric_bert_comp": list_metrics_bert,
-                                    "metric_codet5": list_metrics_codet5[0]["similarity"],
-                                    "metric_codet5_comp": list_metrics_codet5
+                    new_response = " ".join(results)
+                    time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=4)
+                    response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
 
-                                })
-                                time.sleep(60)
-                            
-                            highest_response = max(list_response, key=lambda item: item.get("metric_bert",0))
-                            df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_bert_comp",[]))
-                            highest_response = max(list_response, key=lambda item: item.get("metric_codet5",0))
-                            df_metrics_codet5 = models.add_new_row(df_metrics_codet5, highest_response.get("metric_codet5_comp",[]))
+                    for j in range(0,3):
+                        new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", thought=5, first_step=False)
+                        response = models.get_response_openai_by_prompt(prompt=new_prompt) 
+                        list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                            model="openai", 
+                                                                                            reference=reference, 
+                                                                                            response=response)
+
+                        list_response.append({
+                            "response": response,
+                            "metric_bert": list_metrics_bert[0]["similarity"],
+                            "metric_bert_comp": list_metrics_bert,
+                            "metric_codet5": list_metrics_codet5[0]["similarity"],
+                            "metric_codet5_comp": list_metrics_codet5
+
+                        })
+                        time.sleep(60)
+                    
+                    highest_response = max(list_response, key=lambda item: item.get("metric_bert",0))
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_bert_comp",[]))
+                    highest_response = max(list_response, key=lambda item: item.get("metric_codet5",0))
+                    df_metrics_codet5 = models.add_new_row(df_metrics_codet5, highest_response.get("metric_codet5_comp",[]))
 
                     logger.info("#### LLAMA")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")  
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama", thought=0)  
                     response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                    time.sleep(60)        
-                    list_response = []
-                    for i in range(1,5):
-                        # This conditional i <= 3 to give more context to the LLM    
-                        if i <= 3:              
-                            new_response = f'{user_question} \n {response}'
-                            new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", thought=i, first_step=False)
-                            response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                            time.sleep(60)
-                        else:
-                            # In this step we there will be response and prompt with all information 
-                            for j in range(0,3):
-                                new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
-                                new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", thought=i, first_step=False)
-                                response = models.get_response_llama_by_prompt(prompt=new_prompt) 
-                                list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                                    model="llama",
-                                                                                                    reference=reference,
-                                                                                                    response=response)
-                                
-                                list_response.append({
-                                    "response": response,
-                                    "metric_bert": list_metrics_bert[0]["similarity"],
-                                    "metric_bert_comp": list_metrics_bert,
-                                    "metric_codet5": list_metrics_codet5[0]["similarity"],
-                                    "metric_codet5_comp": list_metrics_codet5
+                    time.sleep(60)
 
-                                })
-                                time.sleep(60)
-                            
-                            highest_response = max(list_response, key=lambda item: item.get("metric_bert",0))
-                            df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_bert_comp",[]))
-                            highest_response = max(list_response, key=lambda item: item.get("metric_codet5",0))
-                            df_metrics_codet5 = models.add_new_row(df_metrics_codet5, highest_response.get("metric_codet5_comp",[]))
-                            
+                    list_parameters = models.get_list_parameters(hypothesis=hypothesis, question=response, model="llama")
+                    results = []
+                    list_response = []
+                    with ThreadPoolExecutor() as executor:
+                        futures = [
+                            executor.submit(models.run_parallel_skeleton, parameters)
+                            for parameters in list_parameters
+                        ]
+                        
+                        for future in futures:
+                            results.append(future.result())
+
+                    new_response = " ".join(results)
+                    time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=4)
+                    response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+
+                    for j in range(0,3):
+                        new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", thought=5, first_step=False)
+                        response = models.get_response_llama_by_prompt(prompt=new_prompt) 
+                        list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                            model="llama",
+                                                                                            reference=reference,
+                                                                                            response=response)
+                        
+                        list_response.append({
+                            "response": response,
+                            "metric_bert": list_metrics_bert[0]["similarity"],
+                            "metric_bert_comp": list_metrics_bert,
+                            "metric_codet5": list_metrics_codet5[0]["similarity"],
+                            "metric_codet5_comp": list_metrics_codet5
+
+                        })
+                        time.sleep(60)
+                    
+                    highest_response = max(list_response, key=lambda item: item.get("metric_bert",0))
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_bert_comp",[]))
+                    highest_response = max(list_response, key=lambda item: item.get("metric_codet5",0))
+                    df_metrics_codet5 = models.add_new_row(df_metrics_codet5, highest_response.get("metric_codet5_comp",[]))
+                    
                 case 'h12':
                     logger.info("#### OPENAI")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")            
+                    list_parameters = models.get_list_parameters(hypothesis=hypothesis, question=user_question, model="openai")
+                    results = []
+                    list_response = []
+                    with ThreadPoolExecutor() as executor:
+                        futures = [
+                            executor.submit(models.run_parallel_skeleton, parameters)
+                            for parameters in list_parameters
+                        ]
+                        
+                        for future in futures:
+                            results.append(future.result())
+
+                    new_response = " ".join(results)
+                    time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=4)
                     response = models.get_response_openai_by_prompt(prompt=new_prompt)
                     time.sleep(60)
-                    list_response = []
-                    for i in range(2,5): 
-                        # This conditional i <= 3 to give more context to the LLM    
-                        if i <= 3:              
-                            new_response = f'{user_question} \n {response}'
-                            new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai",thought=i)
-                            response = models.get_response_openai_by_prompt(prompt=new_prompt)
-                            time.sleep(60)
-                        else:
-                            # In this step we there will be response and prompt with all information 
-                            for j in range(0,3):
-                                new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
-                                new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", thought=i, first_step=False)
-                                response = models.get_response_openai_by_prompt(prompt=new_prompt) 
-                                list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                                    model="openai", 
-                                                                                                    reference=reference, 
-                                                                                                    response=response)
+                
+                    for j in range(0,3):
+                        new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="openai", thought=5, first_step=False)
+                        response = models.get_response_openai_by_prompt(prompt=new_prompt) 
+                        list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                            model="openai", 
+                                                                                            reference=reference, 
+                                                                                            response=response)
 
-                                list_response.append({
-                                    "response": response,
-                                    "metric_bert": list_metrics_bert[0]["similarity"],
-                                    "metric_bert_comp": list_metrics_bert,
-                                    "metric_codet5": list_metrics_codet5[0]["similarity"],
-                                    "metric_codet5_comp": list_metrics_codet5
+                        list_response.append({
+                            "response": response,
+                            "metric_bert": list_metrics_bert[0]["similarity"],
+                            "metric_bert_comp": list_metrics_bert,
+                            "metric_codet5": list_metrics_codet5[0]["similarity"],
+                            "metric_codet5_comp": list_metrics_codet5
 
-                                })
-                                time.sleep(60)
-                            
-                            highest_response = max(list_response, key=lambda item: item.get("metric_bert",0))
-                            df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_bert_comp",[]))
-                            highest_response = max(list_response, key=lambda item: item.get("metric_codet5",0))
-                            df_metrics_codet5 = models.add_new_row(df_metrics_codet5, highest_response.get("metric_codet5_comp",[]))                            
+                        })
+                        time.sleep(60)
+                    
+                    highest_response = max(list_response, key=lambda item: item.get("metric_bert",0))
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_bert_comp",[]))
+                    highest_response = max(list_response, key=lambda item: item.get("metric_codet5",0))
+                    df_metrics_codet5 = models.add_new_row(df_metrics_codet5, highest_response.get("metric_codet5_comp",[]))                            
 
                     logger.info("#### LLAMA")
-                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")
-                    response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                    time.sleep(60)
+                    list_parameters = models.get_list_parameters(hypothesis=hypothesis, question=user_question, model="llama")
+                    results = []
                     list_response = []
-                    for i in range(2,5): 
-                        # This conditional i <= 3 to give more context to the LLM    
-                        if i <= 3:              
-                            new_response = f'{user_question} \n {response}'
-                            new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=i)
-                            response = models.get_response_llama_by_prompt(prompt=new_prompt)
-                            time.sleep(60)
-                        else:
-                            # In this step we there will be response and prompt with all information 
-                            for j in range(0,3):
-                                new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
-                                new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", thought=i, first_step=False)
-                                response = models.get_response_llama_by_prompt(prompt=new_prompt) 
-                                list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
-                                                                                                    model="llama",
-                                                                                                    reference=reference,
-                                                                                                    response=response)
-                                
-                                list_response.append({
-                                    "response": response,
-                                    "metric_bert": list_metrics_bert[0]["similarity"],
-                                    "metric_bert_comp": list_metrics_bert,
-                                    "metric_codet5": list_metrics_codet5[0]["similarity"],
-                                    "metric_codet5_comp": list_metrics_codet5
+                    with ThreadPoolExecutor() as executor:
+                        futures = [
+                            executor.submit(models.run_parallel_skeleton, parameters)
+                            for parameters in list_parameters
+                        ]
+                        
+                        for future in futures:
+                            results.append(future.result())
 
-                                })
-                                time.sleep(60)
-                            
-                            highest_response = max(list_response, key=lambda item: item.get("metric_bert",0))
-                            df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_bert_comp",[]))
-                            highest_response = max(list_response, key=lambda item: item.get("metric_codet5",0))
-                            df_metrics_codet5 = models.add_new_row(df_metrics_codet5, highest_response.get("metric_codet5_comp",[]))                     
+                    new_response = " ".join(results)
+                    time.sleep(60)
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama",thought=4)
+                    response = models.get_response_openai_by_prompt(prompt=new_prompt)
+
+                    for j in range(0,3):
+                        new_response = f'{new_prompt} \n Response: {models.extract_programa_gen(response)}'
+                        new_prompt = models.get_prompt(hypothesis=hypothesis, question=new_response, model="llama", thought=5, first_step=False)
+                        response = models.get_response_llama_by_prompt(prompt=new_prompt) 
+                        list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                            model="llama",
+                                                                                            reference=reference,
+                                                                                            response=response)
+                        
+                        list_response.append({
+                            "response": response,
+                            "metric_bert": list_metrics_bert[0]["similarity"],
+                            "metric_bert_comp": list_metrics_bert,
+                            "metric_codet5": list_metrics_codet5[0]["similarity"],
+                            "metric_codet5_comp": list_metrics_codet5
+
+                        })
+                        time.sleep(60)
+                    
+                    highest_response = max(list_response, key=lambda item: item.get("metric_bert",0))
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, highest_response.get("metric_bert_comp",[]))
+                    highest_response = max(list_response, key=lambda item: item.get("metric_codet5",0))
+                    df_metrics_codet5 = models.add_new_row(df_metrics_codet5, highest_response.get("metric_codet5_comp",[]))                     
 
                 case _:
                     ### Others hypotheses
