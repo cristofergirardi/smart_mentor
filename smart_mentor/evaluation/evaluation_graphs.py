@@ -20,7 +20,7 @@ if __name__ == "__main__":
     eg = EvaluationGraphs()
 
     columns_metrics = ["h", "model", "metric", "similarity"]
-    hypotheses = ["h1", "h2", "h3", "h4", "h5", "h6"]
+    hypotheses = ["h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "h11", "h12"]
     metrics_name = ["bert", "codet5"]
 
     file_written = f"smart_mentor/resources/Metrics_median_null_hypothese.csv"
