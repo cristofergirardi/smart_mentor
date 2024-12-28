@@ -191,7 +191,7 @@ if __name__ == "__main__":
     df_metrics_bert = pd.DataFrame(columns=models.COLUMNS_METRICS_BERT)
     df_metrics_codet5 = pd.DataFrame(columns=models.COLUMNS_METRICS_BERT)
 
-    hypothesis = "h12"
+    hypothesis = "h7"
     # file_written_rouge = f"smart_mentor/resources/Metrics_{hypothesis}_rouge.csv"
     # ## Creating file
     # try:
