@@ -21,7 +21,7 @@ if __name__ == "__main__":
     eg = EvaluationGraphs()
 
     columns_metrics = ["h", "model", "metric", "hmcmean", "mediana", "mean", "stdev"]
-    hypotheses = ["h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "h11", "h12"]
+    hypotheses = ["h0","h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "h11", "h12"]
     # metrics_name = ["bert", "codet5"]
     metrics_name = ["bert"]
 

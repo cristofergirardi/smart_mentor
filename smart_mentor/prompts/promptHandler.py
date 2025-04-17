@@ -20,6 +20,13 @@ class PromptHandler(PromptEng):
         self.prompt_response = PromptResponse()
         self.self_verification = PromptSelfVerification()
 
+    def _generatePromptH0(self):
+        logger.info("Calling Baseline")
+        system_content = f'{self.role.only_role}' 
+        return self.prompt_message(system_content=system_content,
+                                   user_content=self.question,
+                                   role_type= "assistant" if self.assistant else "system")
+
     def _generatePromptH1(self):
         logger.info("Calling Hypotheses 1")
         system_content = f'{self.role.string_role_complete}' 
@@ -311,6 +318,8 @@ class PromptHandler(PromptEng):
     
     def generatePrompt(self, hypotheses:str, **kwargs):
         match hypotheses:
+            case "h0":
+                return self._generatePromptH0()
             case "h1":
                 return self._generatePromptH1()
             case "h2":

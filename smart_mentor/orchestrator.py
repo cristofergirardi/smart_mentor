@@ -54,6 +54,8 @@ class SmartMentorOrchestrator:
         first_step = kwargs.get("first_step", True)
         docs = []
         match hypothesis:
+            case 'h0':
+                logger.info("Calling no rag")                
             case 'h5' | 'h9' | 'h12' :
                 if thought == 3:
                     logger.info("Calling rag")

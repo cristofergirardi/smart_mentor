@@ -176,7 +176,7 @@ if __name__ == "__main__":
     reader = SmartReader()
     writer = SmartWriter()
     tutor = SmartMentor(config)
-    hypothesis = "h11"
+    hypothesis = "h0"
 
     ## Creating file
     file_random = "smart_mentor/resources/random_numbers.csv"
@@ -209,6 +209,33 @@ if __name__ == "__main__":
         reference = row.fields_program_y
 
         match hypothesis:
+            case "h0":
+                logger.info("#### OPENAI")
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="openai")
+                response = tutor.get_response_openai_by_prompt(prompt=new_prompt)
+                time.sleep(60)
+                logger.info(f"#### OPENAI response \n {response}") 
+                list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                       model="openai", 
+                                                                                                       reference=reference, 
+                                                                                                       response=response)
+
+                tutor.show_metrics(list_metrics_rouge, 
+                                   list_metrics_bert, 
+                                   list_metrics_codet5)
+
+                logger.info("#### LLAMA")
+                new_prompt = tutor.get_prompt(hypothesis=hypothesis, question=prompt, model="llama")
+                response = tutor.get_response_llama_by_prompt(prompt=new_prompt)
+                time.sleep(60)
+                logger.info(f"#### LLAMA response \n {response}") 
+                list_metrics_rouge, list_metrics_bert, list_metrics_codet5 = tutor.get_metrics_overall(hypothesis=hypothesis,
+                                                                                                       model="llama", 
+                                                                                                       reference=reference, 
+                                                                                                       response=response)
+                tutor.show_metrics(list_metrics_rouge, 
+                                   list_metrics_bert, 
+                                   list_metrics_codet5)
             case "h5" | "h9":
                 logger.info("#### OPENAI")
                 list_parameters = tutor.get_list_parameters(hypothesis=hypothesis, question=prompt, model="openai")

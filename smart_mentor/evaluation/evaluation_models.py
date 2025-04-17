@@ -19,7 +19,7 @@ class EvaluationModels():
 
     ROUGE_METRICS: Final = ['rouge1', 'rouge2', 'rougeL']
     COLUMNS_METRICS_ROUGE: Final = ["h", "model", "metric", "precision", "recall", "f1_score"]
-    COLUMNS_METRICS_BERT: Final = ["h", "model", "metric", "similarity"]
+    COLUMNS_METRICS_BERT: Final = ["h", "quest", "model", "metric", "similarity"]
 
     def __init__(self, config: ConfigHelper):
         super().__init__()
@@ -48,27 +48,28 @@ class EvaluationModels():
             )
         return metrics_list
     
-    def get_metrics_bert(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:
+    def get_metrics_bert(self, hypothesis: str, model:str, orig_data: str, predict: str, index: str) -> list:
         metrics_list = []
         similarity = self.bert_similar.get_similarity(ground_truth=orig_data,
                                                       result=predict)
         metrics_list.append(
-                {"h": hypothesis, "model": model, "metric": "bert_metric", "similarity": similarity}
+                {"h": hypothesis, "quest": index, "model": model, "metric": "bert_metric", "similarity": similarity}
             )        
         return metrics_list
 
-    def get_metrics_codet5(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:
+    def get_metrics_codet5(self, hypothesis: str, model:str, orig_data: str, predict: str, index: str) -> list:
         metrics_list = []
         similarity = self.codet5_similar.get_similarity(ground_truth=orig_data, 
                                                         result=predict)
         metrics_list.append(
-                {"h": hypothesis, "model": model, "metric": "codet5_metric", "similarity": similarity}
+                {"h": hypothesis, "quest": index, "model": model, "metric": "codet5_metric", "similarity": similarity}
             )        
         return metrics_list
 
     def add_new_row(self, df_orig : pd.DataFrame, new_rows: list):        
-        for new_row in new_rows:
+        for new_row in new_rows:            
             df_orig.loc[len(df_orig)] = new_row
+        logger.info(f"Dataframe size: {len(df_orig)}")
         return df_orig
         
     def get_response(self, response:str):
@@ -99,7 +100,7 @@ class EvaluationModels():
         random_numbers = [random.randint(0, 70) for _ in range(10)]
         return pd.DataFrame({'index': random_numbers})
 
-    def get_metrics_overall(self, hypothesis: str, model:str, response: str, reference:str):
+    def get_metrics_overall(self, hypothesis: str, model:str, response: str, reference:str, index: str):
         new_response = self.extract_programa_gen(response)
 
         # list_metrics_rouge = self.get_metrics_rouge(hypothesis=hypothesis,
@@ -110,12 +111,14 @@ class EvaluationModels():
         list_metrics_bert = self.get_metrics_bert(hypothesis=hypothesis,
                                                   model=model, 
                                                   orig_data=reference,
-                                                  predict=new_response)
+                                                  predict=new_response,
+                                                  index=index)
 
         list_metrics_codet5 = self.get_metrics_codet5(hypothesis=hypothesis,
                                                       model=model, 
                                                       orig_data=reference,
-                                                      predict=new_response)
+                                                      predict=new_response,
+                                                      index=index)
 
         return list_metrics_bert, list_metrics_codet5
 
@@ -191,7 +194,7 @@ if __name__ == "__main__":
     df_metrics_bert = pd.DataFrame(columns=models.COLUMNS_METRICS_BERT)
     df_metrics_codet5 = pd.DataFrame(columns=models.COLUMNS_METRICS_BERT)
 
-    hypothesis = "h7"
+    hypothesis = "h0"
     # file_written_rouge = f"smart_mentor/resources/Metrics_{hypothesis}_rouge.csv"
     # ## Creating file
     # try:
@@ -241,6 +244,31 @@ if __name__ == "__main__":
             reference = row.fields_program_y
 
             match hypothesis:
+                case "h0":
+                    logger.info("#### OPENAI")
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="openai")
+                    response = models.get_response_openai_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+                    list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                        model="openai",
+                                                                                        reference=reference, 
+                                                                                        response=response,
+                                                                                        index=row.Index)
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
+                    df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
+
+                    logger.info("#### LLAMA")
+                    new_prompt = models.get_prompt(hypothesis=hypothesis, question=user_question, model="llama")
+                    response = models.get_response_llama_by_prompt(prompt=new_prompt)
+                    time.sleep(60)
+                    list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
+                                                                                        model="llama",
+                                                                                        reference=reference, 
+                                                                                        response=response,
+                                                                                        index=row.Index)
+                    df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
+                    df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
+                    
                 case "h5" | "h9":
                     logger.info("#### OPENAI")
                     list_parameters = models.get_list_parameters(hypothesis=hypothesis, question=user_question, model="openai")
