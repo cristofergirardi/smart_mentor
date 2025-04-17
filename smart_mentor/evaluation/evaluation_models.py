@@ -48,21 +48,21 @@ class EvaluationModels():
             )
         return metrics_list
     
-    def get_metrics_bert(self, hypothesis: str, model:str, orig_data: str, predict: str, index: str) -> list:
+    def get_metrics_bert(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:
         metrics_list = []
         similarity = self.bert_similar.get_similarity(ground_truth=orig_data,
                                                       result=predict)
         metrics_list.append(
-                {"h": hypothesis, "quest": index, "model": model, "metric": "bert_metric", "similarity": similarity}
+                {"h": hypothesis, "model": model, "metric": "bert_metric", "similarity": similarity}
             )        
         return metrics_list
 
-    def get_metrics_codet5(self, hypothesis: str, model:str, orig_data: str, predict: str, index: str) -> list:
+    def get_metrics_codet5(self, hypothesis: str, model:str, orig_data: str, predict: str) -> list:
         metrics_list = []
         similarity = self.codet5_similar.get_similarity(ground_truth=orig_data, 
                                                         result=predict)
         metrics_list.append(
-                {"h": hypothesis, "quest": index, "model": model, "metric": "codet5_metric", "similarity": similarity}
+                {"h": hypothesis, "model": model, "metric": "codet5_metric", "similarity": similarity}
             )        
         return metrics_list
 
@@ -111,14 +111,12 @@ class EvaluationModels():
         list_metrics_bert = self.get_metrics_bert(hypothesis=hypothesis,
                                                   model=model, 
                                                   orig_data=reference,
-                                                  predict=new_response,
-                                                  index=index)
+                                                  predict=new_response)
 
         list_metrics_codet5 = self.get_metrics_codet5(hypothesis=hypothesis,
                                                       model=model, 
                                                       orig_data=reference,
-                                                      predict=new_response,
-                                                      index=index)
+                                                      predict=new_response)
 
         return list_metrics_bert, list_metrics_codet5
 
@@ -252,8 +250,7 @@ if __name__ == "__main__":
                     list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
                                                                                         model="openai",
                                                                                         reference=reference, 
-                                                                                        response=response,
-                                                                                        index=row.Index)
+                                                                                        response=response)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
 
@@ -264,8 +261,7 @@ if __name__ == "__main__":
                     list_metrics_bert, list_metrics_codet5 = models.get_metrics_overall(hypothesis=hypothesis,
                                                                                         model="llama",
                                                                                         reference=reference, 
-                                                                                        response=response,
-                                                                                        index=row.Index)
+                                                                                        response=response)
                     df_metrics_bert = models.add_new_row(df_metrics_bert, list_metrics_bert)
                     df_metrics_codet5 = models.add_new_row(df_metrics_codet5, list_metrics_codet5)
                     
