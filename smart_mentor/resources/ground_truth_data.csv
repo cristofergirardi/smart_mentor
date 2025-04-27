@@ -1,0 +1,2865 @@
+model_x,pk_x,fields.title_x,fields.code_x,fields.judge_x,fields.desc_x,fields.input_desc_x,fields.output_desc_x,fields.examples_desc_x,fields.dicas_x,fields.origin_x,fields.tags_x,model_y,pk_y,fields.user_y,fields.problem_y,fields.code_y,fields.language_y,fields.judge_result.judge_veredict_y,fields.problem_rating_delta_y,fields.program_y
+judge.problem,1,1.1,P0001,diff,"![1.1.png](http://c073.com/api/media/problem_1048/imagens/1.1.png) 
+
+Após uma longa e cansativa viagem, você finalmente consegue chegar à cidade da grande maratona de programação melônica de 2022, a lendária Maratona Melão de Ouro (MMO).
+
+A grande decepção foi descobrir que chegou 27 dias depois do término da competição! Pior que isso, Asuki-Chan, este nem foi o seu maior atraso!
+
+Uma vez que não tem mais competição para participar, você decide passear pela vila e tomar aquele delicioso sorvete de melão com cobertura de sementes de melão-doce tostadas e moídas.
+
+No meio do caminho, um camponês gritou:
+
+--- EI, PROGRAMADOR! VOCÊ PODE ME AJUDAR?
+
+> Nota 1: ele percebeu a sua camisa de competidor.
+
+> Nota 2: neste mundo, programadores são a coisa mais próxima de um herói que existe.
+
+O camponês notou uma diminuição de melões na sua plantação e quer ter certeza de que não há nada errado. Você poderia usar seus ""Poderes"" de programador e ajudá-lo?","A entrada do problema possui três linhas, cada uma com um número inteiro entre $1$ e $400$.
+
+A primeira linha traz o número pés de melão que o camponês possui.
+
+A segunda linha traz o número melões que o camponês colheu.
+
+A terceira linha traz o número de melões que cada pé de melão deveria produzir.","Caso o total de melões esteja abaixo do esperado pelo camponês, seu programa deve imprimir `SIM`.
+
+Caso o total de melões seja igual ou esteja acima do esperado, seu programa deve imprimir `NAO`.
+
+> Note que todas as letras são maiúsculas, não tem acento, nem pontuação e nem deve imprimir as aspas.","Para o caso de exemplo, como o camponês possui $48$ pés de melão e cada um produz $5$ melões, ele deveria possuir $48 \times 5 = 240$ melões. Como só possui $237$, sumiram $3$. Logo, o programa deve imprimir 'SIM', pois o total de melões está abaixo do esperado.","Rating: 1000
+
+Para simplificar a questão, segue um modo de ler um número inteiro que está sozinho em uma linha:
+
+```python
+x=int(input())
+```
+
+Neste caso, a leitura dos três números da entrada seria:
+
+```python
+n_pes_melao = int(input())
+n_meloes_colhidos = int(input())
+prod_esperada_por_pe = int(input())
+```",,G4M3,judge.submission,510,1.0,1.0,202213359866092,Python3,Accepted,0.0,"a = int( input() )
+b = int( input() )
+c = int( input() )
+
+
+if b < a * c:
+  print('SIM')
+else:
+  print('NAO')"
+judge.problem,1,1.1,P0001,diff,"![1.1.png](http://c073.com/api/media/problem_1048/imagens/1.1.png) 
+
+Após uma longa e cansativa viagem, você finalmente consegue chegar à cidade da grande maratona de programação melônica de 2022, a lendária Maratona Melão de Ouro (MMO).
+
+A grande decepção foi descobrir que chegou 27 dias depois do término da competição! Pior que isso, Asuki-Chan, este nem foi o seu maior atraso!
+
+Uma vez que não tem mais competição para participar, você decide passear pela vila e tomar aquele delicioso sorvete de melão com cobertura de sementes de melão-doce tostadas e moídas.
+
+No meio do caminho, um camponês gritou:
+
+--- EI, PROGRAMADOR! VOCÊ PODE ME AJUDAR?
+
+> Nota 1: ele percebeu a sua camisa de competidor.
+
+> Nota 2: neste mundo, programadores são a coisa mais próxima de um herói que existe.
+
+O camponês notou uma diminuição de melões na sua plantação e quer ter certeza de que não há nada errado. Você poderia usar seus ""Poderes"" de programador e ajudá-lo?","A entrada do problema possui três linhas, cada uma com um número inteiro entre $1$ e $400$.
+
+A primeira linha traz o número pés de melão que o camponês possui.
+
+A segunda linha traz o número melões que o camponês colheu.
+
+A terceira linha traz o número de melões que cada pé de melão deveria produzir.","Caso o total de melões esteja abaixo do esperado pelo camponês, seu programa deve imprimir `SIM`.
+
+Caso o total de melões seja igual ou esteja acima do esperado, seu programa deve imprimir `NAO`.
+
+> Note que todas as letras são maiúsculas, não tem acento, nem pontuação e nem deve imprimir as aspas.","Para o caso de exemplo, como o camponês possui $48$ pés de melão e cada um produz $5$ melões, ele deveria possuir $48 \times 5 = 240$ melões. Como só possui $237$, sumiram $3$. Logo, o programa deve imprimir 'SIM', pois o total de melões está abaixo do esperado.","Rating: 1000
+
+Para simplificar a questão, segue um modo de ler um número inteiro que está sozinho em uma linha:
+
+```python
+x=int(input())
+```
+
+Neste caso, a leitura dos três números da entrada seria:
+
+```python
+n_pes_melao = int(input())
+n_meloes_colhidos = int(input())
+prod_esperada_por_pe = int(input())
+```",,G4M3,judge.submission,4826,1.0,1.0,202410659056719,Python3,Accepted,0.0,"a = int(input())
+b = int(input())
+c = int(input())
+
+
+valor = a * c
+if b < valor:
+  print(""SIM"")
+elif b >= valor:
+  print(""NAO"")"
+judge.problem,2,1.2,P0002,diff,"Depois de descobrir o sumiço dos melões, outros camponeses ficaram preocupados e lhe chamaram pra descobrir se há problema nas plantações deles.
+
+Como não seria muito viável resolver o mesmo problema para cada um dos camponeses, você pediu e Bilbo, o sorveteiro, convocou uma reunião com todos os produtores de melão.
+
+Bilbo pegou com o ancião colheiteiro o valor esperado total da colheita de melões. Além disso, cada produtor trouxe um papel com o número de melões que foram colhidos.
+
+Sua tarefa é simples, somar o número de melões colhidos e comparar com o total esperado pelo colheiteiro.
+
+Segundo o ancião, se o total colhido for igual ou superar o valor esperado, a situação é nada preocupante. 
+
+Mas se o total colhido for menor que o valor esperado em até $5$ unidades, a situação é pouco preocupante.
+
+Contudo, se o valor colhido for ainda menor, a situação é muito preocupante.","A entrada do problema possui várias linhas.
+
+A primeira linha traz dois inteiros $N$ e $E$, separados por um espaço. $N$ representa o número de produtores e $E$ representa o valor total esperado, segundo o ancião colheiteiro.
+
+Seguem exatamente $N$ linhas, cada uma com um número inteiro representando a quantidade de melões colhida por cada um dos produtores.
+
+> Considere que $1 \le N \le 100$ e que cada produtor colheu pelo menos $1$ e não mais que $9$ melões.","Caso o total de melões colhido seja maior ou igual ao total esperado, seu programa deve imprimir a frase: `NADA PREOCUPANTE`.
+
+Caso contrário e o total de melões colhido seja maior ou igual ao total esperado menos $5$, seu programa deve imprimir a frase: `POUCO PREOCUPANTE`.
+
+Caso o total de melões colhido seja estritamente menor que o total esperado menos $5$, seu programa deve imprimir a frase: `MUITO PREOCUPANTE`.
+
+> Note que todas as letras são maiúsculas, não tem acento, nem pontuação e nem deve imprimir as aspas.","No exemplo dado, Bilbo reuniu $5$ produtores e somando-se os valores colhidos por estes temos:
+
+$$
+7 + 5 + 6 + 5 + 5 = 28
+$$
+
+Como o valor esperado pelo ancião colheiteiro é $31$ e $31 - 28 = 3$, a situação é: `POUCO PREOCUPANTE`.","Vamos dividir esta dica em duas partes:
+
+1) Como leio dois inteiros na mesma linha?
+
+```python
+N, E = map( int, input().split() )
+```
+
+2) Como faço para ler $N$ inteiros, um em cada linha?
+
+```python
+for _ in range(N):
+	x = int(input())
+```
+
+Por fim, combinando as duas leituras, a base da solução para o problema ficaria assim:
+
+```python
+n_camponeses, val_esperado = map( int, input().split() )
+
+for _ in range(n_camponeses):
+	meloes_deste_campones = int(input())
+
+	# a logica da solucao fica aqui
+
+# Faz o teste final
+# imprime o resultado
+```",,G4M3,judge.submission,552,1.0,2.0,202213365402025,Python3,Accepted,0.0,"N, E = input().split()
+N, E = int(N), int(E)
+#N = int(N); E = int(E)
+
+# list comprehensions
+L = [ int(input()) for x in range(N) ]
+S = sum(L)
+
+if S >= E: print('NADA PREOCUPANTE')
+elif S >= E-5: print('POUCO PREOCUPANTE')
+else: print('MUITO PREOCUPANTE')"
+judge.problem,2,1.2,P0002,diff,"Depois de descobrir o sumiço dos melões, outros camponeses ficaram preocupados e lhe chamaram pra descobrir se há problema nas plantações deles.
+
+Como não seria muito viável resolver o mesmo problema para cada um dos camponeses, você pediu e Bilbo, o sorveteiro, convocou uma reunião com todos os produtores de melão.
+
+Bilbo pegou com o ancião colheiteiro o valor esperado total da colheita de melões. Além disso, cada produtor trouxe um papel com o número de melões que foram colhidos.
+
+Sua tarefa é simples, somar o número de melões colhidos e comparar com o total esperado pelo colheiteiro.
+
+Segundo o ancião, se o total colhido for igual ou superar o valor esperado, a situação é nada preocupante. 
+
+Mas se o total colhido for menor que o valor esperado em até $5$ unidades, a situação é pouco preocupante.
+
+Contudo, se o valor colhido for ainda menor, a situação é muito preocupante.","A entrada do problema possui várias linhas.
+
+A primeira linha traz dois inteiros $N$ e $E$, separados por um espaço. $N$ representa o número de produtores e $E$ representa o valor total esperado, segundo o ancião colheiteiro.
+
+Seguem exatamente $N$ linhas, cada uma com um número inteiro representando a quantidade de melões colhida por cada um dos produtores.
+
+> Considere que $1 \le N \le 100$ e que cada produtor colheu pelo menos $1$ e não mais que $9$ melões.","Caso o total de melões colhido seja maior ou igual ao total esperado, seu programa deve imprimir a frase: `NADA PREOCUPANTE`.
+
+Caso contrário e o total de melões colhido seja maior ou igual ao total esperado menos $5$, seu programa deve imprimir a frase: `POUCO PREOCUPANTE`.
+
+Caso o total de melões colhido seja estritamente menor que o total esperado menos $5$, seu programa deve imprimir a frase: `MUITO PREOCUPANTE`.
+
+> Note que todas as letras são maiúsculas, não tem acento, nem pontuação e nem deve imprimir as aspas.","No exemplo dado, Bilbo reuniu $5$ produtores e somando-se os valores colhidos por estes temos:
+
+$$
+7 + 5 + 6 + 5 + 5 = 28
+$$
+
+Como o valor esperado pelo ancião colheiteiro é $31$ e $31 - 28 = 3$, a situação é: `POUCO PREOCUPANTE`.","Vamos dividir esta dica em duas partes:
+
+1) Como leio dois inteiros na mesma linha?
+
+```python
+N, E = map( int, input().split() )
+```
+
+2) Como faço para ler $N$ inteiros, um em cada linha?
+
+```python
+for _ in range(N):
+	x = int(input())
+```
+
+Por fim, combinando as duas leituras, a base da solução para o problema ficaria assim:
+
+```python
+n_camponeses, val_esperado = map( int, input().split() )
+
+for _ in range(n_camponeses):
+	meloes_deste_campones = int(input())
+
+	# a logica da solucao fica aqui
+
+# Faz o teste final
+# imprime o resultado
+```",,G4M3,judge.submission,553,1.0,2.0,202213365509932,Python3,Accepted,0.0,"N, E = map( int, input().split() )
+
+S = sum( [ int(input()) for x in range(N) ] )
+
+if S >= E: print('NADA PREOCUPANTE')
+elif S >= E-5: print('POUCO PREOCUPANTE')
+else: print('MUITO PREOCUPANTE')"
+judge.problem,3,1.3,P0003,diff,"Embora o nível de preocupação com os melões esteja baixo, algumas pessoas alegam ter visto vultos na plantação e nas florestas ao redor da cidade.
+
+Sendo assim, pediram para Ham-ham Sino, o inventor, implantar um sistema de fiscalização, colocando sensores ao redor das plantações.
+
+Cada sensor é um pedaço de um material que escurece de acordo com o tempo que ficou exposto à luz do sol ou da lua. Se algo estranho entrar na área do sensor, sua sombra bloqueará a luz por um período.
+
+A tarefa é descobrir se algum objeto fez sombra sobre os sensores, para verificar se os relatos de vultos têm fundamento.","A entrada do problema possui duas linhas.
+
+A primeira linha traz dois inteiros, $N$ e $R$, separados por um espaço. $N$ representa o número de sensores e $R$ representa o valor de referência do sensor caso nenhum objeto tenha feito sombra sobre este.
+
+A segunda linha traz uma lista com $N$ inteiros separados por um espaço em branco. Cada um desses números representa o valor de um dos sensores colocados por Ham-Ham Sino.
+
+> Considere $1 \le N \le 100$.
+
+> Considere que tanto $R$ quanto os valores dos sensores estão no intervalo $[1,9]$.","Para cada sensor posicionado por Ham-Ham Bell, você deve imprimir:
+
+* $1$, caso o valor do sensor seja menor ou igual ao valor de referência $R$, indicando que a plantação foi invadida, ou
+
+* $0$, caso o valor do sensor seja estritamente maior que o valor de referência $R$, indicando que a plantação não foi invadida.
+
+Estes valores devem ser impressos na mesma ordem que os sensores são listados na entrada do problema.","No exemplo dado, foram colocados $5$ sensores e o valor de referência $R$ é $5$.
+
+Como o primeiro valor dos sensores é $4$ e $4 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o segundo valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o terceiro valor dos sensores é $6$ e $6 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o quarto valor dos sensores é $7$ e $7 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o último valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.","A leitura de vários inteiros em uma única linha pode ser feita da seguinte forma:
+
+```python
+S = list( map( int, input().split() )
+```
+
+Mas observe que `S` é uma lista. Para acessar cada valor da lista, basta usar o índice (que começa em zero):
+
+```python
+# Por exemplo:
+x = S[0] + S[1]
+print(x)
+print( S[2] - S[0] )
+```
+
+Melhor ainda, você pode varrer cada elemento da lista usando um for.
+
+```python
+for x in S:
+	# Aqui x vai ter o valor x[0], x[1], x[2], ..., um de cada vez
+```
+
+Neste caso, o código base da questão ficaria mais ou menos assim:
+
+```python
+n_sensores, val_referencia = map( int, input().split() )
+lista_sensores = list( map( int, input().split() )
+for val_sensor in lista_sensores:
+	# Aqui fica a logica para solucionar o problema
+	# Basta imprimir o que se espera usando a variavel val_sensor
+```",,G4M3,judge.submission,554,1.0,3.0,202213365812306,Python3,Accepted,0.0,"# 5 5
+N, R = map( int, input().split() )
+
+# 4 3 6 7 3
+L = list( map( int, input().split() ) )
+
+for x in L:
+  if x <= R: print(1)
+  else: print(0)"
+judge.problem,3,1.3,P0003,diff,"Embora o nível de preocupação com os melões esteja baixo, algumas pessoas alegam ter visto vultos na plantação e nas florestas ao redor da cidade.
+
+Sendo assim, pediram para Ham-ham Sino, o inventor, implantar um sistema de fiscalização, colocando sensores ao redor das plantações.
+
+Cada sensor é um pedaço de um material que escurece de acordo com o tempo que ficou exposto à luz do sol ou da lua. Se algo estranho entrar na área do sensor, sua sombra bloqueará a luz por um período.
+
+A tarefa é descobrir se algum objeto fez sombra sobre os sensores, para verificar se os relatos de vultos têm fundamento.","A entrada do problema possui duas linhas.
+
+A primeira linha traz dois inteiros, $N$ e $R$, separados por um espaço. $N$ representa o número de sensores e $R$ representa o valor de referência do sensor caso nenhum objeto tenha feito sombra sobre este.
+
+A segunda linha traz uma lista com $N$ inteiros separados por um espaço em branco. Cada um desses números representa o valor de um dos sensores colocados por Ham-Ham Sino.
+
+> Considere $1 \le N \le 100$.
+
+> Considere que tanto $R$ quanto os valores dos sensores estão no intervalo $[1,9]$.","Para cada sensor posicionado por Ham-Ham Bell, você deve imprimir:
+
+* $1$, caso o valor do sensor seja menor ou igual ao valor de referência $R$, indicando que a plantação foi invadida, ou
+
+* $0$, caso o valor do sensor seja estritamente maior que o valor de referência $R$, indicando que a plantação não foi invadida.
+
+Estes valores devem ser impressos na mesma ordem que os sensores são listados na entrada do problema.","No exemplo dado, foram colocados $5$ sensores e o valor de referência $R$ é $5$.
+
+Como o primeiro valor dos sensores é $4$ e $4 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o segundo valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o terceiro valor dos sensores é $6$ e $6 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o quarto valor dos sensores é $7$ e $7 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o último valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.","A leitura de vários inteiros em uma única linha pode ser feita da seguinte forma:
+
+```python
+S = list( map( int, input().split() )
+```
+
+Mas observe que `S` é uma lista. Para acessar cada valor da lista, basta usar o índice (que começa em zero):
+
+```python
+# Por exemplo:
+x = S[0] + S[1]
+print(x)
+print( S[2] - S[0] )
+```
+
+Melhor ainda, você pode varrer cada elemento da lista usando um for.
+
+```python
+for x in S:
+	# Aqui x vai ter o valor x[0], x[1], x[2], ..., um de cada vez
+```
+
+Neste caso, o código base da questão ficaria mais ou menos assim:
+
+```python
+n_sensores, val_referencia = map( int, input().split() )
+lista_sensores = list( map( int, input().split() )
+for val_sensor in lista_sensores:
+	# Aqui fica a logica para solucionar o problema
+	# Basta imprimir o que se espera usando a variavel val_sensor
+```",,G4M3,judge.submission,555,1.0,3.0,202213365880552,Python3,Accepted,0.0,"# 5 5
+N, R = map( int, input().split() )
+
+# 4 3 6 7 3
+L = list( map( int, input().split() ) )
+
+for x in L:
+  print(1) if x <= R else print(0)"
+judge.problem,3,1.3,P0003,diff,"Embora o nível de preocupação com os melões esteja baixo, algumas pessoas alegam ter visto vultos na plantação e nas florestas ao redor da cidade.
+
+Sendo assim, pediram para Ham-ham Sino, o inventor, implantar um sistema de fiscalização, colocando sensores ao redor das plantações.
+
+Cada sensor é um pedaço de um material que escurece de acordo com o tempo que ficou exposto à luz do sol ou da lua. Se algo estranho entrar na área do sensor, sua sombra bloqueará a luz por um período.
+
+A tarefa é descobrir se algum objeto fez sombra sobre os sensores, para verificar se os relatos de vultos têm fundamento.","A entrada do problema possui duas linhas.
+
+A primeira linha traz dois inteiros, $N$ e $R$, separados por um espaço. $N$ representa o número de sensores e $R$ representa o valor de referência do sensor caso nenhum objeto tenha feito sombra sobre este.
+
+A segunda linha traz uma lista com $N$ inteiros separados por um espaço em branco. Cada um desses números representa o valor de um dos sensores colocados por Ham-Ham Sino.
+
+> Considere $1 \le N \le 100$.
+
+> Considere que tanto $R$ quanto os valores dos sensores estão no intervalo $[1,9]$.","Para cada sensor posicionado por Ham-Ham Bell, você deve imprimir:
+
+* $1$, caso o valor do sensor seja menor ou igual ao valor de referência $R$, indicando que a plantação foi invadida, ou
+
+* $0$, caso o valor do sensor seja estritamente maior que o valor de referência $R$, indicando que a plantação não foi invadida.
+
+Estes valores devem ser impressos na mesma ordem que os sensores são listados na entrada do problema.","No exemplo dado, foram colocados $5$ sensores e o valor de referência $R$ é $5$.
+
+Como o primeiro valor dos sensores é $4$ e $4 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o segundo valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o terceiro valor dos sensores é $6$ e $6 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o quarto valor dos sensores é $7$ e $7 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o último valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.","A leitura de vários inteiros em uma única linha pode ser feita da seguinte forma:
+
+```python
+S = list( map( int, input().split() )
+```
+
+Mas observe que `S` é uma lista. Para acessar cada valor da lista, basta usar o índice (que começa em zero):
+
+```python
+# Por exemplo:
+x = S[0] + S[1]
+print(x)
+print( S[2] - S[0] )
+```
+
+Melhor ainda, você pode varrer cada elemento da lista usando um for.
+
+```python
+for x in S:
+	# Aqui x vai ter o valor x[0], x[1], x[2], ..., um de cada vez
+```
+
+Neste caso, o código base da questão ficaria mais ou menos assim:
+
+```python
+n_sensores, val_referencia = map( int, input().split() )
+lista_sensores = list( map( int, input().split() )
+for val_sensor in lista_sensores:
+	# Aqui fica a logica para solucionar o problema
+	# Basta imprimir o que se espera usando a variavel val_sensor
+```",,G4M3,judge.submission,889,1.0,3.0,202215088337604,Python3,Accepted,0.0,"q_sensor,ref = map(int, input().split())
+array = [None]*q_sensor
+array =input().split("" "")
+for x in range(q_sensor):
+  array[x] = int(array[x])
+  if array[x] <= ref:
+   print ('1')
+  else:
+    print('0')"
+judge.problem,3,1.3,P0003,diff,"Embora o nível de preocupação com os melões esteja baixo, algumas pessoas alegam ter visto vultos na plantação e nas florestas ao redor da cidade.
+
+Sendo assim, pediram para Ham-ham Sino, o inventor, implantar um sistema de fiscalização, colocando sensores ao redor das plantações.
+
+Cada sensor é um pedaço de um material que escurece de acordo com o tempo que ficou exposto à luz do sol ou da lua. Se algo estranho entrar na área do sensor, sua sombra bloqueará a luz por um período.
+
+A tarefa é descobrir se algum objeto fez sombra sobre os sensores, para verificar se os relatos de vultos têm fundamento.","A entrada do problema possui duas linhas.
+
+A primeira linha traz dois inteiros, $N$ e $R$, separados por um espaço. $N$ representa o número de sensores e $R$ representa o valor de referência do sensor caso nenhum objeto tenha feito sombra sobre este.
+
+A segunda linha traz uma lista com $N$ inteiros separados por um espaço em branco. Cada um desses números representa o valor de um dos sensores colocados por Ham-Ham Sino.
+
+> Considere $1 \le N \le 100$.
+
+> Considere que tanto $R$ quanto os valores dos sensores estão no intervalo $[1,9]$.","Para cada sensor posicionado por Ham-Ham Bell, você deve imprimir:
+
+* $1$, caso o valor do sensor seja menor ou igual ao valor de referência $R$, indicando que a plantação foi invadida, ou
+
+* $0$, caso o valor do sensor seja estritamente maior que o valor de referência $R$, indicando que a plantação não foi invadida.
+
+Estes valores devem ser impressos na mesma ordem que os sensores são listados na entrada do problema.","No exemplo dado, foram colocados $5$ sensores e o valor de referência $R$ é $5$.
+
+Como o primeiro valor dos sensores é $4$ e $4 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o segundo valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o terceiro valor dos sensores é $6$ e $6 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o quarto valor dos sensores é $7$ e $7 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o último valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.","A leitura de vários inteiros em uma única linha pode ser feita da seguinte forma:
+
+```python
+S = list( map( int, input().split() )
+```
+
+Mas observe que `S` é uma lista. Para acessar cada valor da lista, basta usar o índice (que começa em zero):
+
+```python
+# Por exemplo:
+x = S[0] + S[1]
+print(x)
+print( S[2] - S[0] )
+```
+
+Melhor ainda, você pode varrer cada elemento da lista usando um for.
+
+```python
+for x in S:
+	# Aqui x vai ter o valor x[0], x[1], x[2], ..., um de cada vez
+```
+
+Neste caso, o código base da questão ficaria mais ou menos assim:
+
+```python
+n_sensores, val_referencia = map( int, input().split() )
+lista_sensores = list( map( int, input().split() )
+for val_sensor in lista_sensores:
+	# Aqui fica a logica para solucionar o problema
+	# Basta imprimir o que se espera usando a variavel val_sensor
+```",,G4M3,judge.submission,890,1.0,3.0,202215088563034,Python3,Accepted,0.0,"q_sensor,ref = [int(x) for x in input().split()]
+array = input().split()
+for x in range(q_sensor):
+  array[x] = int(array[x])
+  if array[x] > ref:
+    print('0')
+  else:
+    print ('1')"
+judge.problem,3,1.3,P0003,diff,"Embora o nível de preocupação com os melões esteja baixo, algumas pessoas alegam ter visto vultos na plantação e nas florestas ao redor da cidade.
+
+Sendo assim, pediram para Ham-ham Sino, o inventor, implantar um sistema de fiscalização, colocando sensores ao redor das plantações.
+
+Cada sensor é um pedaço de um material que escurece de acordo com o tempo que ficou exposto à luz do sol ou da lua. Se algo estranho entrar na área do sensor, sua sombra bloqueará a luz por um período.
+
+A tarefa é descobrir se algum objeto fez sombra sobre os sensores, para verificar se os relatos de vultos têm fundamento.","A entrada do problema possui duas linhas.
+
+A primeira linha traz dois inteiros, $N$ e $R$, separados por um espaço. $N$ representa o número de sensores e $R$ representa o valor de referência do sensor caso nenhum objeto tenha feito sombra sobre este.
+
+A segunda linha traz uma lista com $N$ inteiros separados por um espaço em branco. Cada um desses números representa o valor de um dos sensores colocados por Ham-Ham Sino.
+
+> Considere $1 \le N \le 100$.
+
+> Considere que tanto $R$ quanto os valores dos sensores estão no intervalo $[1,9]$.","Para cada sensor posicionado por Ham-Ham Bell, você deve imprimir:
+
+* $1$, caso o valor do sensor seja menor ou igual ao valor de referência $R$, indicando que a plantação foi invadida, ou
+
+* $0$, caso o valor do sensor seja estritamente maior que o valor de referência $R$, indicando que a plantação não foi invadida.
+
+Estes valores devem ser impressos na mesma ordem que os sensores são listados na entrada do problema.","No exemplo dado, foram colocados $5$ sensores e o valor de referência $R$ é $5$.
+
+Como o primeiro valor dos sensores é $4$ e $4 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o segundo valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.
+
+Como o terceiro valor dos sensores é $6$ e $6 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o quarto valor dos sensores é $7$ e $7 > 5$, o programa deve imprimir $0$, indicando que esta plantação *não foi invadida*.
+
+Como o último valor dos sensores é $3$ e $3 \le 5$, o programa deve imprimir $1$, indicando que esta plantação *foi invadida*.","A leitura de vários inteiros em uma única linha pode ser feita da seguinte forma:
+
+```python
+S = list( map( int, input().split() )
+```
+
+Mas observe que `S` é uma lista. Para acessar cada valor da lista, basta usar o índice (que começa em zero):
+
+```python
+# Por exemplo:
+x = S[0] + S[1]
+print(x)
+print( S[2] - S[0] )
+```
+
+Melhor ainda, você pode varrer cada elemento da lista usando um for.
+
+```python
+for x in S:
+	# Aqui x vai ter o valor x[0], x[1], x[2], ..., um de cada vez
+```
+
+Neste caso, o código base da questão ficaria mais ou menos assim:
+
+```python
+n_sensores, val_referencia = map( int, input().split() )
+lista_sensores = list( map( int, input().split() )
+for val_sensor in lista_sensores:
+	# Aqui fica a logica para solucionar o problema
+	# Basta imprimir o que se espera usando a variavel val_sensor
+```",,G4M3,judge.submission,891,1.0,3.0,202215088931301,Python3,Accepted,0.0,"q_sensor,ref = [int(x) for x in input().split()]
+for it in [int(x) for x in input().split()]:
+  if it > ref:
+    print(0)
+  else:
+    print (1)"
+judge.problem,4,1.4,P0004,diff,"Ao analisar os dados dos sensores, vocês perceberam que alguma(s) coisa(s) realmente estava(m) invadindo as plantações.
+
+Depois de um caloroso momento de reflexão, você, Bilbo, Ham-Ham Bell e o ancião colheiteiro decidiram instalar algumas armadilhas para capturar um ou mais destes invasores. Como o orçamento é bem curto, a vila só dispôs de gold (com patrocínio dos Sorvetes Melônicos Melados) para colocar algumas poucas armadilhas.
+
+Neste caso, o plano seria bem simples: colocar todos os sensores formando uma linha reta. Deste modo, cada invasor ativaria uma sequência de sensores, e no outro dia seria necessário colocar apenas uma armadilha para cada sequência de sensores ativados, esperando que os invasores seguissem o mesmo padrão. 
+
+Como herói-programador da vila (afinal você já resolveu 3 quests, Oooh!), dada a linha de sensores e os valores de ativação, você poderia escrever um programa para determinar a quantidade mínima de armadilhas que devem ser construídas?","A entrada possui várias linhas. A primeira linha traz um inteiro $N$, representando o número de sensores instalados.
+
+Cada uma das $N$ linhas que seguem traz um inteiro por linha, em ordem, representando a sequência dos valores de ativação dos sensores instalados.
+
+Um valor $1$ significa que o sensor foi ativado, enquanto um valor $0$ significa que o sensor não foi ativado.
+
+> Considere $1 \le N \le 100$.",Você deve imprimir apenas um número inteiro: a quantidade mínima de armadilhas que deve ser instalada para que cada conjunto contíguo de sensores ativados possua pelo menos uma armadilha.,"No exemplo dado, o número de sensores é $5$ e a sequência de ativação é 11010. Neste caso, seria necessário no mínimo $2$ armadilhas. A primeira cobriria a área dos sensores $1$ e $2$, enquanto que a segunda cobriria a área do sensor $4$.
+
+> Em detalhes, a sequência de ativação 11010 tem exatamente duas squências contíguas de sensores ativados: [11] 0 [1] 0.","Para resolver este problema, provavelmente você vai querer ler um inteiro por vez. Neste caso, a base do código para solucionar este problema ficaria assim:
+
+```python
+n_sensores = int(input())
+for _ in range(n_sensores):
+	x = int(input())
+```
+
+Mas este problema precisa de um pouco mais de lógica: Uma dica é contar o número de vezes que o número atual é um mas o anterior é zero. Mas cuidado com o primeiro número, se for um também deve ser contado.",,G4M3,judge.submission,562,1.0,4.0,202213366925132,Python3,Accepted,0.0,"N = int(input())
+A = ['0'] + [ input() for x in range(N) ]
+S = ''.join(A)
+print( S.count('01') )"
+judge.problem,5,1.5,P0005,diff,"![1.5.png](http://c073.com/api/media/problem_1053/imagens/1.5.png) 
+
+MELÃOBOLAS!!! E não é que as armadilhas funcionaram!
+
+Para o espanto de todos, vários goblins haviam sido capturados ao longo da noite. Alguns estavam encolhidos, tentando esconder os melões que roubaram. Outros já tinham perdido a paciência depois de um tempo presos e começaram a devorar os melões como se não houvesse amanhã!
+
+Todos perceberam o significado daquilo. Após um período de paz entre humanos e goblins, os pimentões do mundo subterrâneo não foram suficientes para satisfazer os goblins e eles estavam de volta à superfície para roubar todos os melões. Uma nova guerra poderia eclodir a qualquer momento.
+
+E não demorou muito. Ao perceber que seus peões haviam sido capturados, K-Ôru, o pirata goblin das areias, convocou seu exército para um ataque massivo, a fim de libertar os goblins capturados e roubar o máximo possível de melões.
+
+Toda a população da cidade se uniu para defender seus melões. E como você é o único programador na região no momento, foi eleito General-Por-Unanimidade (GPU). Seu papel será de coordenar a defesa e impedir essa terrível invasão. 
+
+O ataque dos goblins é realizado em hordas. Os goblins atacam sempre juntos, então ou a horda toda é bloqueada ou irão roubar melões e resgatar goblins presos. Os goblins não estão interessados em atacar os humanos, então o tamanho do exército de defesa é sempre o mesmo (a população da cidade).  Para cada horda, você deve manter o controle das quantidades de melões roubados e de goblins resgatados.","A entrada possui várias linhas. A primeira linha da entrada contém um inteiro $P$, indicando o tamanho da população da cidade que está de prontidão para defender os melões. 
+
+Na sequência, seguem os ataques dos goblins. Cada ataque é apresentado em uma linha contendo três inteiros: $F$, indicando a força da horda (quantos humanos são necessários para impedí-la); $M$, a quantidade de melões que a horda consegue roubar se não for impedida; e $G$, a quantidade de goblins que serão resgatados, caso a horda não seja bloqueada. 
+
+A entrada acaba com o ataque `0 0 0`, que não deve ser processado.
+
+> Considere $1 \le P \le 100$.
+
+> Considere $1 \le F, M, G \le 200$, para todas as linhas.","Para cada ataque, seu programa deve imprimir uma linha com a informação de quantos melões ($X$) foram roubados e quantos goblins ($Y$) resgatados ATÉ O MOMENTO, seguindo o formato:
+
+```
+Meloes roubados: X
+Goblins resgatados: Y
+---
+```","No exemplo dado, a cidade conseguiu recrutar $50$ aldeões para defendê-la.
+
+Na primeira horda, seriam necessários $40$ humanos para impedi-la. Como $50 > 40$, este ataque foi impedido e nenhum melão foi roubado. Assim como nenhum goblin foi resgatado.
+
+Na segunda horda, seriam necessários $60$ humanos para impedi-la. Como $50 < 60$, este ataque obteve sucesso e foram roubados $30$ melões, assim como $5$ goblins foram resgatados.
+
+Na terceira horda, novamente seriam necessários $60$ humanos para impedi-la. Como $50 < 60$, este ataque obteve sucesso e foram roubados mais $20$ melões, assim como outros $15$ goblins foram resgatados. Isto totaliza no momento $50$ melões roubados e $20$ goblins libertados.
+
+Para a quarta horda, seriam necessários apenas $30$ humanos para impedi-la. Como $50 > 30$, este ataque foi impedido e nenhum melão foi roubado. Assim como nenhum goblin foi resgatado. Até o momento, contudo, $50$ melões roubados e $20$ goblins libertados.
+
+A próxima linha traz o valor `0 0 0`, então o programa termina.","A lógica desta questão é bem simples, basta seguir acumulando os valores quando pertinente.
+
+A novidade, contudo é a leitura, que acaba quando é lida uma linha com `0 0 0`.
+
+Neste caso, o código base para solução do problema seria este:
+
+```python
+pop = int( input() )
+
+forca, meloes, goblins = map( int, input().split() )
+while (forca, meloes, goblins) != (0, 0, 0):
+
+	# Aqui você coloca a lógica...
+
+	forca, meloes, goblins = map( int, input().split() )
+```",,G4M3,judge.submission,882,1.0,5.0,202215085843756,Python3,Accepted,0.0,"pop = int(input())
+acc_meloes = 0
+acc_goblins = 0
+forca, meloes, goblins = map(int,input().split())
+while forca != 0 and meloes != 0 and goblins != 0:
+  if forca >= pop:
+    acc_meloes += meloes
+    acc_goblins += goblins 
+    print(f'Meloes roubados: {acc_meloes}')
+    print(f'Goblins resgatados: {acc_goblins}')
+    print('---')
+  else:
+    print(f'Meloes roubados: {acc_meloes}')
+    print(f'Goblins resgatados: {acc_goblins}')
+    print('---')
+  forca, meloes, goblins = map(int,input().split())"
+judge.problem,5,1.5,P0005,diff,"![1.5.png](http://c073.com/api/media/problem_1053/imagens/1.5.png) 
+
+MELÃOBOLAS!!! E não é que as armadilhas funcionaram!
+
+Para o espanto de todos, vários goblins haviam sido capturados ao longo da noite. Alguns estavam encolhidos, tentando esconder os melões que roubaram. Outros já tinham perdido a paciência depois de um tempo presos e começaram a devorar os melões como se não houvesse amanhã!
+
+Todos perceberam o significado daquilo. Após um período de paz entre humanos e goblins, os pimentões do mundo subterrâneo não foram suficientes para satisfazer os goblins e eles estavam de volta à superfície para roubar todos os melões. Uma nova guerra poderia eclodir a qualquer momento.
+
+E não demorou muito. Ao perceber que seus peões haviam sido capturados, K-Ôru, o pirata goblin das areias, convocou seu exército para um ataque massivo, a fim de libertar os goblins capturados e roubar o máximo possível de melões.
+
+Toda a população da cidade se uniu para defender seus melões. E como você é o único programador na região no momento, foi eleito General-Por-Unanimidade (GPU). Seu papel será de coordenar a defesa e impedir essa terrível invasão. 
+
+O ataque dos goblins é realizado em hordas. Os goblins atacam sempre juntos, então ou a horda toda é bloqueada ou irão roubar melões e resgatar goblins presos. Os goblins não estão interessados em atacar os humanos, então o tamanho do exército de defesa é sempre o mesmo (a população da cidade).  Para cada horda, você deve manter o controle das quantidades de melões roubados e de goblins resgatados.","A entrada possui várias linhas. A primeira linha da entrada contém um inteiro $P$, indicando o tamanho da população da cidade que está de prontidão para defender os melões. 
+
+Na sequência, seguem os ataques dos goblins. Cada ataque é apresentado em uma linha contendo três inteiros: $F$, indicando a força da horda (quantos humanos são necessários para impedí-la); $M$, a quantidade de melões que a horda consegue roubar se não for impedida; e $G$, a quantidade de goblins que serão resgatados, caso a horda não seja bloqueada. 
+
+A entrada acaba com o ataque `0 0 0`, que não deve ser processado.
+
+> Considere $1 \le P \le 100$.
+
+> Considere $1 \le F, M, G \le 200$, para todas as linhas.","Para cada ataque, seu programa deve imprimir uma linha com a informação de quantos melões ($X$) foram roubados e quantos goblins ($Y$) resgatados ATÉ O MOMENTO, seguindo o formato:
+
+```
+Meloes roubados: X
+Goblins resgatados: Y
+---
+```","No exemplo dado, a cidade conseguiu recrutar $50$ aldeões para defendê-la.
+
+Na primeira horda, seriam necessários $40$ humanos para impedi-la. Como $50 > 40$, este ataque foi impedido e nenhum melão foi roubado. Assim como nenhum goblin foi resgatado.
+
+Na segunda horda, seriam necessários $60$ humanos para impedi-la. Como $50 < 60$, este ataque obteve sucesso e foram roubados $30$ melões, assim como $5$ goblins foram resgatados.
+
+Na terceira horda, novamente seriam necessários $60$ humanos para impedi-la. Como $50 < 60$, este ataque obteve sucesso e foram roubados mais $20$ melões, assim como outros $15$ goblins foram resgatados. Isto totaliza no momento $50$ melões roubados e $20$ goblins libertados.
+
+Para a quarta horda, seriam necessários apenas $30$ humanos para impedi-la. Como $50 > 30$, este ataque foi impedido e nenhum melão foi roubado. Assim como nenhum goblin foi resgatado. Até o momento, contudo, $50$ melões roubados e $20$ goblins libertados.
+
+A próxima linha traz o valor `0 0 0`, então o programa termina.","A lógica desta questão é bem simples, basta seguir acumulando os valores quando pertinente.
+
+A novidade, contudo é a leitura, que acaba quando é lida uma linha com `0 0 0`.
+
+Neste caso, o código base para solução do problema seria este:
+
+```python
+pop = int( input() )
+
+forca, meloes, goblins = map( int, input().split() )
+while (forca, meloes, goblins) != (0, 0, 0):
+
+	# Aqui você coloca a lógica...
+
+	forca, meloes, goblins = map( int, input().split() )
+```",,G4M3,judge.submission,886,1.0,5.0,202215086888221,Python3,Accepted,0.0,"pop = int(input())
+acc_meloes = 0
+acc_goblins = 0
+forca, meloes, goblins = map(int,input().split())
+while forca != 0 and meloes != 0 and goblins != 0:
+  if forca >= pop:
+    acc_meloes += meloes
+    acc_goblins += goblins 
+    print(f'Meloes roubados: {acc_meloes}')
+    print(f'Goblins resgatados: {acc_goblins}')
+    print('---')
+  else:
+    print(f'Meloes roubados: {acc_meloes}')
+    print(f'Goblins resgatados: {acc_goblins}')
+    print('---')
+  forca, meloes, goblins = map(int,input().split())"
+judge.problem,5,1.5,P0005,diff,"![1.5.png](http://c073.com/api/media/problem_1053/imagens/1.5.png) 
+
+MELÃOBOLAS!!! E não é que as armadilhas funcionaram!
+
+Para o espanto de todos, vários goblins haviam sido capturados ao longo da noite. Alguns estavam encolhidos, tentando esconder os melões que roubaram. Outros já tinham perdido a paciência depois de um tempo presos e começaram a devorar os melões como se não houvesse amanhã!
+
+Todos perceberam o significado daquilo. Após um período de paz entre humanos e goblins, os pimentões do mundo subterrâneo não foram suficientes para satisfazer os goblins e eles estavam de volta à superfície para roubar todos os melões. Uma nova guerra poderia eclodir a qualquer momento.
+
+E não demorou muito. Ao perceber que seus peões haviam sido capturados, K-Ôru, o pirata goblin das areias, convocou seu exército para um ataque massivo, a fim de libertar os goblins capturados e roubar o máximo possível de melões.
+
+Toda a população da cidade se uniu para defender seus melões. E como você é o único programador na região no momento, foi eleito General-Por-Unanimidade (GPU). Seu papel será de coordenar a defesa e impedir essa terrível invasão. 
+
+O ataque dos goblins é realizado em hordas. Os goblins atacam sempre juntos, então ou a horda toda é bloqueada ou irão roubar melões e resgatar goblins presos. Os goblins não estão interessados em atacar os humanos, então o tamanho do exército de defesa é sempre o mesmo (a população da cidade).  Para cada horda, você deve manter o controle das quantidades de melões roubados e de goblins resgatados.","A entrada possui várias linhas. A primeira linha da entrada contém um inteiro $P$, indicando o tamanho da população da cidade que está de prontidão para defender os melões. 
+
+Na sequência, seguem os ataques dos goblins. Cada ataque é apresentado em uma linha contendo três inteiros: $F$, indicando a força da horda (quantos humanos são necessários para impedí-la); $M$, a quantidade de melões que a horda consegue roubar se não for impedida; e $G$, a quantidade de goblins que serão resgatados, caso a horda não seja bloqueada. 
+
+A entrada acaba com o ataque `0 0 0`, que não deve ser processado.
+
+> Considere $1 \le P \le 100$.
+
+> Considere $1 \le F, M, G \le 200$, para todas as linhas.","Para cada ataque, seu programa deve imprimir uma linha com a informação de quantos melões ($X$) foram roubados e quantos goblins ($Y$) resgatados ATÉ O MOMENTO, seguindo o formato:
+
+```
+Meloes roubados: X
+Goblins resgatados: Y
+---
+```","No exemplo dado, a cidade conseguiu recrutar $50$ aldeões para defendê-la.
+
+Na primeira horda, seriam necessários $40$ humanos para impedi-la. Como $50 > 40$, este ataque foi impedido e nenhum melão foi roubado. Assim como nenhum goblin foi resgatado.
+
+Na segunda horda, seriam necessários $60$ humanos para impedi-la. Como $50 < 60$, este ataque obteve sucesso e foram roubados $30$ melões, assim como $5$ goblins foram resgatados.
+
+Na terceira horda, novamente seriam necessários $60$ humanos para impedi-la. Como $50 < 60$, este ataque obteve sucesso e foram roubados mais $20$ melões, assim como outros $15$ goblins foram resgatados. Isto totaliza no momento $50$ melões roubados e $20$ goblins libertados.
+
+Para a quarta horda, seriam necessários apenas $30$ humanos para impedi-la. Como $50 > 30$, este ataque foi impedido e nenhum melão foi roubado. Assim como nenhum goblin foi resgatado. Até o momento, contudo, $50$ melões roubados e $20$ goblins libertados.
+
+A próxima linha traz o valor `0 0 0`, então o programa termina.","A lógica desta questão é bem simples, basta seguir acumulando os valores quando pertinente.
+
+A novidade, contudo é a leitura, que acaba quando é lida uma linha com `0 0 0`.
+
+Neste caso, o código base para solução do problema seria este:
+
+```python
+pop = int( input() )
+
+forca, meloes, goblins = map( int, input().split() )
+while (forca, meloes, goblins) != (0, 0, 0):
+
+	# Aqui você coloca a lógica...
+
+	forca, meloes, goblins = map( int, input().split() )
+```",,G4M3,judge.submission,887,1.0,5.0,202215086957081,Python3,Accepted,0.0,"pop = int(input())
+acc_goblins = 0
+acc_meloes = 0
+while True:
+  forca, meloes, goblins = [int(x) for x in input().split()]
+  if forca == 0 and meloes == 0 and goblins == 0:
+    break
+  if forca < pop:
+    print(f'Meloes roubados: {acc_meloes}')
+    print(f'Goblins resgatados: {acc_goblins}')
+    print('---')
+  else:
+    acc_goblins += goblins 
+    acc_meloes += meloes
+    print(f'Meloes roubados: {acc_meloes}')
+    print(f'Goblins resgatados: {acc_goblins}')
+    print('---')"
+judge.problem,5,1.5,P0005,diff,"![1.5.png](http://c073.com/api/media/problem_1053/imagens/1.5.png) 
+
+MELÃOBOLAS!!! E não é que as armadilhas funcionaram!
+
+Para o espanto de todos, vários goblins haviam sido capturados ao longo da noite. Alguns estavam encolhidos, tentando esconder os melões que roubaram. Outros já tinham perdido a paciência depois de um tempo presos e começaram a devorar os melões como se não houvesse amanhã!
+
+Todos perceberam o significado daquilo. Após um período de paz entre humanos e goblins, os pimentões do mundo subterrâneo não foram suficientes para satisfazer os goblins e eles estavam de volta à superfície para roubar todos os melões. Uma nova guerra poderia eclodir a qualquer momento.
+
+E não demorou muito. Ao perceber que seus peões haviam sido capturados, K-Ôru, o pirata goblin das areias, convocou seu exército para um ataque massivo, a fim de libertar os goblins capturados e roubar o máximo possível de melões.
+
+Toda a população da cidade se uniu para defender seus melões. E como você é o único programador na região no momento, foi eleito General-Por-Unanimidade (GPU). Seu papel será de coordenar a defesa e impedir essa terrível invasão. 
+
+O ataque dos goblins é realizado em hordas. Os goblins atacam sempre juntos, então ou a horda toda é bloqueada ou irão roubar melões e resgatar goblins presos. Os goblins não estão interessados em atacar os humanos, então o tamanho do exército de defesa é sempre o mesmo (a população da cidade).  Para cada horda, você deve manter o controle das quantidades de melões roubados e de goblins resgatados.","A entrada possui várias linhas. A primeira linha da entrada contém um inteiro $P$, indicando o tamanho da população da cidade que está de prontidão para defender os melões. 
+
+Na sequência, seguem os ataques dos goblins. Cada ataque é apresentado em uma linha contendo três inteiros: $F$, indicando a força da horda (quantos humanos são necessários para impedí-la); $M$, a quantidade de melões que a horda consegue roubar se não for impedida; e $G$, a quantidade de goblins que serão resgatados, caso a horda não seja bloqueada. 
+
+A entrada acaba com o ataque `0 0 0`, que não deve ser processado.
+
+> Considere $1 \le P \le 100$.
+
+> Considere $1 \le F, M, G \le 200$, para todas as linhas.","Para cada ataque, seu programa deve imprimir uma linha com a informação de quantos melões ($X$) foram roubados e quantos goblins ($Y$) resgatados ATÉ O MOMENTO, seguindo o formato:
+
+```
+Meloes roubados: X
+Goblins resgatados: Y
+---
+```","No exemplo dado, a cidade conseguiu recrutar $50$ aldeões para defendê-la.
+
+Na primeira horda, seriam necessários $40$ humanos para impedi-la. Como $50 > 40$, este ataque foi impedido e nenhum melão foi roubado. Assim como nenhum goblin foi resgatado.
+
+Na segunda horda, seriam necessários $60$ humanos para impedi-la. Como $50 < 60$, este ataque obteve sucesso e foram roubados $30$ melões, assim como $5$ goblins foram resgatados.
+
+Na terceira horda, novamente seriam necessários $60$ humanos para impedi-la. Como $50 < 60$, este ataque obteve sucesso e foram roubados mais $20$ melões, assim como outros $15$ goblins foram resgatados. Isto totaliza no momento $50$ melões roubados e $20$ goblins libertados.
+
+Para a quarta horda, seriam necessários apenas $30$ humanos para impedi-la. Como $50 > 30$, este ataque foi impedido e nenhum melão foi roubado. Assim como nenhum goblin foi resgatado. Até o momento, contudo, $50$ melões roubados e $20$ goblins libertados.
+
+A próxima linha traz o valor `0 0 0`, então o programa termina.","A lógica desta questão é bem simples, basta seguir acumulando os valores quando pertinente.
+
+A novidade, contudo é a leitura, que acaba quando é lida uma linha com `0 0 0`.
+
+Neste caso, o código base para solução do problema seria este:
+
+```python
+pop = int( input() )
+
+forca, meloes, goblins = map( int, input().split() )
+while (forca, meloes, goblins) != (0, 0, 0):
+
+	# Aqui você coloca a lógica...
+
+	forca, meloes, goblins = map( int, input().split() )
+```",,G4M3,judge.submission,888,1.0,5.0,202215087639909,Python3,Accepted,0.0,"pop = int(input())
+acc_goblins = 0
+acc_meloes = 0
+while True:
+  forca, meloes, goblins = [int(x) for x in input().split()]
+  if forca == 0 and meloes == 0 and goblins == 0:
+    break
+  if forca >= pop:
+    acc_goblins = goblins + acc_goblins 
+    acc_meloes = meloes + acc_meloes 
+  print(f'Meloes roubados: {acc_meloes}\nGoblins resgatados: {acc_goblins}\n---')"
+judge.problem,6,2.1,P0014,diff,"Ao chegar na Planície dos Melões, a segunda cidade, você percebe um certo tumulto. Algumas pessoas vieram lhe contar que avistaram um goblin ligeiro, atrapalhado, amedrontado, e com uma camisa com os dizeres: “Culpe a mensagem, não o mensageiro” fugindo para uma caverna da região.
+
+Ele deixou cair um pedaço de papel com algumas palavras escritas. Mas o papel estava criptografado e ninguém conseguia ler. Você já lidou com muitos goblins na cidade anterior e sabe que eles são péssimos em identificar padrões complexos. Desta forma, seria muito fácil decodificar a inscrição.
+
+> Uma pista: por quê a letra P se repete tanto?","A entrada consiste em apenas uma linha com um texto criptografado na língua do P.
+
+> Considere que a linha possui no mínimo 10 e no máximo 6000 caracteres.
+
+Considere ainda que o texto é composto por várias palavras, separadas por espaço. Cada palavra possui um ou mais caracteres do seguinte conjunto:
+
+- Letras minúsculas sem acento (goblins não usam o cedilha).
+- Letras maiúsculas sem acento (goblins não usam o cedilha).
+- Algun(s) destes caracteres de pontuação: `:,.!?`",Seu programa deve imprimir exatamente uma linha com o texto decodificado.,,"A entrada possui apenas uma linha. Segue o código para ler uma linha como string:
+
+```python
+line = input()
+```
+
+Uma forma de resolver a questão seria varrer cada caractere da entrada e decidir se imprime ou não. Segue um código que pode ser usado como base:
+
+```python
+line = input()
+for letter in line:
+	# A logica vem aqui...",,G4M3,judge.submission,31,1.0,6.0,202204295057832,Python3,Accepted,0.0,"linha = input().split()
+
+for w in linha:
+    P=False
+    for c in w:
+        P = not P
+        if P == False:
+            print(c, end='')
+
+    print(' ', end='')"
+judge.problem,7,2.2,P0006,diff,"Após a quebra da incrível criptografia goblínica você sentiu uma fome descomunal e resolveu provar a maior das especiarias desta cidade: O Pão Doce de Melão-Papaya (Huuuuum!).
+
+De alguma forma, no entanto, você começou a se sentir observado. E o que era apenas um sentimento, logo tornou-se realidade. O ancião mensageiro da vila, sabendo do seu sucesso como herói-programador (e também por falta de opção), pediu sua ajuda para investigar um crime gravíssimo: estão falando de Fadas!
+
+> Não que seja exatamente uma lei, mas é que depois daqueles acontecimentos (rsrsrsrs) é extremamente constrangedor falar sobre estes seres. Então... se tornou meio que falta de educação tocar no assunto.
+
+Para ajudar o ancião mensageiro, você precisa escrever um programa que leia todas as mensagens que ele trouxe e verifique quantas falam de fadas.","A entrada possui várias linhas. A primeira linha traz um inteiro $N$, representando o número de mensagens trazidas pelo ancião.
+
+Seguem exatamente $N$ linhas. Cada uma traz uma mensagem a ser analisada.
+
+> Considere $1 \le N \le 100$ e que cada mensagem tem pelo menos 1 e no máximo 2000 caracteres.","A saída deve ser um número inteiro, representando o número de mensagens que tem a palavra Fada.
+
+> Note que é falta de educação escrever sobre fadas usando letras maiúsculas ou minúsculas ou mesmo uma mistura das duas. Também não deve ser usada a palavra fada dentro de outras palavras, como em ceifada, fadaiada, almofada, enfadada...","No exemplo dado, o número de mensagens que você precisa analisar é $N=4$.
+
+A primeira mensagem não toca no assunto das fadas. Total = 0;
+
+A segunda palavra da segunda mensagem é fada. Total = 1;
+
+A sétima palavra da terceira mensagem é FaDa. Total = 2;
+
+O pessoal da mensagem 4 conseguiu fugir do filtro proposto. F.a.D.a não conta. Total = 2;
+
+> Note que fada aparece duas vezes na segunda mensagem, mas como queremos contar o número de mensagens suspeitas, só deve ser somado 1 ao total.","Você pode resolver realizando duas operações para cada linha: `upper()` e `find()`.
+
+Seguem as referências para cada função: 
+
+[https://python-reference.readthedocs.io/en/latest/docs/str/upper.html](https://python-reference.readthedocs.io/en/latest/docs/str/upper.html)
+
+[https://python-reference.readthedocs.io/en/latest/docs/str/find.html](https://python-reference.readthedocs.io/en/latest/docs/str/find.html)",,G4M3,judge.submission,1789,1.0,7.0,202225455658675,Python3,Accepted,0.0,"N = int(input())
+acc=0
+for i in range(N):
+  l = input().upper()
+  if 'FADA' in l: acc+=1
+print(acc)"
+judge.problem,8,2.3,P0007,diff,"Você começou a achar meio cansativo toda essa história de ser o herói-programador da vila. Então nada melhor que procurar um lugar calmo e agradável para descansar...
+
+Exatamente 27 segundos depois que você se aconchegou num convidativo monte de feno ao lado do celeiro das ovelhas você escuta uma grande discussão sobre os nomes dos habitantes da vila.
+
+A anciã nomeadora está extremamente descontente com os nomes dos moradores. Eles não seguem nenhuma lógica plausível e você foi convidado, como herói-programador, a intervir e ajudá-la a elaborar o Manual Supremo dos Nomes (MSN).
+
+Seu papel consiste apenas em determinar os nomes de todos os habitantes da cidade, sem repetição. Depois a anciã nomeadora prometeu deixar você dormir.","A entrada possui várias linhas. A primeira linha traz um inteiro $N$, representando o número de habitantes da vila.
+
+Seguem exatamente $N$ linhas. Cada uma traz uma com o nome de um habitante.
+
+> Considere $1 \le N \le 100$ e que cada nome tem pelo menos 1 e no máximo 100 caracteres.
+
+> Todos os nomes usam apenas letras maiúsculas.","Imprimir a lista de nomes sem nenhum nome duplicado. Os nomes devem aparecer na mesma ordem da entrada, exceto, logicamente, por aqueles que foram removidos por serem duplicatas.",,"Para evitar as duplicatas, podemos usar os dicionários do Python e a função `get()`:
+
+```python
+D = {}         # Criando um dicionário vazio
+D[ x ] = 1     # Adicionando o valor 1 para a chave representada pela variável x
+D.get( x, -1 ) # Obtem o valor associado à chave da variável x
+               # caso a chave esteja vazia, retorne -1
+```
+
+Neste caso, basta ler as linhas, uma a uma, e verificar se já estão no dicionário.
+
+Para mais informações: [https://www.w3schools.com/python/python_dictionaries.asp](https://www.w3schools.com/python/python_dictionaries.asp)",,G4M3,judge.submission,1763,1.0,8.0,202224435218238,Python3,Accepted,0.0,"n = int(input())
+
+base = []
+for i in range(n):
+    s = input()
+    if s in base: continue
+    print(s)
+    base.append(s)"
+judge.problem,8,2.3,P0007,diff,"Você começou a achar meio cansativo toda essa história de ser o herói-programador da vila. Então nada melhor que procurar um lugar calmo e agradável para descansar...
+
+Exatamente 27 segundos depois que você se aconchegou num convidativo monte de feno ao lado do celeiro das ovelhas você escuta uma grande discussão sobre os nomes dos habitantes da vila.
+
+A anciã nomeadora está extremamente descontente com os nomes dos moradores. Eles não seguem nenhuma lógica plausível e você foi convidado, como herói-programador, a intervir e ajudá-la a elaborar o Manual Supremo dos Nomes (MSN).
+
+Seu papel consiste apenas em determinar os nomes de todos os habitantes da cidade, sem repetição. Depois a anciã nomeadora prometeu deixar você dormir.","A entrada possui várias linhas. A primeira linha traz um inteiro $N$, representando o número de habitantes da vila.
+
+Seguem exatamente $N$ linhas. Cada uma traz uma com o nome de um habitante.
+
+> Considere $1 \le N \le 100$ e que cada nome tem pelo menos 1 e no máximo 100 caracteres.
+
+> Todos os nomes usam apenas letras maiúsculas.","Imprimir a lista de nomes sem nenhum nome duplicado. Os nomes devem aparecer na mesma ordem da entrada, exceto, logicamente, por aqueles que foram removidos por serem duplicatas.",,"Para evitar as duplicatas, podemos usar os dicionários do Python e a função `get()`:
+
+```python
+D = {}         # Criando um dicionário vazio
+D[ x ] = 1     # Adicionando o valor 1 para a chave representada pela variável x
+D.get( x, -1 ) # Obtem o valor associado à chave da variável x
+               # caso a chave esteja vazia, retorne -1
+```
+
+Neste caso, basta ler as linhas, uma a uma, e verificar se já estão no dicionário.
+
+Para mais informações: [https://www.w3schools.com/python/python_dictionaries.asp](https://www.w3schools.com/python/python_dictionaries.asp)",,G4M3,judge.submission,1773,1.0,8.0,202224670770971,Python3,Accepted,0.0,"name = []
+k = int(input())
+for i in range (k):
+  name2 = str(input())
+  if name2 not in name:
+    name.append(name2)
+
+for i in name:
+  print(i)"
+judge.problem,9,2.4,P0008,diff,"Terminou que o seu trabalho em conjunto com a anciã nomeadora fez um sucesso absurdo (e ninguém sabe o motivo). Em comemoração ao MSN, a população decidiu fazer uma grande festa.
+
+E como todo mundo desta vila é bem competitivo, o Concurso Ousado de Poesias Admiráveis (COPA) está atraindo a atenção de todos e precisa de sua ajuda para determinar qual o poema mais bonito.
+
+> Vixe! Você não eh muito conhecido pela sensibilidade artística... Então vamos usar a matemática!
+
+Os poetas da cidade seguem um padrão bem específico. Cada poema contém exatamente $4$ versos: o primeiro rima com o terceiro; o segundo rima com o quarto. Além disso, a última palavra de cada verso sempre tem o mesmo número de letras.
+
+A beleza de uma rima entre dois versos é a quantidade de letras iguais no final da última palavra deles. A beleza de um poema é a soma das belezas das duas rimas.","A entrada possui exatamente 4 linhas.
+
+Cada linha representa um dos versos do poema.
+
+> Considere que cada verso tem pelo menos 1 e no máximo 2000 caracteres.
+
+> Todos os versos usam apenas letras minúsculas (ou espaços, ou vírgulas).
+
+> A última palavra de cada verso possui apenas letras minúsculas e nenhum verso tem pontuação no final.",Seu programa deve imprimir apenas um número inteiro: a beleza do poema.,"No exemplo dado, a palavra `papaya` (última do primeiro verso) deve rimar com a palavra `aquece` (última do terceiro verso). Como não possuem nenhuma letra em comum no final, a beleza desta rima é $0$.
+
+Adicionalmente,  a palavra `poesia` (última do segundo verso) deve rimar com a palavra `esfria` (última do quarto verso). Como as duas palavras terminam com `ia`, a beleza desta rima é $2$.
+
+Somando, temos que a beleza total deste poema é $0 + 2 = 2$","A resolução desta questão fica bem mais simples usando slices de listas e de strings do Python.
+
+Para pegar a última palavra de cada linha, pode usar o seguinte slice:
+
+```python
+ultima_palavra = line.split()[-1]
+```
+
+Para pegar os últimos `x` caracteres da ultima palavra:
+
+```python
+ultimos_x = ultima_palavra[ -x : ]
+```
+
+Para mais informações:
+
+[https://www.youtube.com/watch?v=ajrtAuDg3yw](https://www.youtube.com/watch?v=ajrtAuDg3yw)",,G4M3,judge.submission,2578,1.0,9.0,202319216415394,Python3,Accepted,0.0,"p1, p2, p3, p4 = [ input().split()[-1][::-1] for _ in ""1234"" ]
+
+def price( a, b ):
+    for i in range( len(a) ):
+        if a[i] != b[i]: return i
+
+    return len(a)
+
+print( price(p1, p3) + price(p2, p4) )"
+judge.problem,10,2.5,P0009,diff,"![2.5.png](http://c073.com/api/media/problem_1059/imagens/2.5.png) 
+
+Você finalmente tomou coragem para seguir a pista que descobriu no bilhete criptografado dos goblins. Seguindo rastros de melões comidos, você descobre facilmente a localização de um goblin grande e confuso. Ele está resmungando algo que não dá pra entender direito. Mas ele fala de si mesmo em terceira pessoa, então você identificou que seu nome é Glooid. 
+
+> Aparentemente, toda a população da cidade está na COPA (rsrsrs) então você se prepara para enfrentar os perigos sozinho, o que poderia dar errado?
+
+Como as únicas coisas que você tem à disposição são melões, a solução parece ser atirá-los no goblin sempre que ele se distrair. Às vezes, ele está tão distraído que nem sente o tiro de melão (mas se até a água fura a pedra, quem dirá um melão num goblin).
+
+A estratégia é bem simples, você consegue encontrar um conjunto de esconderijos alinhados e já se dirige para o primeiro esconderijo da esquerda (dizemos esconderijo $0$). Usando seu celular, você consegue bater uma foto (silenciosamente e sem flash) e ver para quais esconderijos Glooid está olhando com relativa certeza.
+
+Sempre que bater uma foto, você pode escolher atirar um melão (quando ele não estiver olhando, claro), ou mudar de esconderijo.
+
+> Para mudar de um esconderijo para outro, o goblin não pode estar olhando para nenhum dos dois.
+
+No começo, você está no esconderijo $0$. Só é possível mudar para um esconderijo vizinho ($+1$ ou $-1$). Para evitar ser visto, você opta por mudar de esconderijo sempre que só houver uma possibilidade de mudança. Caso o goblin esteja olhando na direção do seu esconderijo, o melhor a fazer é ficar quieto e não se mexer. Caso contrário, é hora de atirar um melão.","A entrada é composta por várias linhas. Cada linha representa uma foto tirada com seu celular.
+
+Cada foto é composta apenas pelos caracteres `O` e `X`. `O` indica que o goblin não está olhando para o esconderijo e `X` indica que ele está olhando.
+
+Todas as fotos tem exatamente a mesma quantidade de letras, visto que a quantidade de esconderijos não muda. A entrada acaba quando o boss não olhar para nenhuma direção (`OOO...OO`). 
+
+> Considere que há no máximo $100$ esconderijos e que foram batidas no máximo $100$ fotos.","Para cada foto, seu programa deve imprimir `Tiro de Melão!!!`, `Correndo pro esconderijo X!` ou `Silêncio...`, de acordo com a ação tomada.
+
+Ao encerrar, imprimir `Vitória com Y melões!`","No exemplo dado:
+
+A primeira foto mostra o goblin olhando para o seu esconderijo, pois a posição $0$ da string possui o caractere `X`.
+
+Na segunda foto, o goblin não está olhando para seu esconderijo, mas não há nenhum movimento possivel, pois não há vizinho à esquerda e o goblin está olhando para o esconderijo $1$. Neste caso, melão nele!
+
+Na terceira foto, há exatamente uma opção de mudança de esconderijo e o goblin não está olhando para onde você está... então vamos para o esconderijo $1$.
+
+Na foto $4$, há duas opções de mudança de esconderijo e o goblin não está olhando para seu esconderijo... melão nele!
+
+Na foto $5$, não se deve fazer nada, pois o goblin está olhando para o seu esconderijo (o número $1$).
+
+Na sexta foto, o goblin não está olhando para seu esconderijo, mas não há nenhum movimento possivel, pois o goblin está olhando tanto para o esconderijo $0$ quanto para o $2$. Neste caso, melão nele!
+
+Na última linha, não há locais para onde o goblin olhou... ele deve ter desmaiado!","Seguem algumas pequenas dicas... afinal é um Chefão!
+
+Segue um código base sobre como terminar a execução:
+
+```python
+while True:
+	line = input()
+	if 'X' in line:
+		break
+```
+
+Segue um código para verificar se as posições são `O` ou `1`:
+
+```python
+                 # 01234567
+line = input()   # OOOXOOOO
+pos = 3
+line[pos]        # X
+line[pos-1]      # O
+line[pos+1]      # O
+```
+
+Como pegar o numero de esconderijos ?
+
+```python
+line = input()
+n_esconderijos = len( line )
+```
+
+Como evitar erros no início e no fim da lista de esconderijos? Que tal uma função?
+
+```python
+def get_esconderijo( line, pos ):
+	if pos < 0:
+		return 'X'
+
+	if pos >= len(line):
+		return 'X'
+
+	return line[pos]",,G4M3,judge.submission,892,1.0,10.0,202215090492297,Python3,Accepted,0.0,"pos = 0
+meloes_atirados = 0
+linha = input()
+while linha.find('X') != -1:
+    if linha[pos] == 'X':
+        print('Silêncio...')
+        linha = input()
+        continue
+
+    esq = 'X' if pos == 0 or linha[pos-1] == 'X' else 'O'
+    dir = 'X' if pos == len(linha)-1 or linha[pos+1] == 'X' else 'O'
+
+    if esq == 'O' and dir == 'X':
+        pos = pos-1
+        print(f'Correndo pro esconderijo {pos}!')
+        linha = input()
+        continue
+
+    if esq == 'X' and dir == 'O':
+        pos = pos+1
+        print(f'Correndo pro esconderijo {pos}!')
+        linha = input()
+        continue
+
+    print('Tiro de Melão!!!')
+    meloes_atirados += 1
+
+    linha = input()
+
+print(f'Vitória com {meloes_atirados} melões!')"
+judge.problem,10,2.5,P0009,diff,"![2.5.png](http://c073.com/api/media/problem_1059/imagens/2.5.png) 
+
+Você finalmente tomou coragem para seguir a pista que descobriu no bilhete criptografado dos goblins. Seguindo rastros de melões comidos, você descobre facilmente a localização de um goblin grande e confuso. Ele está resmungando algo que não dá pra entender direito. Mas ele fala de si mesmo em terceira pessoa, então você identificou que seu nome é Glooid. 
+
+> Aparentemente, toda a população da cidade está na COPA (rsrsrs) então você se prepara para enfrentar os perigos sozinho, o que poderia dar errado?
+
+Como as únicas coisas que você tem à disposição são melões, a solução parece ser atirá-los no goblin sempre que ele se distrair. Às vezes, ele está tão distraído que nem sente o tiro de melão (mas se até a água fura a pedra, quem dirá um melão num goblin).
+
+A estratégia é bem simples, você consegue encontrar um conjunto de esconderijos alinhados e já se dirige para o primeiro esconderijo da esquerda (dizemos esconderijo $0$). Usando seu celular, você consegue bater uma foto (silenciosamente e sem flash) e ver para quais esconderijos Glooid está olhando com relativa certeza.
+
+Sempre que bater uma foto, você pode escolher atirar um melão (quando ele não estiver olhando, claro), ou mudar de esconderijo.
+
+> Para mudar de um esconderijo para outro, o goblin não pode estar olhando para nenhum dos dois.
+
+No começo, você está no esconderijo $0$. Só é possível mudar para um esconderijo vizinho ($+1$ ou $-1$). Para evitar ser visto, você opta por mudar de esconderijo sempre que só houver uma possibilidade de mudança. Caso o goblin esteja olhando na direção do seu esconderijo, o melhor a fazer é ficar quieto e não se mexer. Caso contrário, é hora de atirar um melão.","A entrada é composta por várias linhas. Cada linha representa uma foto tirada com seu celular.
+
+Cada foto é composta apenas pelos caracteres `O` e `X`. `O` indica que o goblin não está olhando para o esconderijo e `X` indica que ele está olhando.
+
+Todas as fotos tem exatamente a mesma quantidade de letras, visto que a quantidade de esconderijos não muda. A entrada acaba quando o boss não olhar para nenhuma direção (`OOO...OO`). 
+
+> Considere que há no máximo $100$ esconderijos e que foram batidas no máximo $100$ fotos.","Para cada foto, seu programa deve imprimir `Tiro de Melão!!!`, `Correndo pro esconderijo X!` ou `Silêncio...`, de acordo com a ação tomada.
+
+Ao encerrar, imprimir `Vitória com Y melões!`","No exemplo dado:
+
+A primeira foto mostra o goblin olhando para o seu esconderijo, pois a posição $0$ da string possui o caractere `X`.
+
+Na segunda foto, o goblin não está olhando para seu esconderijo, mas não há nenhum movimento possivel, pois não há vizinho à esquerda e o goblin está olhando para o esconderijo $1$. Neste caso, melão nele!
+
+Na terceira foto, há exatamente uma opção de mudança de esconderijo e o goblin não está olhando para onde você está... então vamos para o esconderijo $1$.
+
+Na foto $4$, há duas opções de mudança de esconderijo e o goblin não está olhando para seu esconderijo... melão nele!
+
+Na foto $5$, não se deve fazer nada, pois o goblin está olhando para o seu esconderijo (o número $1$).
+
+Na sexta foto, o goblin não está olhando para seu esconderijo, mas não há nenhum movimento possivel, pois o goblin está olhando tanto para o esconderijo $0$ quanto para o $2$. Neste caso, melão nele!
+
+Na última linha, não há locais para onde o goblin olhou... ele deve ter desmaiado!","Seguem algumas pequenas dicas... afinal é um Chefão!
+
+Segue um código base sobre como terminar a execução:
+
+```python
+while True:
+	line = input()
+	if 'X' in line:
+		break
+```
+
+Segue um código para verificar se as posições são `O` ou `1`:
+
+```python
+                 # 01234567
+line = input()   # OOOXOOOO
+pos = 3
+line[pos]        # X
+line[pos-1]      # O
+line[pos+1]      # O
+```
+
+Como pegar o numero de esconderijos ?
+
+```python
+line = input()
+n_esconderijos = len( line )
+```
+
+Como evitar erros no início e no fim da lista de esconderijos? Que tal uma função?
+
+```python
+def get_esconderijo( line, pos ):
+	if pos < 0:
+		return 'X'
+
+	if pos >= len(line):
+		return 'X'
+
+	return line[pos]",,G4M3,judge.submission,893,1.0,10.0,202215090842962,Python3,Accepted,0.0,"pos = 0
+meloes_atirados = 0
+esq = ''
+dir = ''
+while True:
+    linha = input()
+    
+    if linha.find('X') == -1:
+        break
+
+    esq = 'X' if pos == 0 or linha[pos-1] == 'X' else 'O'
+    dir = 'X' if pos == len(linha)-1 or linha[pos+1] == 'X' else 'O'
+    
+    if linha[pos] == 'X':
+        print('Silêncio...')
+    elif esq == 'X' and dir == 'O':
+        pos = pos+1
+        print(f'Correndo pro esconderijo {pos}!')
+    elif esq == 'O' and dir == 'X':
+        pos = pos-1
+        print(f'Correndo pro esconderijo {pos}!')
+    else:
+        print('Tiro de Melão!!!')
+        meloes_atirados += 1
+
+print(f'Vitória com {meloes_atirados} melões!')"
+judge.problem,10,2.5,P0009,diff,"![2.5.png](http://c073.com/api/media/problem_1059/imagens/2.5.png) 
+
+Você finalmente tomou coragem para seguir a pista que descobriu no bilhete criptografado dos goblins. Seguindo rastros de melões comidos, você descobre facilmente a localização de um goblin grande e confuso. Ele está resmungando algo que não dá pra entender direito. Mas ele fala de si mesmo em terceira pessoa, então você identificou que seu nome é Glooid. 
+
+> Aparentemente, toda a população da cidade está na COPA (rsrsrs) então você se prepara para enfrentar os perigos sozinho, o que poderia dar errado?
+
+Como as únicas coisas que você tem à disposição são melões, a solução parece ser atirá-los no goblin sempre que ele se distrair. Às vezes, ele está tão distraído que nem sente o tiro de melão (mas se até a água fura a pedra, quem dirá um melão num goblin).
+
+A estratégia é bem simples, você consegue encontrar um conjunto de esconderijos alinhados e já se dirige para o primeiro esconderijo da esquerda (dizemos esconderijo $0$). Usando seu celular, você consegue bater uma foto (silenciosamente e sem flash) e ver para quais esconderijos Glooid está olhando com relativa certeza.
+
+Sempre que bater uma foto, você pode escolher atirar um melão (quando ele não estiver olhando, claro), ou mudar de esconderijo.
+
+> Para mudar de um esconderijo para outro, o goblin não pode estar olhando para nenhum dos dois.
+
+No começo, você está no esconderijo $0$. Só é possível mudar para um esconderijo vizinho ($+1$ ou $-1$). Para evitar ser visto, você opta por mudar de esconderijo sempre que só houver uma possibilidade de mudança. Caso o goblin esteja olhando na direção do seu esconderijo, o melhor a fazer é ficar quieto e não se mexer. Caso contrário, é hora de atirar um melão.","A entrada é composta por várias linhas. Cada linha representa uma foto tirada com seu celular.
+
+Cada foto é composta apenas pelos caracteres `O` e `X`. `O` indica que o goblin não está olhando para o esconderijo e `X` indica que ele está olhando.
+
+Todas as fotos tem exatamente a mesma quantidade de letras, visto que a quantidade de esconderijos não muda. A entrada acaba quando o boss não olhar para nenhuma direção (`OOO...OO`). 
+
+> Considere que há no máximo $100$ esconderijos e que foram batidas no máximo $100$ fotos.","Para cada foto, seu programa deve imprimir `Tiro de Melão!!!`, `Correndo pro esconderijo X!` ou `Silêncio...`, de acordo com a ação tomada.
+
+Ao encerrar, imprimir `Vitória com Y melões!`","No exemplo dado:
+
+A primeira foto mostra o goblin olhando para o seu esconderijo, pois a posição $0$ da string possui o caractere `X`.
+
+Na segunda foto, o goblin não está olhando para seu esconderijo, mas não há nenhum movimento possivel, pois não há vizinho à esquerda e o goblin está olhando para o esconderijo $1$. Neste caso, melão nele!
+
+Na terceira foto, há exatamente uma opção de mudança de esconderijo e o goblin não está olhando para onde você está... então vamos para o esconderijo $1$.
+
+Na foto $4$, há duas opções de mudança de esconderijo e o goblin não está olhando para seu esconderijo... melão nele!
+
+Na foto $5$, não se deve fazer nada, pois o goblin está olhando para o seu esconderijo (o número $1$).
+
+Na sexta foto, o goblin não está olhando para seu esconderijo, mas não há nenhum movimento possivel, pois o goblin está olhando tanto para o esconderijo $0$ quanto para o $2$. Neste caso, melão nele!
+
+Na última linha, não há locais para onde o goblin olhou... ele deve ter desmaiado!","Seguem algumas pequenas dicas... afinal é um Chefão!
+
+Segue um código base sobre como terminar a execução:
+
+```python
+while True:
+	line = input()
+	if 'X' in line:
+		break
+```
+
+Segue um código para verificar se as posições são `O` ou `1`:
+
+```python
+                 # 01234567
+line = input()   # OOOXOOOO
+pos = 3
+line[pos]        # X
+line[pos-1]      # O
+line[pos+1]      # O
+```
+
+Como pegar o numero de esconderijos ?
+
+```python
+line = input()
+n_esconderijos = len( line )
+```
+
+Como evitar erros no início e no fim da lista de esconderijos? Que tal uma função?
+
+```python
+def get_esconderijo( line, pos ):
+	if pos < 0:
+		return 'X'
+
+	if pos >= len(line):
+		return 'X'
+
+	return line[pos]",,G4M3,judge.submission,894,1.0,10.0,202215091033646,Python3,Accepted,0.0,"pos = 0
+meloes_atirados = 0
+esq = ''
+dir = ''
+while True:
+    linha = input()
+    
+    if linha.find('X') == -1:
+        break
+
+    if pos == 0 or linha[pos-1] == 'X':
+        esq = 'X'
+    else:
+        esq = 'O'
+
+    if pos == len(linha)-1 or linha[pos+1] == 'X':
+        dir = 'X' 
+    else:
+        dir = 'O'
+    
+    if linha[pos] == 'X':
+        print('Silêncio...')
+    elif esq == 'X' and dir == 'O':
+        pos += 1
+        print(f'Correndo pro esconderijo {pos}!')
+    elif esq == 'O' and dir == 'X':
+        pos -= 1
+        print(f'Correndo pro esconderijo {pos}!')
+    else:
+        print('Tiro de Melão!!!')
+        meloes_atirados += 1
+
+print(f'Vitória com {meloes_atirados} melões!')"
+judge.problem,11,3.1,P0010,diff,"Depois de perder tempo na última cidade, você finalmente chegou ao próximo alvo dos goblins. Infelizmente, muito atrasado. Não sei se você entendeu direito: muito, mas muito atrasado mesmo! Você chegou tão atrasado que não há mais nenhum melão nas plantações da cidade.
+
+A população certamente está desesperada. E não deu outra: assim que um herói-programador chegou à cidade, uma multidão se amontoou para pedir sua ajuda com os mais diversos problemas. Claro que você não tem opção! Se não ajudá-los por vontade própria, boa sorte para lidar com uma cidade revoltada (e sem melões para acalmar).
+
+Mas você não consegue dar conta de ouvir todo mundo ao mesmo tempo, então você vai ouvir uma pessoa por vez de acordo com as prioridades dos problemas atribuídas pelo ancião “priorizeiro”. 
+
+Então sua primeira tarefa é organizar a população em uma fila, considerando as prioridades dos problemas.","A primeira linha da entrada contém um inteiro $N$, que indica a quantidade de pessoas que querem ajuda com algum problema. 
+
+Cada uma das próximas $N$ linhas contém um inteiro $X$ indicando a prioridade do problema de uma das pessoas da população.
+
+> Considere que $1 \le N \le 100$ e $0 \le X \le 100$.","A saída deve ser composta pelas mesmas prioridades da entrada, uma por linha, ordenadas de forma crescente. As pessoas serão atendidas começando pela última linha.","No exemplo dado, existem $5$ pessoas precisando da sua ajuda.
+
+Destas, o problema com a menor prioridade tem o valor $2$. Então o programa imprime $2$.
+
+O próximo problema com a menor prioridade tem o valor $5$. Então o programa imprime $5$.
+
+Na sequência, temos um problema com prioridade $9$, então o programa imprime $9$.
+
+Por fim, temos dois problemas com prioridade $10$. Logo, o programa imprime $10$ duas vezes e encerra.","Que tal usar List Comprehension para ler toda a entrada de uma vez?
+
+```python
+N = int(input())
+list_pessoas = [ int(input()) for _ in range(N) ]
+```
+
+Mais informações: [https://www.datacamp.com/community/tutorials/python-list-comprehension](https://www.datacamp.com/community/tutorials/python-list-comprehension)
+
+Depois disto, basta ordenar, né?
+
+[https://www.w3schools.com/python/ref_list_sort.asp](https://www.w3schools.com/python/ref_list_sort.asp)",,G4M3,judge.submission,2579,1.0,11.0,202319323302279,Python3,Accepted,0.0,"N = int(input())
+A = [ int(input()) for _ in range(N) ]
+for x in sorted(A):
+  print(x)"
+judge.problem,12,3.2,P0011,diff,"Após resolver os problemas da população, as coisas se acalmaram mais. O desespero era compreensível, dado que não há mais melões nas plantações da cidade. Mas esse povo sempre foi conhecido pelo medo de desastres e possuem um estoque secreto de comida, suficiente para alimentar a todos por várias décadas: melão desidratado, melão cristalizado, picles de melão, etc.
+
+Ao ver seu estoque secreto, o que mais chamou sua atenção foram os imensos barris de Melança, uma deliciosa bebida fermentada feita de melão (beba com moderação!). E você aproveitou esse curto momento de calmaria para descansar do árduo trabalho, apreciando uma melancinha e jogando buraco na Taberna.
+
+Mas esse jogo de buraco é bem diferente do que você está acostumado. Aqui jogamos com moedas, em vez de cartas. Utiliza-se um tabuleiro composto por várias casas em uma única linha. A casa do meio é um buraco (literalmente!) e as demais casas possuem uma determinada quantidade de moedas empilhadas. 
+
+A cada turno, um jogador deve escolher uma pilha de moedas e mover para uma das casas vizinhas, empilhando sobre as moedas que estiverem lá. O objetivo é que todas as moedas sejam movidas para o buraco no centro, onde serão recolhidas e entregues ao vencedor (quem mover a última moeda para o buraco).
+
+Não se deve trapacear, então você não vai usar suas habilidades incríveis de programação para vencer o jogo. Mas para ajudar todos os jogadores a planejar melhor sua estratégia, você deve escrever um programa que, dada a configuração das moedas, determine quantos turnos são necessários (no mínimo) para a partida terminar.","A primeira linha da entrada contém um inteiro ímpar $N$ indicando a quantidade de casas do tabuleiro.
+
+A segunda linha da entrada contém $N$ inteiros separados por espaço, indicando a quantidade de moedas em cada casa. A quantidade de moedas é sempre maior que 0, com exceção do buraco na casa central (que será sempre igual a 0).
+
+> Considere que $1 \le N \le 100$.
+
+> Considere que a quantidade inicial de moedas em cada casa do tabuleiro nunca é maior que 29.","A saída deve conter um único inteiro, a quantidade mínima de turnos necessários para mover todas as moedas para o buraco.","Para mover todas as moedas do exemplo para o buraco utilizando a quantidade mínima de turnos, podemos seguir os seguintes passos:
+
+```
+1 2 1 0 1 2 3 : mover as moedas da casa 1 para a casa 2
+0 3 1 0 1 2 3 : mover as moedas da casa 7 para a casa 6
+0 3 1 0 1 5 0 : mover as moedas da casa 6 para a casa 5
+0 3 1 0 6 0 0 : mover as moedas da casa 2 para a casa 3
+0 0 4 0 6 0 0 : mover as moedas da casa 3 para a casa 4 (buraco!)
+0 0 0 0 6 0 0 : mover as moedas da casa 5 para a casa 4 (buraco!)
+0 0 0 0 0 0 0
+```
+
+Por isso  a resposta é $6$.","A maior dica está na própria questão: A quantidade de moedas é sempre maior que 0, com exceção do buraco na casa central (que será sempre igual a 0).
+
+Neste caso, sempre é necessário mover cada casa uma vez, exceto o buraco.",,G4M3,judge.submission,5383,1.0,12.0,202422145058931,Python3,Accepted,0.0,"def main():
+    def movimentosMinimosParaColetarMoedas(n, moedas):
+        buraco = n // 2
+        turnos = 0
+
+        for _ in range(buraco):
+            turnos += 1
+
+        for _ in range(n - 1, buraco, -1):
+            turnos += 1
+
+        return turnos
+
+    n = int(input().strip())
+    moedas = list(map(int, input().strip().split()))
+
+    print(movimentosMinimosParaColetarMoedas(n, moedas))
+
+    pass
+
+
+if __name__ == ""__main__"":
+    main()"
+judge.problem,12,3.2,P0011,diff,"Após resolver os problemas da população, as coisas se acalmaram mais. O desespero era compreensível, dado que não há mais melões nas plantações da cidade. Mas esse povo sempre foi conhecido pelo medo de desastres e possuem um estoque secreto de comida, suficiente para alimentar a todos por várias décadas: melão desidratado, melão cristalizado, picles de melão, etc.
+
+Ao ver seu estoque secreto, o que mais chamou sua atenção foram os imensos barris de Melança, uma deliciosa bebida fermentada feita de melão (beba com moderação!). E você aproveitou esse curto momento de calmaria para descansar do árduo trabalho, apreciando uma melancinha e jogando buraco na Taberna.
+
+Mas esse jogo de buraco é bem diferente do que você está acostumado. Aqui jogamos com moedas, em vez de cartas. Utiliza-se um tabuleiro composto por várias casas em uma única linha. A casa do meio é um buraco (literalmente!) e as demais casas possuem uma determinada quantidade de moedas empilhadas. 
+
+A cada turno, um jogador deve escolher uma pilha de moedas e mover para uma das casas vizinhas, empilhando sobre as moedas que estiverem lá. O objetivo é que todas as moedas sejam movidas para o buraco no centro, onde serão recolhidas e entregues ao vencedor (quem mover a última moeda para o buraco).
+
+Não se deve trapacear, então você não vai usar suas habilidades incríveis de programação para vencer o jogo. Mas para ajudar todos os jogadores a planejar melhor sua estratégia, você deve escrever um programa que, dada a configuração das moedas, determine quantos turnos são necessários (no mínimo) para a partida terminar.","A primeira linha da entrada contém um inteiro ímpar $N$ indicando a quantidade de casas do tabuleiro.
+
+A segunda linha da entrada contém $N$ inteiros separados por espaço, indicando a quantidade de moedas em cada casa. A quantidade de moedas é sempre maior que 0, com exceção do buraco na casa central (que será sempre igual a 0).
+
+> Considere que $1 \le N \le 100$.
+
+> Considere que a quantidade inicial de moedas em cada casa do tabuleiro nunca é maior que 29.","A saída deve conter um único inteiro, a quantidade mínima de turnos necessários para mover todas as moedas para o buraco.","Para mover todas as moedas do exemplo para o buraco utilizando a quantidade mínima de turnos, podemos seguir os seguintes passos:
+
+```
+1 2 1 0 1 2 3 : mover as moedas da casa 1 para a casa 2
+0 3 1 0 1 2 3 : mover as moedas da casa 7 para a casa 6
+0 3 1 0 1 5 0 : mover as moedas da casa 6 para a casa 5
+0 3 1 0 6 0 0 : mover as moedas da casa 2 para a casa 3
+0 0 4 0 6 0 0 : mover as moedas da casa 3 para a casa 4 (buraco!)
+0 0 0 0 6 0 0 : mover as moedas da casa 5 para a casa 4 (buraco!)
+0 0 0 0 0 0 0
+```
+
+Por isso  a resposta é $6$.","A maior dica está na própria questão: A quantidade de moedas é sempre maior que 0, com exceção do buraco na casa central (que será sempre igual a 0).
+
+Neste caso, sempre é necessário mover cada casa uma vez, exceto o buraco.",,G4M3,judge.submission,5433,1.0,12.0,202422408317925,Python3,Accepted,0.0,"def main():
+    def movimentosMinimosParaColetarMoedas(n, moedas):
+        buraco = n // 2
+        turnos = 0
+
+        for _ in range(buraco):
+            turnos += 1
+
+        for _ in range(n - 1, buraco, -1):
+            turnos += 1
+
+        return turnos
+
+    n = int(input().strip())
+    moedas = list(map(int, input().strip().split()))
+
+    print(movimentosMinimosParaColetarMoedas(n, moedas))
+
+    pass
+
+
+if __name__ == ""__main__"":
+    main()"
+judge.problem,13,3.3,P0012,diff,"Foi bom relaxar um pouco e esquecer seus problemas, mas os goblins não deixariam isso durar muito tempo (nem a população!). Agora que não há mais melões na cidade, o futuro está em jogo. Mesmo que a cidade ainda tenha suprimento para muitos anos, eles precisam se precaver para as próximas décadas/séculos.
+
+Como diz o sábio ancião plantador,  “para que o futuro traga os seus melões, o presente deve entregar suas sementes”. E inspirados por essa profunda reflexão, o povo veio a seu encontro com todas as sementes de melões que encontraram. 
+
+O povo também é bastante organizado e deseja sua ajuda para categorizar todas as sementes e contar quantas unidades existem de cada tipo. A partir disso, será iniciada a construção do Guardador de Futuros Melões (GFM), um depósito de sementes para utilização por todas as futuras gerações, enquanto houver terra para plantar melões.
+
+Mas toda jornada começa com o primeiro passo. E esse passo é agrupar e contar as sementes, de acordo com seu tipo.","A entrada é formada por múltiplas linhas. Cada linha contém uma única palavra (formada unicamente por caracteres maiúsculos, minúsculos ou números), indicando um tipo de semente de melão. 
+
+A entrada termina com a palavra `FIM`, que não deve ser processada.
+
+> Considere que o número de linhas sempre é maior que $1$ e menor que $1001$ .
+
+> Considere que o nome de cada melão nunca tem mais que $100$ caracteres.","Para cada linha da entrada, deve ser impresso o tipo de semente e quantas sementes daquele tipo já foram entregues, separados por um espaço.",,"Para manter os acumulados, podemos usar os dicionários do Python e a função `get()`:
+
+```python
+D = {}         # Criando um dicionário vazio
+D[ x ] = 1     # Adicionando o valor 1 para a chave representada pela variável x
+D.get( x, 0 ) # Obtem o valor associado à chave da variável x
+               # caso a chave esteja vazia, retorne 0
+```
+
+Neste caso, basta ler as linhas, uma a uma, e manter os acumulados no dicionário.
+
+Um modo bem esperto:
+
+```python
+x = input()
+D[x] = D.get(x, 0) + 1
+print( f'{x} {D[x]}' )
+```
+
+Para mais informações: [https://www.w3schools.com/python/python_dictionaries.asp](https://www.w3schools.com/python/python_dictionaries.asp)",,G4M3,judge.submission,2580,1.0,13.0,202319323554735,Python3,Accepted,0.0,"A = []
+s = input()
+while s != ""FIM"":
+  A.append(s)
+  print( s, A.count(s) )
+
+  s = input()"
+judge.problem,14,3.4,P0013,diff,"Com as sementes categorizadas, a cúpula dos anciões admiradores reuniu-se para definir o valor de cada tipo de semente. Mas eles não precisam de sua ajuda, além de que a avaliação melânica é uma tarefa muito delicada que apenas aqueles que dedicaram sua vida à admiração alheia são capazes de realizar.
+
+Enquanto isso, a anciã construtora reuniu seus ajudantes para iniciar a construção do GFM. E um depósito de sementes como esse não precisa de heróis, ou programadores, ou heróis-programadores. O privilégio de contribuir com essa construção é reservado aos melhores barraqueiros, com décadas de experiência na fortificação de barracas.
+
+Mas não fique triste. Você fez sua parte e será sempre lembrado por contar as primeiras sementes. E há algo mais urgente que requer sua atenção. As pessoas precisam de comida e está havendo muito tumulto na distribuição dos alimentos da reserva da cidade.
+
+Para contornar essa situação, você deve ajudar a organizar as pessoas em uma fila. Sempre que alguém chegar atrás de comida, ela irá para o final da fila. Há enfiladores de plantão para ajudar com isso. Os entregadores (que entregam a comida, claro) chamarão o primeiro da fila, depois o próximo, e assim por diante.","A entrada é formada por várias linhas. Cada linha contém uma única palavra, que pode ser o nome de uma pessoa que acabou de chegar ou a palavra `PROXIMO`, indicando que há um entregador livre para atender a próxima pessoa da fila. 
+
+A entrada termina com a palavra `FIM`, que não deve ser processada.
+
+> Considere que o número de linhas sempre é maior que $2$ e menor que $200$.
+
+> Considere que o nome de cada pessoa nunca tem mais que 100 caracteres.
+
+> Considere que a entrada está correta. Nunca o próximo é chamado sem ninguém na fila. Todos da fila sao chamados.","Quando chegar uma nova pessoa, ela deve ser adicionada ao final da fila. Então, deve-se imprimir `FILA: X`, onde X representa todos os nomes da fila, separados por espaço (observe o exemplo).
+
+Quando a entrada for a palavra `PROXIMO`, será impressa uma linha com o próximo da fila, seguindo o formato `PROXIMO: X`. Nesse caso, não é necessário imprimir a fila.",,"Basta simular a fila. Se eu puder ajudar em algo, eu sugiro usar uma lista e as seguintes operações:
+
+```python
+lista = []             # Criando uma lista vazia
+lista.append( 'XYZ' )  # Adicionando a string 'XYZ' no final da lista
+x = lista.pop(0)       # Remove o primeiro elemento da lista, atribuindo-o
+                       # à variável x
+```",,G4M3,judge.submission,2581,1.0,14.0,202319324003308,Python3,Accepted,0.0,"A = []
+s = input()
+while s != ""FIM"":
+  if s == ""PROXIMO"":
+    print('PROXIMO:', A[0] )
+    A=A[1:]
+  else:
+    A.append(s)
+    print('FILA:', *A )
+
+  s = input()"
+judge.problem,15,3.5,P0015,diff,"![3.5.png](http://c073.com/api/media/problem_1065/imagens/3.5.png) 
+
+A vila conseguiu concluir a construção do depósito de sementes, mas não teve tempo suficiente para armazená-las por completo, afinal precisou gerenciar a fome no meio tempo.
+
+Terminou que por conta da lentidão e dos recorrentes atrasos, a temida globin Garol Congê descobriu a construção do GFM e o tão valioso estoque de sementes especiais de melão. Claro que ela não deixaria isso barato!
+
+Por conta disso, de tempos e tempos, entre um jogo e outro de buraco, Garol Congê está enviando goblins ninja para invadir sorrateiramente o GFM e roubar a semente mais valiosa (elas estão categorizadas pelo potencial de produção de melões).
+
+Depois que o precioso ancião acha-ninjeiro descobriu o que estava acontecendo, vocês criaram um plano:
+
+Quando o ancião acha-ninjeiro perceber a vinda do goblin ninja, você entra lá e tira a semente mais valiosa do GFM. O goblin ficará confuso e não levará nada.
+
+Quando nenhum goblin ninja tentar invadir o GFM, você pega uma semente qualquer e estoca no GFM.","A entrada possui várias linhas. A primeira linha traz o inteiro $N$, a quantidade de sementes que cabem no GFM.
+
+Cada uma das linhas que segue traz um número inteiro $a$.
+
+Se $a$ for zero, isto significa que o ancião acha-ninjeiro achou um ninja, então você deve remover do GFM a semente com o maior valor.
+
+Quando $a$ for diferente de zero, então você deve adicionar uma semente com valor igual a $a$ ao GFM.
+
+O programa acaba quando o GFM possuir exatamente $N$ sementes.
+
+> Considere que $1 \le N \le 100$.
+
+> Considere que $0 \le a \le 100$.
+
+> Considere que a entrada está correta. Nunca vem um ninja quando o galpão está vazio. A entrada acaba quando o GFM completar $N$ sementes.
+
+> Considere que o número de linhas da entrada nunca é maior que 1000.",Toda vez que $a$ for zero o seu programa deve imprimir o valor da semente retirada do GFM.,"A primeira linha do exemplo traz o inteiro $N=4$, representando o número de sementes que deseja-se ter no GFM.
+
+Na linha seguinte, $a=2$. Como $a \neq 0$, adiciona-se esta semente ao GFM. No momento $GFM=\{2\}$.
+
+Na linha seguinte, $a=3$. Como $a \neq 0$, adiciona-se esta semente ao GFM. No momento $GFM=\{2,3\}$.
+
+Na linha seguinte, $a=4$. Como $a \neq 0$, adiciona-se esta semente ao GFM. No momento $GFM=\{2,3,4\}$.
+
+Na linha seguinte, $a=0$. Como $a = 0$, retira-se a semente de maior valor do GFM. Imprime-se `4`. No momento $GFM=\{2,3\}$.
+
+Na linha seguinte, $a=1$. Como $a \neq 0$, adiciona-se esta semente ao GFM. No momento $GFM=\{2,3,1\}$.
+
+Na linha seguinte, $a=0$. Como $a = 0$, retira-se a semente de maior valor do GFM. Imprime-se `3`. No momento $GFM=\{2,1\}$.
+
+Na linha seguinte, $a=1$. Como $a \neq 0$, adiciona-se esta semente ao GFM. No momento $GFM=\{2,1,1\}$.
+
+Na linha seguinte, $a=2$. Como $a \neq 0$, adiciona-se esta semente ao GFM. No momento $GFM=\{2,1,1,2\}$.
+
+Como o GFM possui $4$ sementes e $N=4$ o programa termina.","Basta simular a fila. Se eu puder ajudar em algo, eu sugiro usar uma lista e as seguintes operações:
+
+```python
+lista = [ 1, 2, 3, 2, 1, 4, 1, 2 ]     # Criando uma lista com 8 elementos
+x = max(lista)        # encontra o maior elemento da lista, atribuindo-o
+                      # à variável x
+lista.remove(x)       # Remove o maior elemento da lista
+```",,G4M3,judge.submission,2582,1.0,15.0,202319324460763,Python3,Accepted,0.0,"N = int(input())
+G = []
+
+while len(G) != N:
+  a = int(input())
+  if a == 0:
+    print( max(G) )
+    G.remove( max(G) )
+  else:
+    G.append(a)"
+judge.problem,16,4.1,P0016,diff,"Você chega à capital esperando encontrar ruas infestadas de goblins monstruosos, gritando e jogando melões pelos ares. Mas não vê ninguém. Tudo está estranhamente calmo. Você tenta entrar para explorar a cidade, mas é subitamente impedindo por uma pessoa misteriosa. Ele se autoidentifica como Dr. Wise, o sábio. E começa a falar:
+
+>  Você acha que pode entrar nessa cidade? Quantos anos de experiência em batalhas com goblins você tem? Já enfrentou cem goblins e acha que consegue enfrentar cem milhões? Você não tem ideia do que lhe espera se avançar mais alguns passos. Já tive muito trabalho para evacuar a cidade, não vou permitir que você entre. É um caso perdido.
+
+Parece que você mais uma vez você está atrasado e a cidade já foi tomada pelos goblins. Olhando atentamente, você consegue observar, à distância, as sombras andando de um lado para o outro. Ainda assim, você insiste com Dr. Wise, que concorda em deixá-lo passar. No entanto, você precisa resolver um desafio, para provar o seu valor. Preste atenção:
+
+> Vou lhe dar um número $N$. Como exemplo, vamos imaginar que seja 250. Dividindo por 2, obtemos 125. Dividindo por 2 novamente, obtemos 62,5. Vamos descartar a parte fracionária e ficar apenas com 62. Repetindo esse processo, obteremos 31, 15, 7, 3 e 1. O processo deve parar ao alcançar 1. Isso produziu uma sequência com 8 números, a saber, 250, 125, 62, 31, 15, 7, 3, 1. Sua tarefa é determinar o tamanho da sequência gerada por um $N$ qualquer.","A entrada contém um único inteiro $N$, entre $1$ e $2 \times 10^9$, inclusive.","A saída deve conter um único inteiro, representando a quantidade de números na sequência gerada a partir de $N$.","A sequência pelo número do exemplo é:
+
+```
+2022, 1011, 505, 252, 126, 63, 31, 15, 7, 3, 1
+```
+
+Logo, deve ser impresso o número 11.","A maior dica para esta questão é tentar evitar ao máximo o uso de números com casas decimais... Podemos ficar muito tentados a usar a função `log()`, mas depois teríamos que usar um arredondamento.
+
+Proponho que usem um laço `while` ou uma pequena função recursiva.
+
+Para mais informações: [https://www.datacamp.com/community/tutorials/understanding-recursive-functions-python](https://www.datacamp.com/community/tutorials/understanding-recursive-functions-python)",,G4M3,judge.submission,2583,1.0,16.0,202319324983989,Python3,Accepted,0.0,"from math import log
+N = int(input())
+l = int(log(N,2))
+print(l+1)"
+judge.problem,16,4.1,P0016,diff,"Você chega à capital esperando encontrar ruas infestadas de goblins monstruosos, gritando e jogando melões pelos ares. Mas não vê ninguém. Tudo está estranhamente calmo. Você tenta entrar para explorar a cidade, mas é subitamente impedindo por uma pessoa misteriosa. Ele se autoidentifica como Dr. Wise, o sábio. E começa a falar:
+
+>  Você acha que pode entrar nessa cidade? Quantos anos de experiência em batalhas com goblins você tem? Já enfrentou cem goblins e acha que consegue enfrentar cem milhões? Você não tem ideia do que lhe espera se avançar mais alguns passos. Já tive muito trabalho para evacuar a cidade, não vou permitir que você entre. É um caso perdido.
+
+Parece que você mais uma vez você está atrasado e a cidade já foi tomada pelos goblins. Olhando atentamente, você consegue observar, à distância, as sombras andando de um lado para o outro. Ainda assim, você insiste com Dr. Wise, que concorda em deixá-lo passar. No entanto, você precisa resolver um desafio, para provar o seu valor. Preste atenção:
+
+> Vou lhe dar um número $N$. Como exemplo, vamos imaginar que seja 250. Dividindo por 2, obtemos 125. Dividindo por 2 novamente, obtemos 62,5. Vamos descartar a parte fracionária e ficar apenas com 62. Repetindo esse processo, obteremos 31, 15, 7, 3 e 1. O processo deve parar ao alcançar 1. Isso produziu uma sequência com 8 números, a saber, 250, 125, 62, 31, 15, 7, 3, 1. Sua tarefa é determinar o tamanho da sequência gerada por um $N$ qualquer.","A entrada contém um único inteiro $N$, entre $1$ e $2 \times 10^9$, inclusive.","A saída deve conter um único inteiro, representando a quantidade de números na sequência gerada a partir de $N$.","A sequência pelo número do exemplo é:
+
+```
+2022, 1011, 505, 252, 126, 63, 31, 15, 7, 3, 1
+```
+
+Logo, deve ser impresso o número 11.","A maior dica para esta questão é tentar evitar ao máximo o uso de números com casas decimais... Podemos ficar muito tentados a usar a função `log()`, mas depois teríamos que usar um arredondamento.
+
+Proponho que usem um laço `while` ou uma pequena função recursiva.
+
+Para mais informações: [https://www.datacamp.com/community/tutorials/understanding-recursive-functions-python](https://www.datacamp.com/community/tutorials/understanding-recursive-functions-python)",,G4M3,judge.submission,2999,1.0,16.0,202320957258515,Python3,Accepted,0.0,"N = int(input())
+contador = 0
+
+while N >= 1:
+    contador += 1
+    N = int(N / 2)
+print(contador)"
+judge.problem,16,4.1,P0016,diff,"Você chega à capital esperando encontrar ruas infestadas de goblins monstruosos, gritando e jogando melões pelos ares. Mas não vê ninguém. Tudo está estranhamente calmo. Você tenta entrar para explorar a cidade, mas é subitamente impedindo por uma pessoa misteriosa. Ele se autoidentifica como Dr. Wise, o sábio. E começa a falar:
+
+>  Você acha que pode entrar nessa cidade? Quantos anos de experiência em batalhas com goblins você tem? Já enfrentou cem goblins e acha que consegue enfrentar cem milhões? Você não tem ideia do que lhe espera se avançar mais alguns passos. Já tive muito trabalho para evacuar a cidade, não vou permitir que você entre. É um caso perdido.
+
+Parece que você mais uma vez você está atrasado e a cidade já foi tomada pelos goblins. Olhando atentamente, você consegue observar, à distância, as sombras andando de um lado para o outro. Ainda assim, você insiste com Dr. Wise, que concorda em deixá-lo passar. No entanto, você precisa resolver um desafio, para provar o seu valor. Preste atenção:
+
+> Vou lhe dar um número $N$. Como exemplo, vamos imaginar que seja 250. Dividindo por 2, obtemos 125. Dividindo por 2 novamente, obtemos 62,5. Vamos descartar a parte fracionária e ficar apenas com 62. Repetindo esse processo, obteremos 31, 15, 7, 3 e 1. O processo deve parar ao alcançar 1. Isso produziu uma sequência com 8 números, a saber, 250, 125, 62, 31, 15, 7, 3, 1. Sua tarefa é determinar o tamanho da sequência gerada por um $N$ qualquer.","A entrada contém um único inteiro $N$, entre $1$ e $2 \times 10^9$, inclusive.","A saída deve conter um único inteiro, representando a quantidade de números na sequência gerada a partir de $N$.","A sequência pelo número do exemplo é:
+
+```
+2022, 1011, 505, 252, 126, 63, 31, 15, 7, 3, 1
+```
+
+Logo, deve ser impresso o número 11.","A maior dica para esta questão é tentar evitar ao máximo o uso de números com casas decimais... Podemos ficar muito tentados a usar a função `log()`, mas depois teríamos que usar um arredondamento.
+
+Proponho que usem um laço `while` ou uma pequena função recursiva.
+
+Para mais informações: [https://www.datacamp.com/community/tutorials/understanding-recursive-functions-python](https://www.datacamp.com/community/tutorials/understanding-recursive-functions-python)",,G4M3,judge.submission,5429,1.0,16.0,202422408114468,Python3,Accepted,0.0,"def main():
+    x = int(input())
+    contador = 0
+    
+    while x >= 1:
+        x=int(x/2)
+        contador+=1
+    print(contador)
+
+if __name__ == ""__main__"":
+  main()"
+judge.problem,17,4.2,P0017,diff,"Você entra na cidade vazia e observa ao fundo um grande número de goblins. Atualmente, você está seguro, mas de nada adiantará ficar parado. Mas também não vale a pena caminhar até o meio de uma multidão de goblins.
+
+Então você sobe numa região mais alta, de onde é possível ver toda a cidade. Visualmente, você dividiu a cidade em células de uma matriz e fez uma estimativa visual de quantos goblins há em cada uma delas.
+
+Após algum tempo, você observou algo interessante. K-Ôru, que você enfrentou na primeira cidade, movia-se por todas as células da matriz seguindo um padrão cíclico. Sendo assim, você o desconsiderou nas suas estimativas (**mas tenha em mente que ele equivale a 10 goblins**), mas como é um padrão muito simples, sempre dá pra saber em qual célula ele está.
+
+Você deseja analisar de perto o que os goblins estão tramando, mas sem ser visto. Para entrar escondido em uma célula, não pode haver mais de 100 goblins naquela célula. E isso precisa ser definido com antecedência. Após entrar, não vai dar tempo de contar a quantidade de goblins ou determinar se você pode ou não ir para uma célula.
+
+Para se preparar, você vai elaborar uma matriz simplificada. Para cada célula, será definido se sempre é possível entrar lá, se nunca é possível, ou se só é possível entrar quando K-Ôru não estiver presente na célula. Além disso, você também deve contar em quantas células é possível entrar.","A primeira linha da entrada contém um número $N$, indicando o tamanho da matriz.
+
+As próximas $N$ linhas contém $N$ inteiros cada, separados por espaço. Cada inteiro representa sua estimativa da quantidade de goblins presentes naquela célula (desconsiderando K-Ôru).
+
+> Considere $1 \le N \le 50$.
+
+> Considere que todos os números da matriz são maiores que $1$ e menores que $300$.","Você deve imprimir a versão simplificada da matriz de entrada.
+
+Para cada célula, deve ser impresso um dentre três caracteres: `+`, quando sempre for possível entrar na célula; `-`, quando nunca for possível entrar na célula; `o`, quando for possível entrar na célula apenas quando K-Ôru não estiver presente. Os caracteres na mesma linha não devem ser separados. Observe o exemplo.
+
+Após imprimir a matriz, deve-se imprimir uma linha em branco.
+
+Em seguida, deve-se imprimir a contagem de `+`, `o` e `-` na matriz simplificada, seguindo o padrão: `S: X`, onde `S` representa o símbolo e `X` a quantidade. Observe com cuidado o exemplo.","Vamos analisar algumas células com mais atenção:
+
+* Quando o valor é 200, nunca é possível entrar, pois é maior que o limite de 100 para não ser notado. Logo, deve ser utilizado o caractere `-`.
+
+* Quando o valor é 99, é possível entrar apenas quando K-Ôru não está presente (se ele estivesse, seria 109, que é maior do que o limite). Logo, deve ser utilizado o caractere `o`.
+
+* Quando o valor é 90, sempre é possível entrar (pois seria 100 com K-Ôru, o que ainda está dentro do limite). Logo, deve ser utilizado o caractere `+`.","Como ler e acessar uma matriz de inteiros em Python? Segue uma forma que gosto bastante:
+
+```python
+N = int( input() ) # Numero de linhas e colunas
+
+M = [ list(map(int, input().split())) for _ in range(N) ] # Lendo a Matriz
+
+# Acessando os elementos (lembrando que começam em 0)
+M[0][1] # linha 0, coluna 1
+M[2][0] # linha 2, coluna 0
+
+...
+```
+
+Como iterar por cada elemento de uma matriz em Python?
+
+```python
+for linha in range(N):
+  for coluna in range(N):
+		print( M[linha][coluna] )
+```",,G4M3,judge.submission,2587,1.0,17.0,202319388588889,Python3,Accepted,0.0,"N = int(input())
+M = [ list(map(int,input().split())) for _ in range(N) ]
+
+for l in range(N):
+  for c in range(N):
+    if M[l][c] > 100 : M[l][c] = '-'
+    elif M[l][c] > 90: M[l][c] = 'o'
+    else: M[l][c] = '+'
+
+a, b, c = [0,0,0]
+for l in range(N):
+  print( *M[l], sep = '' )
+  a += M[l].count('+')
+  b += M[l].count('o')
+  c += M[l].count('-')
+
+print('')
+
+print( '+:', a)
+print( 'o:', b)
+print( '-:', c)"
+judge.problem,18,4.3,P0018,diff,"UFA! Foi por muito pouco! Enquanto entrava escondido na cidade, você foi avistado e perseguido por K-Ôru. Quase foi pego, mas um goblin desatento passou entre vocês e fez K-Ôru tropeçar em um barril. Por algum motivo, isso pareceu ser bem eficiente em deixá-lo confuso e você conseguiu fugir e se esconder na parte fortificada da cidade. 
+
+Mesmo em meio a essa correria, seu propósito foi bem sucedido. Ao percorrer a cidade, foi possível observar que os goblins estavam procurando e recolhendo todos os melões e sementes de dentro das casas e depósitos da cidade. 
+
+Apenas o Castelo dos Anciãos parece intocado. Algo precisa ser feito para impedir os goblins de roubarem os melões restantes do mundo.
+
+A principal arma dos goblins está sendo Glooid. Lembra dele? Foi ele que chegou todo atrapalhado na Planície dos Melões. Após comer muitos melões, ele ficou maior e mais inteligente, mas estranhamente fixado em medir a quantidade de ar em seus pulmões (ou o equivalente dos goblins). E em soprar, soprar e soprar... 
+
+> Alguns goblins disseram que foi após ouvir o conto das três ovelhas.
+
+Para capturar os melões, Glooid enche os pulmões de ar e sopra vários melões para o mundo subterrâneo. Imagine que há $N$ unidades de ar nos pulmões de Glooid. Se $N$ é par, ele sopra metade do ar, ficando com $N/2$. Se é impar, ele respira fundo até ficar com $3N+1$ de ar. 
+
+> É importante deixar claro que você não consegue medir o quanto de ar ele respirou, mas dá para inferir pela quantidade de melões soprados.
+
+Dado o valor de $N$, você deve prever a sequência resultante para planejar o melhor momento de intervir e proteger os melões.","A entrada é composta por um único inteiro $N$.
+
+> Considere $1 \le N \le 100$.
+
+> Considere que o ar no pulmão de Glooid nunca será capaz de soprar mais que 10000 melões.","A saída deve ser composta pela sequência gerada a partir de $N$, começando em $N$ e terminando em $1$. Deve-se imprimir um valor por linha.","Segue as operações efetuadas no exemplo:
+
+```
+3  => 3N+1
+10 => N/2
+5  => 3N+1
+16 => N/2
+8  => N/2
+4  => N/2
+2  => N/2
+1
+```","Para verificar se um número é par, basta testar se o resto da divisão por 2 é zero:
+
+```python
+def par( n ):
+	if n % 2 == 0:
+		return True
+
+	return False
+```
+
+Você pode resolver esta questão de forma recursiva:
+
+```python
+def rec( n ):
+	if n==1: return 1
+
+	# Sua lógica vem aqui
+```",,G4M3,judge.submission,2588,1.0,18.0,202319388926600,Python3,Accepted,0.0,"N=int(input())
+while N != 1:
+  print(N)
+  if N%2 == 1:
+    N = 3*N + 1
+  else:
+    N = N//2
+print(N)"
+judge.problem,18,4.3,P0018,diff,"UFA! Foi por muito pouco! Enquanto entrava escondido na cidade, você foi avistado e perseguido por K-Ôru. Quase foi pego, mas um goblin desatento passou entre vocês e fez K-Ôru tropeçar em um barril. Por algum motivo, isso pareceu ser bem eficiente em deixá-lo confuso e você conseguiu fugir e se esconder na parte fortificada da cidade. 
+
+Mesmo em meio a essa correria, seu propósito foi bem sucedido. Ao percorrer a cidade, foi possível observar que os goblins estavam procurando e recolhendo todos os melões e sementes de dentro das casas e depósitos da cidade. 
+
+Apenas o Castelo dos Anciãos parece intocado. Algo precisa ser feito para impedir os goblins de roubarem os melões restantes do mundo.
+
+A principal arma dos goblins está sendo Glooid. Lembra dele? Foi ele que chegou todo atrapalhado na Planície dos Melões. Após comer muitos melões, ele ficou maior e mais inteligente, mas estranhamente fixado em medir a quantidade de ar em seus pulmões (ou o equivalente dos goblins). E em soprar, soprar e soprar... 
+
+> Alguns goblins disseram que foi após ouvir o conto das três ovelhas.
+
+Para capturar os melões, Glooid enche os pulmões de ar e sopra vários melões para o mundo subterrâneo. Imagine que há $N$ unidades de ar nos pulmões de Glooid. Se $N$ é par, ele sopra metade do ar, ficando com $N/2$. Se é impar, ele respira fundo até ficar com $3N+1$ de ar. 
+
+> É importante deixar claro que você não consegue medir o quanto de ar ele respirou, mas dá para inferir pela quantidade de melões soprados.
+
+Dado o valor de $N$, você deve prever a sequência resultante para planejar o melhor momento de intervir e proteger os melões.","A entrada é composta por um único inteiro $N$.
+
+> Considere $1 \le N \le 100$.
+
+> Considere que o ar no pulmão de Glooid nunca será capaz de soprar mais que 10000 melões.","A saída deve ser composta pela sequência gerada a partir de $N$, começando em $N$ e terminando em $1$. Deve-se imprimir um valor por linha.","Segue as operações efetuadas no exemplo:
+
+```
+3  => 3N+1
+10 => N/2
+5  => 3N+1
+16 => N/2
+8  => N/2
+4  => N/2
+2  => N/2
+1
+```","Para verificar se um número é par, basta testar se o resto da divisão por 2 é zero:
+
+```python
+def par( n ):
+	if n % 2 == 0:
+		return True
+
+	return False
+```
+
+Você pode resolver esta questão de forma recursiva:
+
+```python
+def rec( n ):
+	if n==1: return 1
+
+	# Sua lógica vem aqui
+```",,G4M3,judge.submission,5431,1.0,18.0,202422408220042,Python3,Accepted,0.0,"def main():
+    quantidadeAr = int(input())
+
+    while quantidadeAr != 1:
+        print(quantidadeAr)
+        if quantidadeAr % 2 == 0:
+            quantidadeAr //= 2
+        else:
+            quantidadeAr = 3 * quantidadeAr + 1
+
+    print(quantidadeAr)
+
+    pass
+
+
+if __name__ == ""__main__"":
+    main()"
+judge.problem,19,4.4,P0019,diff,"Após deter Glooid, ele começa a puxar papo... até que rola um pouco de conversa (ele gosta de D&D e talz), mas você desconfia que ele está apenas tentando ganhar tempo... pensando bem, tudo o que ele fez até agora foi apenas para chamar sua atenção! Após ameaçá-lo um pouco (só um pouco mesmo!) ele abre o jogo:
+
+> OOOOO verdadeiro plano dos amigos de Glooid é atacar os depósitos, todos de uma vez! GGGGlooid acha que Garol Congê está com muita raiva por não ter roubado sementes com seus goblins ninjas. MMMas ela tá dizendo que agora vai dar certo.
+
+Você correu para o centro cartográfico da cidade e a anciã depositeira te ajudou com um mapa contento a localização dos depósitos da cidade.
+
+Por sorte (ou por bom planejamento urbanístico, sabe-se lá) os depósitos ficam mais ao centro e, por isso, seria interessante atrair os goblins para as extremidades da cidade enquanto as semente são escondidas.
+
+O Ancião perfumeiro te arrumou algumas essências de melão, que os goblins terminam por confundir com depósitos... os aldeões podem colocar essências de Melão ao redor da cidade, mas como não possuem muita essência, só é preciso colocar nas linhas e colunas que tiverem algum depósito.
+
+Ajude-os marcando no mapa a posição onde devem ser adicionados os frascos de essência de melão.","A entrada representa o mapa da parte central da cidade com as posições dos depósitos marcadas.
+
+A primeira linha traz dois inteiros $L$ e $C$, separados por um espaço, representando o número de linhas e de colunas do mapa, respectivamente.
+
+Seguem $L$ linhas, cada uma com $C$ números separados por espaço. Um número $1$ indica que há um depósito naquela posição, um número $0$ indica o contrário.
+
+> Considere $2 \le L, C \le 100$.","A primeira linha da saída deve trazer um inteiro $X$, indicando a quantidade de frascos de essência de melão que será necessário.
+
+Em sequência, para cada linha do mapa, seu programa deve imprimi-la novamente, seguido da informação se será necessário ou não colocar essência nessa linha. Um caractere `M` indica que sim, enquanto um caractere `-` indica que não.
+
+Por fim, o programa deve imprimir mais uma linha, com um caractere para cada coluna, separando-os com um espaço, informando se será necessário ou não colocar essência nessa coluna. Um caractere `M` indica que sim, enquanto um caractere `-` indica que não.",,"Como ler uma matriz com número de linhas e colunas diferentes?
+
+```python
+L, C = map( int, input().split() ) # Linhas e Colunas
+
+M=[ list(map(int,input().split())) for _ in range(L) ] # Matriz L por C
+```
+
+Uma boa ideia seria usar uma lista na qual cada elemento indica se uma linha tem depósito e uma outra lista indicando se cada coluna tem depósito. Por Exemplo:
+
+```python
+LR=[ '-' for _ in range(L) ]
+CR=[ '-' for _ in range(C) ]
+```",,G4M3,judge.submission,2590,1.0,19.0,202319414300861,Python3,Accepted,0.0,"L, C = map( int, input().split() )
+
+M = [ list(map(int, input().split())) for _ in range(L) ]
+T = [ [ M[l][c] for l in range(L) ] for c in range(C) ]
+
+acc = 0
+for l in M:
+    if 1 in l: acc += 1
+
+for c in T:
+    if 1 in c: acc += 1
+
+print(acc)
+for l in M:
+    d = 'M' if 1 in l else '-'
+    print( *l, d )
+
+D = [ 'M' if 1 in C else '-' for C in T ]
+print( *D )"
+judge.problem,20,4.5,P0020,diff,"![4.5.png](http://c073.com/api/media/problem_1070/imagens/4.5.png) 
+
+Os depósitos foram protegidos com sucesso! Quase todos, na verdade. Um depósito de melança foi invadido pelos goblins, que ficaram bem irritados. Especialmente Herm-One, o Chefe-Primeiro de Melania (é como eles chamam o rei deles).
+
+Com ajuda do ancião bebedeiro, você descobriu que goblins odeiam melança, do fundo da alma! Aparentemente, o ingrediente secreto é essência de pimentão! Isso os deixa irritados e confusos e até os fazem perder o gosto por melão.
+
+E esse é o momento perfeito para um plano infalível. Você deve aproveitar enquanto Herm-One ainda não percebeu sua presença e partir para o ataque! E nada melhor para vencer do que usar uma estratégia sorrateira e que exija pouca energia... Armadilhas!
+
+Você pegou todos os barris de melança que encontrou e criou minas de melança. Quando os goblins passam por cima, elas explodem e fazem vários goblins desistirem de suas buscas e voltarem ao mundo subterrâneo.
+
+No entanto, muitas vezes os humanos explodem as minas sem querer (será?). Aproveitando os mapas que você conseguiu no centro cartográfico da cidade, sua tarefa é criar um mapa com alertas de quantas minas há ao redor de cada local, para melhorar a atenção dos aldeões e otimizar o contra-ataque.","A entrada traz o mapa da cidade com as posições dos barris de melança. A primeira linha da entrada contém um número $N$, indicando o número de linhas e colunas do mapa.
+
+As próximas $N$ linhas contêm $N$ caracteres cada. Um caractere `*` indica a presença de um barril naquela posição, enquanto que um caractere `-` indica a ausência. Não há espaços em branco.
+
+> Considere $1 \le N \le 50$","Dado o mapa com a localização dos barris, a saída deve ser um mapa com a quantidade de bombas que cada posição possui ao redor, considerando também as diagonais.
+
+Para cada posição do mapa da entrada o seu programa deve imprimir:
+
+* $9$, caso exista uma bomba naquela posição, ou
+
+* O número de posições vizinhas que possuem bomba.
+
+Não devem ser impressos espaços entre os números.",,"Como não há espaços entre os caracteres, a entrada pode ser lida como uma lista de strings:
+
+```python
+N = int( input() )
+M = [ input() for _ in range(N) ]
+```
+
+Muito cuidado com as bordas do tabuleiro... Valeria a pena usar um dicionário? Ou uma função `get_val_pos(i,j)` ?
+
+Preste atenção para colocar sempre `9` onde tem bomba, e não sobrescrever se tiver uma outra bomba na vizinhança.",,G4M3,judge.submission,2591,1.0,20.0,202319414898519,Python3,Accepted,0.0,"N = int(input())
+M = [ list(input()) for _ in range(N) ]
+
+def get(y,x):
+    if x < 0 or x >= N: return 0
+    if y < 0 or y >= N: return 0
+    if M[y][x] == '*': return 1
+    if M[y][x] ==   9: return 1
+    return 0
+
+for l in range(N):
+    for c in range(N):
+        acc = 0
+        if M[l][c] == '*':
+            M[l][c] = 9
+            continue
+
+        acc += get(l+1,c)
+        acc += get(l+1,c-1)
+        acc += get(l,c-1)
+        acc += get(l-1,c-1)
+        acc += get(l-1,c)
+        acc += get(l-1,c+1)
+        acc += get(l,c+1)
+        acc += get(l+1,c+1)
+
+        M[l][c] = acc
+
+for L in M:
+    print( *L, sep = '' )"
+judge.problem,21,4.6,P0021,diff,"![4.6.png](http://c073.com/api/media/problem_1071/imagens/4.6.png) 
+
+Percebendo que haviam sido derrotados, os goblins começaram a comer todos os melões que podiam rapidamente e de forma pouco educada. As sobras de melões (junto com os restos acumulados ao longo da guerra toda) se transformaram em vários slimes por conta de uma magia secreta milenar dominada apenas pelos goblins mais poderosos.
+
+Você viu de longe o momento em que o Chefe-Primeiro, Herm-One, colocou sua armadura de melão-verde e gritou:
+
+!-IS-LI-MAG-NA-RO-KA-!
+
+Uma vez invocados, os slimes atacam a tudo e a todos, sem nenhuma distinção, deixando um rastro de destruição e dor por onde passam!
+
+Mas você conseguiu perceber um padrão:
+
+- A cada turno, os slimes de tamanho ímpar crescem 1 (por causa dos restos de melão que o boss deixa cair enquanto come) e os de tamanho par se dividem em 2, cada um com metade do tamanho do original.
+- Quando chegam ao tamanho 1, os slimes se transformam magicamente em sementes de melão (por causa de uma contra-magia antiga das F.4.d.4.s?).
+
+Neste caso, o seu plano é fugir com a população até que a magia acabe. Para saber se conseguirão escapar a tempo, sua tarefa é escrever um programa que diga quantos turnos vai demorar até que sobrem apenas sementes.","A entrada possui apenas uma linha.
+
+Esta linha traz $N$ números inteiros separados por espaços, representando os tamanhos iniciais dos slimes após a sórdida magia final.
+
+> Considere $1 \le N \le 1000$.
+
+> Considere que cada slime tem tamanho inicial no intervalo $[2,99]$, inclusive;",A quantidade de turnos que vocês precisam aguentar fugindo até que restem apenas sementes.,"Segue a simulação do exemplo dado... (Os números 1's são ignorados quando viram sementes)
+
+```
+2→1 1, 3→4, 4→2 2, 5→6, 6→3 3 ==> 1 1 4 2 2 6 3 3
+
+4→2 2, 2→1 1, 2→1 1, 6→3 3, 3→4, 3→4 ==> 2 2 1 1 1 1 3 3 4 4
+
+2→1 1, 2→1 1, 3→4, 3→4, 4→2 2, 4→2 2 ==> 1 1 1 1 4 4 2 2 2 2
+
+4→2 2, 4→2 2, 2→1 1, 2→1 1, 2→1 1, 2→1 1 ==> 2 2 2 2 1 1 1 1 1 1 1 1
+
+2→1 1, 2→1 1, 2→1 1, 2→1 1 ==> 1 1 1 1 1 1 1 1
+```","A dica mais preciosa é que não é preciso simular a duplicação das slimes, visto que elas ficam do mesmo tamanho e vão demorar o mesmo tempo para virar sementes.
+
+Outra dica é que você pode resolver o problema de forma independente para cada slime, pois nenhuma influencia as outras.
+
+Se precisar, segue a leitura da entrada (que não tem um $N$ desta vez):
+
+```python
+slimes = list( map( int, input().split() ) )
+N = len(slimes)
+```",,G4M3,judge.submission,2592,1.0,21.0,202319415408279,Python3,Accepted,0.0,"S = set( map(int, input().split()) )
+
+def time(x):
+    acc = 0
+    while x != 1:
+        acc += 1
+        if x%2 == 1:
+            x = x+1
+        else:
+            x = x//2
+    return acc
+
+sol = -1
+for n in S:
+    sol = max( sol, time(n) )
+
+print(sol)"
+judge.problem,22,Função Linear Número a5b0,P0022,diff,"Olá, pessoal! Este problema foi escrito com o simples e único objetivo de ser o mais simples da prova... (rsrsrsrs). Considere a função linear apresentada na figura abaixo:
+
+![gráfico](http://c073.com/api/media/problem_1001/imagens/grafico.png)
+
+O seu programa deve ter apenas 2 passos:
+
+1. Ler um número inteiro \(x\) (que será sempre maior ou igual a zero);
+2. Imprimir o valor de \(y=f(x)\) de acordo com a função apresentada no gráfico.
+
+Para quem não lembra, uma função linear é uma função na forma \(y=f(x)=ax+b\).
+
+Se não entendeu bem o gráfico, ele apresenta os seguintes pontos:
+
+* \((0,0)\), ou seja \(x=0, y=0\)
+* \((1,5)\), ou seja \(x=1, y=5\)
+* \((2,10)\), ou seja \(x=2, y=10\)
+* \((3,15)\), ou seja \(x=3, y=15\)
+* \((4,20), (5, 25), (6,30), ...\)",A entrada do problema é apenas um número inteiro \(x \ge 0\).,"A saída deve ter apenas um número inteiro, \(f(x)\).
+
+Não esqueça de dar uma quebra de linha ao final, para não receber ""erro de apresentação"".
+
+Por exemplo:
+
+Em Python, `print(y)` está OK.
+
+Em C, `printf(""%d\n"", y);` está OK.
+
+Em C++, `cout << y << endl;` está OK.",,Dicas&Dicas,2021 - Maratona POP Superior,implementação,judge.submission,506,1.0,22.0,202213359626536,Python3,Accepted,0.0,"x = int( input() )
+print( 5*x )"
+judge.problem,24,Blocoplanagem,P0024,diff,"Mais uma vez você foi contratado para blocoplanar um mini planeta composto por **cinco** pilhas de blocos.
+
+Mais uma vez, como sua máquina de blocoplanagem é de uma geração
+muito antiga, você não consegue mover os blocos entre as pilhas. Você
+consegue apenas destruir blocos.
+
+Mais uma vez, para aumentar seu lucro, qual o menor número de blocos que
+deve ser destruído para que o mini planeta seja blocoplanado, isto é, para que todas as **cinco** pilhas possuam exatamente o mesmo número de blocos?","A entrada possui exatamente **cinco** linhas. Cada linha traz um número
+inteiro \(x\), representando o número de blocos de uma pilha de blocos do mini planeta.
+
+> Considere \(1 \le x \le 99\).","Seu programa deve imprimir apenas um número inteiro, o menor número de
+blocos que deve ser destruído para que o mini planeta seja blocoplanado.",,Dicas&Dicas,2021 - Maratona POP Superior,competition,judge.submission,5384,1.0,24.0,202422147027924,Python3,Accepted,0.0,"B = [ int(input()) for _ in range(5) ]
+print( sum(B) - 5*min(B) )"
+judge.problem,26,Hora da Matriz,P0026,diff,"Já virou tradição! Se tem Maratona POP, tem problema com matriz. Em 2021 não poderia ser diferente!
+
+Desta vez, dada uma matriz com \(N\) linhas e \(M\) colunas, sua tarefa é imprimir a sua transposta. Por exemplo, considere a matriz \(A\) abaixo:
+
+```
+1 2
+3 4
+5 6
+7 8
+```
+A tem \(4\) linhas e \(2\) colunas. Logo, \(A^T\) deve ter \(2\) linhas e \(4\) colunas. Segue \(A^T\)
+```
+1 3 5 7
+2 4 6 8
+```
+Para ficar mais fácil (ou mais difícil, não sei), em vez de números, a matriz é composta apenas pelas letras 'p' e 'v'.
+
+> Seria tipo uma bandeira em **v**ermelho e **p**reto. =-)","A primeira linha da entrada traz dois inteiros \(N\) e \(M\), o número de linhas e de colunas da matriz \(A\).
+
+Cada uma das \(N\) linhas que seguem trazem \(M\) caracteres 'p' ou 'v', sem separação nenhuma entre eles.
+
+> Considere \(1 \le N, M \le 100\)","Seu programa deve imprimir a matriz transposta \(A^T\). Ou seja, \(M\) linhas que trazem \(N\) caracteres 'p' ou 'v', sem separação nenhuma entre eles, de acordo com a entrada.",,Dicas&Dicas,2021 - Maratona POP Superior,competition,judge.submission,2628,1.0,26.0,202320199918121,Python3,Accepted,0.0,"L, C = map(int, input().split())
+M=[input().strip() for _ in range(L)]
+for l in range(C):
+  for c in range(L):
+    print(M[c][l], end='')
+  print('')"
+judge.problem,36,W.A.V.E.,P0036,diff,"Dr. Wise estava assistindo o canal intergaláctico de esportes quando se deparou com uma cena inusitada. A torcida começou a fazer uma OLA.
+
+Dr. Wise pensou: como seria uma OLA na Maratona POP de Programação? Logo ele criou a sua versão: W.A.V.E.
+
+Na W.A.V.E. Dr. Wise escolhe uma frase com $n$ letras e imprime esta frase $n$ vezes. Na i-ésima vez, todos os caracteres da frase devem ser minúsculos, exceto o caractere na posição $i$, que deve ser maiúsculo.
+
+Como você gostou muito de fazer a W.A.V.E quando visitou o laboratório do Dr. Wise, você resolveu implementar a sua própria W.A.V.E.","A entrada do problema tem apenas uma linha. Esta linha possui apenas uma frase, composta por letras (maiúsculas ou minúsculas) do alfabeto. Não haverá nenhum caractere especial, nem espaços e nem pontuação).
+
+> Considere que a palavra possui no mínimo uma letra e no máximo quinhentas.","Considerando que a frase da entrada possui $n$ letras, o seu programa deve imprimir exatamente $n$ linhas. Na i-ésima linha, todos os caracteres da frase devem ser minúsculos, exceto o caractere na posição $i$, que deve ser maiúsculo.",,Dicas&Dicas,2021 - Aquecimento Maratona POP,Aquecimento,judge.submission,5380,1.0,36.0,202422143004924,Python3,Accepted,0.0,"n=input().lower()
+for i in range(len(n)):
+    print(n[0:i].lower() + n[i].upper() + n[i+1:].lower())"
+judge.problem,42,"Fica calmo, Rafayel!",P0047,diff,"Todos sabem que Rafayel é uma pessoa calma. O que poucos sabem é que durante competições de programação ele se transforma e vira uma pessoa muito estressada. Infelizmente, você está na posição de companheiro de Rafayel em uma maratona POP.
+
+Neste momento, Rafayel está resolvendo um problema de matemática, então seu outro companheiro, Stefan, que já conhece os problemas e estresses de Rafayel, pediu sua ajuda.
+
+Para evitar qualquer ato não muito esportivo ou o pronunciamento de nomes não muito bonitos, Stefan pediu para que você ajude Rafayel na solução desse problema.
+
+O problema envolve triplas pitagóricas e para que ele seja resolvido, Rafayel pede para que você escreva todas as triplas que não possuam nenhum número maior que $N$. Para relembra-lo, Stefan explica calmamente que uma tripla $(A, B, C)$ com $(1 \le A \le B \le C \le N)$ é pitagórica se respeitar a seguinte equação $C^2 = B^2 + A^2$.
+
+Dadas estas informações, encontre todas a triplas válidas e as dê para Rafayel, RÁPIDO.","A entrada do problema consiste de apenas um inteiro N.
+
+> Considere $1 \le N \le 100$.","Seu programa deve imprimir todas as triplas pitagóricas que não possuam nenhum número maior que $N$. Cada tripla deve ser impressa em uma única linha no formato `A B C`.
+
+Como Rafayel tem TOC, ainda é necessário que as triplas sejam impressas ordenadas por $A$. Em caso de empate, ordene por $B$, e em último caso por $C$.
+
+Caso não seja encontrada nenhuma tripla pitagórica, imprima uma única linha com a seguinte mensagem ""`nenhuma tripla`"" (Sem aspas, claro).",,Dicas&Dicas,2021 - Maratona POP Médio,,judge.submission,895,1.0,42.0,202215093884440,Python3,Accepted,0.0,"tam = int(input())
+temp = 0
+triplas = []
+for a in range(1, tam+1):
+    for b in range(1, a):
+        for c in range(1, b):
+            if c**2 + b**2 == a**2:
+                triplas.append([c,b,a])
+                triplas.sort()
+                temp += 1
+if temp >= 1:
+    for i in range(len(triplas)):
+        print(*(triplas[i]))
+else:
+    print('nenhuma tripla')"
+judge.problem,42,"Fica calmo, Rafayel!",P0047,diff,"Todos sabem que Rafayel é uma pessoa calma. O que poucos sabem é que durante competições de programação ele se transforma e vira uma pessoa muito estressada. Infelizmente, você está na posição de companheiro de Rafayel em uma maratona POP.
+
+Neste momento, Rafayel está resolvendo um problema de matemática, então seu outro companheiro, Stefan, que já conhece os problemas e estresses de Rafayel, pediu sua ajuda.
+
+Para evitar qualquer ato não muito esportivo ou o pronunciamento de nomes não muito bonitos, Stefan pediu para que você ajude Rafayel na solução desse problema.
+
+O problema envolve triplas pitagóricas e para que ele seja resolvido, Rafayel pede para que você escreva todas as triplas que não possuam nenhum número maior que $N$. Para relembra-lo, Stefan explica calmamente que uma tripla $(A, B, C)$ com $(1 \le A \le B \le C \le N)$ é pitagórica se respeitar a seguinte equação $C^2 = B^2 + A^2$.
+
+Dadas estas informações, encontre todas a triplas válidas e as dê para Rafayel, RÁPIDO.","A entrada do problema consiste de apenas um inteiro N.
+
+> Considere $1 \le N \le 100$.","Seu programa deve imprimir todas as triplas pitagóricas que não possuam nenhum número maior que $N$. Cada tripla deve ser impressa em uma única linha no formato `A B C`.
+
+Como Rafayel tem TOC, ainda é necessário que as triplas sejam impressas ordenadas por $A$. Em caso de empate, ordene por $B$, e em último caso por $C$.
+
+Caso não seja encontrada nenhuma tripla pitagórica, imprima uma única linha com a seguinte mensagem ""`nenhuma tripla`"" (Sem aspas, claro).",,Dicas&Dicas,2021 - Maratona POP Médio,,judge.submission,897,1.0,42.0,202215094857832,Python3,Accepted,0.0,"tam = int(input())
+triplas = []
+for a in range(1, tam+1):
+    for b in range(a, tam+1):
+        for c in range(b,  tam + 1):
+            if a**2 + b**2 == c**2:
+                triplas.append([a,b,c])
+if len(triplas):
+    for it in triplas:
+        print(*it)
+else:
+    print('nenhuma tripla')"
+judge.problem,42,"Fica calmo, Rafayel!",P0047,diff,"Todos sabem que Rafayel é uma pessoa calma. O que poucos sabem é que durante competições de programação ele se transforma e vira uma pessoa muito estressada. Infelizmente, você está na posição de companheiro de Rafayel em uma maratona POP.
+
+Neste momento, Rafayel está resolvendo um problema de matemática, então seu outro companheiro, Stefan, que já conhece os problemas e estresses de Rafayel, pediu sua ajuda.
+
+Para evitar qualquer ato não muito esportivo ou o pronunciamento de nomes não muito bonitos, Stefan pediu para que você ajude Rafayel na solução desse problema.
+
+O problema envolve triplas pitagóricas e para que ele seja resolvido, Rafayel pede para que você escreva todas as triplas que não possuam nenhum número maior que $N$. Para relembra-lo, Stefan explica calmamente que uma tripla $(A, B, C)$ com $(1 \le A \le B \le C \le N)$ é pitagórica se respeitar a seguinte equação $C^2 = B^2 + A^2$.
+
+Dadas estas informações, encontre todas a triplas válidas e as dê para Rafayel, RÁPIDO.","A entrada do problema consiste de apenas um inteiro N.
+
+> Considere $1 \le N \le 100$.","Seu programa deve imprimir todas as triplas pitagóricas que não possuam nenhum número maior que $N$. Cada tripla deve ser impressa em uma única linha no formato `A B C`.
+
+Como Rafayel tem TOC, ainda é necessário que as triplas sejam impressas ordenadas por $A$. Em caso de empate, ordene por $B$, e em último caso por $C$.
+
+Caso não seja encontrada nenhuma tripla pitagórica, imprima uma única linha com a seguinte mensagem ""`nenhuma tripla`"" (Sem aspas, claro).",,Dicas&Dicas,2021 - Maratona POP Médio,,judge.submission,898,1.0,42.0,202215094858748,Python3,Accepted,0.0,"tam = int(input())
+triplas = []
+for a in range(1, tam+1):
+    for b in range(a, tam+1):
+        for c in range(b,  tam + 1):
+            if a**2 + b**2 == c**2:
+                triplas.append([a,b,c])
+if len(triplas):
+    for it in triplas:
+        print(*it)
+else:
+    print('nenhuma tripla')"
+judge.problem,47,Dando oi ao mundo!,P0042,diff,"Olá! Sua grande missão neste problema é imprimir a frase ""Hello World!"" dando seu primeiro cumprimento ao mundo da programação. Não se esqueça de escrever exatamente como está entre as aspas ;)",Este problema não tem entradas.,"Imprima a frase solicitada. Não se esqueça de dar uma quebra de linha ao final, para não receber ""erro de apresentação"".",,Dicas&Dicas,,implementação,judge.submission,22,1.0,47.0,202204271125646,Python3,Accepted,0.0,"def main():
+  # Digite seu código aqui
+  print('Hello World!')
+
+if __name__ == ""__main__"":
+  main()"
+judge.problem,47,Dando oi ao mundo!,P0042,diff,"Olá! Sua grande missão neste problema é imprimir a frase ""Hello World!"" dando seu primeiro cumprimento ao mundo da programação. Não se esqueça de escrever exatamente como está entre as aspas ;)",Este problema não tem entradas.,"Imprima a frase solicitada. Não se esqueça de dar uma quebra de linha ao final, para não receber ""erro de apresentação"".",,Dicas&Dicas,,implementação,judge.submission,504,1.0,47.0,202213359435280,Python3,Accepted,0.0,print('Hello World!')
+judge.problem,63,Hedy Lamarr,P0063,diff,"![photo](http://g4m3.c073.com/api/media/problem_1063/imagem/h.png)
+
+> Fonte da Imagem: en.wikipedia.org/wiki/Hedy_Lamarr
+
+Certa vez, nos bastidores da gravação de um filme, um grande amigo procurou Hedy Lamarr com um problema.
+
+Ele estava preocupado que o exército inimigo pudesse impedir toda a comunicação sem fio do exército aliado apenas usando um forte sinal de ruído.
+
+Depois de pensar por alguns dias, Hedy telefonou ao amigo com a solução: ""Basta organizar as frequências das antenas como uma PA"". Desta forma as frequências ficariam imunes ao sinal de ruído.
+
+Sua tarefa é simples, verificar se o amigo da Hedy Lamarr fez um bom trabalho. Dadas as frequências das antenas, verificar se elas formam uma progressão aritmética.
+
+> Hedy Lamarr, nome artístico de Hedwig Eva Maria Kiesler, foi uma atriz e inventora austríaca radicada nos Estados Unidos.
+
+> Em 28 anos de carreira, participou de mais de 30 filmes e fez uma importante contribuição tecnológica durante a Segunda Guerra Mundial, uma co-invenção: um sistema de comunicações para as Forças Armadas dos Estados Unidos que serviu de base para a atual telefonia celular.
+
+> Em reconhecimento do valor de seu trabalho e da importância da tecnologia por ela inventada, seu nome foi postumamente inserido no National Inventors Hall of Fame em 2014.
+
+> Fonte: Wikipédia, a enciclopédia livre.","A entrada possui exatamente duas linhas.
+
+A primeira linha da entrada traz um número inteiro $N$ $(1 \le N \le 25)$, representando o número de antenas configuradas pelo amigo de Hedy.
+
+A segunda linha traz exatamente $N$ inteiros, separados por espaço, cada representando a frequência de uma antena.
+
+> A frequência de cada antena é um número inteiro no intervalo $[1,500]$.","Caso as frequências das antenas possam ser organizadas de modo a formar uma prograssão aritmética, seu programa deve imprimir `TRUE`. Caso contrário, deve imprimir `FALSE`.
+
+> Note que uma sequência de números $x_1 ~ x_2 ~ x_3 ~ ... ~ x_N$ é uma progressão aritmética se $x_{i+1} - x_i = d$, para todo $i=1, 2, 3, ..., N-1$.",,Dicas&Dicas,2022 - Mulher Tech Sim Senhor,Ordenação,judge.submission,4083,1.0,63.0,202324259282856,Python3,Accepted,0.0,"N=int(input())
+X=list(map(int,input().split()))
+X.sort()
+D={}
+for i in range(1,N):
+  D[ X[i]-X[i-1] ] = 1
+
+if len(D) == 1:
+  print('TRUE')
+else:
+  print('FALSE')"
+judge.problem,77,Quantas operações,P0077,diff,"Joãozinho recebeu uma pequena tarefa da sua professora de matemática: ela escreveu três números inteiros em uma linha, você poderia ordená-los?
+
+Como joãozinho não gosta de ter muito trabalho, ele pediu sua ajuda para fazer isso usando o menor número de operações possível.
+
+Você poderia ajudá-lo?
+
+> Neste problema, uma operação consiste em trocar a posição de dois números vizinhos.","A primeira e única linha da entrada traz três números inteiros, $a$, $b$ e $c$, separados por um espaço, de modo que $a \neq b \neq c \neq a$.
+
+> Considere $(-100 \le a, b, c \le 100)$.",Seu programa deve imprimir o menor número de operações necessário para ordenar os números da entrada.,,Existem apenas 6 possibilidades!,,implementação,judge.submission,1540,1.0,77.0,202222508972949,Python3,Accepted,0.0,"a, b, c = map( int, input().split() )
+
+s = """"
+
+# abc
+if a < b and a < c and b < c: print(0)
+
+# acb
+if a < b and a < c and c < b: print(1)
+
+# bac
+if b < a and b < c and a < c: print(1)
+
+# bca
+if b < a and b < c and c < a: print(2)
+
+# cab
+if c < a and c < b and a < b: print(2)
+
+# cba
+if c < a and c < b and b < a: print(3)"
+judge.problem,79,Borboletas Sempre Voltam,P0079,diff,"O desmatamento e os seus avanços sobre terras indígenas demarcadas tem causado toda sorte de problemas.
+
+Em especial, a tribo Baniwa está preocupada com a diminuição da quantidade de borboletas em suas florestas.
+
+Para fazer as borboletas voltarem, replantaram um grande jardim com a suas flores preferidas. A pergunta é: Borboletas sempre voltam?
+
+Com auxílio da Funai, eles colocaram sensores que capturam quando animais entram no jardim.
+
+Sua tarefa é detectar se as borboletas voltaram.","A entrada possui duas linhas.
+
+A primeira linha traz um inteiro $n$ $(1 \le n \le 50)$.
+
+A segunda linha traz uma string $S$, com exatamente $n$ caracteres.
+
+$S$ representa os dados coletados pelos sensores.
+
+Uma letra `B` maiúscula indica que alguma borboleta apareceu.","Seu programa deve imprimir a frase `Borboletas Sempre Voltam`, caso alguma borboleta tenha aparecido em algum sensor.
+
+Caso contrário, seu programa deve imprimir a frase `Nem Sempre`.
+
+> Cuidado, Maiúsculas e Minúsculas fazem diferença!!!",,"Considere olhar cada letra da string passada, partindo da posição p=0 até p=N-1 (sendo N o número de letras da string). Caso alguma letra for ‘B’ ...",2022 - Maratona POP Superior,Implementação,judge.submission,4890,1.0,79.0,202411956246451,Python3,Accepted,0.0,"n2=(input(""""))
+n=(input(""""))
+if n.count(""B""):
+    print(""Borboletas Sempre Voltam"")
+else:
+    print(""Nem Sempre"")"
+judge.problem,81,Duas Cidades,P0081,diff,"> A Declaração Universal dos Direitos Humanos é um documento que delimita os direitos fundamentais do ser humano. Foi estabelecida em 10 de dezembro de 1948 pela Organização das Nações Unidas (ONU), à época composta por 58 Estados-membros, entre eles o Brasil.
+
+> Em seu Artigo XXV: Toda pessoa tem direito a um padrão de vida capaz de assegurar a si e a sua família saúde e bem-estar, inclusive alimentação, vestuário, habitação, cuidados médicos e os serviços sociais indispensáveis [...]
+
+> Fonte: https://brasilescola.uol.com.br/geografia/declaracao-universal-dos-direitos-humanos.htm
+
+Nestes termos, visando o combate à fome em um certo país de um certo continente, uma certa organização não governamental (doravante denominada ONG) preparou um evento para angariar doações de alimentos e levar para duas cidades em situação de vulnerabilidade alimentar.
+
+A ONG disponibilizou um trem com $N$ vagões na estação base e as pessoas voluntariamente colocavam as doações no vagão que escolhessem. No final do dia, o trem partiria, passando inicialmente pela cidade `A` e depois pela cidade `B`.
+
+Para que o processo fosse o mais rápido possível (afinal a fome não espera!), a ONG decidiu que não iria esperar os vagões serem descarregados, mas sim, iria apenas soltar os últimos $x$ vagões do trem e liberá-lo para seguir para a próxima cidade.
+
+Como não há como controlar a quantidade de alimentos que será posta em cada vagão, a ONG pediu a sua ajuda para escolher o número de vagões que deve ser liberados na cidade `A` de modo que a diferença do total de alimentos doados às cidades A e B seja a menor possível.","A primeira linha da entrada traz um inteiro $N$ $(1 \le N \le 100)$, representando o número de vagões do trem.
+
+Seguem $N$ linhas, cada uma com um inteiro $x_i$ $(1 \le x_i \le 100)$, representando a quantidade de alimentos no vagão $i$.","Seu programa deve imprimir um inteiro positivo representado a menor diferença possível de ser obtida ao liberar os $x$ primeiros vagões com alimentos para a cidade A, restando os últimos $N-x$ vagões para a cidade B.",,"Como a entrada é bem pequena, você consegue testar todos os cortes facilmente. Cortar significa: A = soma do início até i, B = soma de i+1 até o fim… O custo do corte seria abs( A – B ).",2022 - Maratona POP Superior,Força Bruta,judge.submission,6045,1.0,81.0,202425371538260,Python3,Accepted,0.0,"#N, tot = map( int, input().split() )
+N = int(input())
+
+A = [ int(input()) for _ in range(N) ]
+
+tot = sum(A)
+
+best = tot
+right = tot
+left = 0
+
+for i in range(N):
+  left += A[i]
+  right -= A[i]
+  dif = abs(left-right)
+  best = min( dif, best )
+
+print(best)"
+judge.problem,83,Função de Ativação: ReLU,P0083,diff,"Dessa vez o Dr. Paul OfTarso está trabalhando em algo bem sério! Ele está bolando uma estratégia para impedir, de uma vez por todas, que as Redes Neurais possam ter viés Étnico-Raciais.
+
+Você deve estar se perguntando como isso é possível. Mas, imagine um carro autônomo com dificuldade para reconhecer pedestres de alguma raça em específico, ou ofertas de crédito baseadas na cor da pele?
+
+Como você ainda é iniciante na área, sua parte será apenas implementar a função de ativação ReLU:
+
+$$
+f(x) = x, ~ para ~ x \gt 0 \\
+f(x) = 0, ~ caso contrário.
+$$
+
+Caso não entenda a notação matemática, seu programa deve imprimir $x$, caso $x$ seja maior que zero, ou zero caso contrário.","A entrada possuirá apenas um número inteiro $x$, $(-100 \le x \le +100)$.","Seu programa deve imprimir $x$, caso $x$ seja maior que zero, ou zero caso contrário.
+
+Sim, esta é a Função ReLU.",,"Bom, você vai precisar ler um inteiro… testar se ele é maior que zero, e imprimir o mesmo número, ou zero…
+
+Em Python, use `x = int(input())` para ler o inteiro e `print(‘string’)` para imprimir o resultado.
+
+Em C++, use `cin>> x` para ler o inteiro e `cout << ”string” << endl;` para imprimir o resultado.
+
+Mais informações em: [www.beecrowd.com.br/judge/pt/faqs/about/examples](www.beecrowd.com.br/judge/pt/faqs/about/examples)",2022 - Maratona POP Superior,Implementação,judge.submission,1606,1.0,83.0,202223104573951,Python3,Accepted,0.0,"def main():
+  # Digite seu código aqui
+  pass
+
+if __name__ == ""__main__"":
+  x=int(input())
+  if x >= 0: print(x)
+  else: print(0)"
+judge.problem,84,Garimpando Master Coins,P0084,diff,"Não seria exagero dizer que estamos vivendo na era das criptomoedas. Temos XCoins, YCoins, ByteCoins, PokeCoins, e ..., as Master Coins (sim, com espaço!), as mais valiosas e encantadoras e fofinhas de todas.
+
+Você está bem interessado em minerar Master Coins. Principalmente depois que seu cunhado (kkkkkkkkkkk) descobriu o mapa do posicionamento dos servidores de Master Coins dentro do Data Center da empresa.
+
+Dado o mapa com a posição dos servidores, sua missão é a seguinte: posicionar os seus mineradores o mais distante possível dos servidores, para não serem detectados. Ao mesmo tempo, posicionar o maior número de mineradores possível.
+
+Neste problema, a distância entre os pontos $(x1,y1)$ e $(x2,y2)$ é dada por $abs(x1-x2)+abs(y1-y2)$, sendo abs o valor absoluto.","A primeira linha da entrada traz dois inteiros, $L$, $C$, representando o número de linhas e colunas do mapa do Data Center, respectivamente.
+
+> Considere $1 \le L,C, \le 10$.
+
+Seguem $L$ linhas, cada uma com $C$ caracteres. Um caractere `X` indica que há um servidor nesta posição, enquanto que um caractere `.` indica uma posição onde pode ser colocado um minerador.
+
+> Não há outro tipo de caractere na entrada.","Seu programa deve imprimir dois números inteiros, $D$ e $Q$, separados por um espaço.
+
+$D$ é a maior distância em que se pode colocar mineradores no DataCenter, considerando todos os servidores.
+
+$Q$ é o número de posições com distância exatamente $D$ que existem no DataCenter.",,"Há diversas formas de resolver esta questão… Flood Fill, DFS, BFS, BFS com múltiplos pontos de partida ou simplesmente calcular as distâncias de forma rápida… =-)
+
+Se ainda não tiver entendido, que tal usar recursão? Quando a recursão para?",2022 - Maratona POP Superior,Grafos,judge.submission,1788,1.0,84.0,202225433274290,Python3,Accepted,0.0,"L, C = map( int, input().split() )
+
+M = [ list(input()) for l in range(L) ]
+
+Q = []
+INF = 999999
+for l in range(L):
+  for c in range(C):
+    if M[l][c] == 'X':
+      M[l][c] = 0
+      Q.append( (l,c) )
+    else:
+      M[l][c] = INF
+
+def getviz( x, y ):
+  V = []
+  if x > 0: yield x-1,y
+  if y > 0: yield x,y-1
+  if x < L-1: yield x+1,y
+  if y < C-1: yield x,y+1
+
+
+best_d = 0
+nbd = 0
+
+while( Q != [] ):
+  x, y = Q.pop(0)
+  d = M[x][y]
+  for vx, vy in getviz( x, y ):
+    if d+1 < M[vx][vy]:
+      M[vx][vy] = d+1
+      Q.append( (vx,vy) )
+      if d+1 == best_d:
+        nbd += 1
+      elif d+1 > best_d:
+        best_d = d+1
+        nbd = 1
+
+    
+#for l in M: print( *l )
+
+print( best_d, nbd )"
+judge.problem,85,Herbert e seu castelo,P0085,diff,"![isidoro](http://g4m3.c073.com/api/media/problem_1085/imagem/isidoro.png)
+
+Herbert nasceu para ser rei e tem plena consciência disso. Tanto que, desde tenra idade, ele sabe que vai precisar construir um grande castelo.
+
+Como Herbert ainda é apenas uma criança, ele não dispõe de muitos materiais de construção... apenas de cartas.
+
+Neste ponto Herbert precisa de sua ajuda. Se ele quiser construir um castelo com atura $h$ (como os da figura), de quantas cartas ele precisa?","A entrada possui apenas o número inteiro $h$, tal que $1 \le h \le 10^{18}$.","Seu programa deve imprimir o número de cartas necessário para construir um castelo de altura $h$.
+
+Como este número pode ser muito grande, seu programa deve imprimí-lo em módulo $7907$.",,"Dessa vez não vai dar para usar apenas o for… vamos ter que descobrir a fórmula!
+
+Quantas cartas são adicionadas a cada passo? É uma P.A. ? É uma P.G. ? Algo parecido?
+
+Lembre de sempre fazer o módulo (%) a cada operação.",2022 - Maratona POP Superior,Matemática,judge.submission,1608,1.0,85.0,202223185263981,Python3,Accepted,0.0,"n = int(input())
+mod = 7907
+print(int(((3*n*(n+1))//2 - n) % mod))"
+judge.problem,106,Hebe Camargo,P0104,diff,"![hebe](http://g4m3.c073.com/api/media/problem_1106/imagem/hebe.png)
+
+> Hebe foi apresentadora, cantora, radialista, humorista e atriz. Considerada como a Rainha da Televisão Brasileira, iniciou sua carreira como cantora de rádio, ainda na década de 1940, na Rádio Tupi. Já conhecida como A estrela de São Paulo, a principal estrela do rádio da cidade, foi convidada a integrar o grupo que foi ao porto da cidade de Santos buscar os equipamentos para dar início a primeira rede de televisão brasileira, a Rede Tupi. Em 1955, Hebe iniciou o primeiro programa feminino da TV brasileira, O Mundo é das Mulheres.
+
+> Fonte: https://pt.wikipedia.org/wiki/Hebe_Camargo
+
+Lá na longínqua década de 1950, estava Hebe Camargo participando ativamente do início da Televisão Brasileira. Nesse tempo ela fazia de tudo, desde carregar os equipamentos, detalhar a cenografia e até selecionar os entrevistados.
+
+A única coisa que ela não conseguia era operar o teleprompter, pois logicamente estava apresentando o programa. Certo dia, o operador do teleprompter faltou e o seu substituto estava viajando… Você poderia ajudar a Hebe para não ser necessário adiar o programa?
+
+A tarefa é bem simples, sempre que a Hebe falar uma de suas frases especiais, seu programa deve imprimir a frase `“O MUNDO EH DAS MULHERES!”`, sem as aspas, toda em maiúsculas, sem acentos e com a exclamação no final.","A entrada possui apenas uma linha, trazendo uma frase especial da Hebe. Considere que a frase especial tem no mínimo $1$ e no máximo $150$ caracteres.",Seu programa deve imprimir a frase `O MUNDO EH DAS MULHERES!`.,,Dicas&Dicas,2022 - Maratona Girls Code Fast Expotec 2022,Strings,judge.submission,2084,1.0,106.0,202228890260654,Python3,Accepted,0.0,"def main():
+  # Digite seu código aqui
+  print('O MUNDO EH DAS MULHERES!')
+
+if __name__ == ""__main__"":
+  main()"
+judge.problem,109,Colorindo os Balões,P0107,diff,"![balao](http://g4m3.c073.com/api/media/problem_1109/imagem/balao.png)
+
+Toda maratona POP precisa de balões! E todos os anos há uma grande batalha para escolher as cores.
+
+Mas neste ano Valéria veio com uma ideia genial! E se comprarmos balões brancos e colorirmos eles? Tudo resolvido! A partir de 2023, os balões sempre serão coloridos com a seguinte seqência de cores:
+
+```
+Azul
+Branco
+Cinza
+Dourado
+Esmeralda
+Laranja
+Marrom
+Preto
+Rosa
+Vermelho
+```
+
+Para ajudá-la a não esquecer esta sequência, Valéria pediu para os competidores anotarem as primeira letra de cado cor.
+
+Esta é a sua missão, escrever um programa que imprima uma string composta pela primeira letra de cada cor da sequência.","A entrada possuirá um número inteiro $a$, $(2023 \le a \le 2300)$, indicando o ano da maratona POP.",Seu programa deve imprimir apenas uma linha contendo a primeira letra de cada cor da sequência escrita acima. Não deve usar espaços entre as letras.,,Dicas&Dicas,2023 - Maratona POP Esquenta 2023,Strings,judge.submission,4786,1.0,109.0,202409912981003,Python3,Accepted,0.0,"n=int(input('')) 
+if n>=2023 and n<=2300:
+  print('ABCDELMPRV', end='')"
+judge.problem,109,Colorindo os Balões,P0107,diff,"![balao](http://g4m3.c073.com/api/media/problem_1109/imagem/balao.png)
+
+Toda maratona POP precisa de balões! E todos os anos há uma grande batalha para escolher as cores.
+
+Mas neste ano Valéria veio com uma ideia genial! E se comprarmos balões brancos e colorirmos eles? Tudo resolvido! A partir de 2023, os balões sempre serão coloridos com a seguinte seqência de cores:
+
+```
+Azul
+Branco
+Cinza
+Dourado
+Esmeralda
+Laranja
+Marrom
+Preto
+Rosa
+Vermelho
+```
+
+Para ajudá-la a não esquecer esta sequência, Valéria pediu para os competidores anotarem as primeira letra de cado cor.
+
+Esta é a sua missão, escrever um programa que imprima uma string composta pela primeira letra de cada cor da sequência.","A entrada possuirá um número inteiro $a$, $(2023 \le a \le 2300)$, indicando o ano da maratona POP.",Seu programa deve imprimir apenas uma linha contendo a primeira letra de cada cor da sequência escrita acima. Não deve usar espaços entre as letras.,,Dicas&Dicas,2023 - Maratona POP Esquenta 2023,Strings,judge.submission,4815,1.0,109.0,202410574043574,Python3,Accepted,0.0,"n=int(input('')) 
+if n>=2023 and n<=2300:
+  print('ABCDELMPRV', end='')"
+judge.problem,118,Zero Refugos,P0115,diff,"Zuao esta completando o albbum da Copa do Mundo de Programação de 2023. Mas Zuao detesta Refugos... Por isso, toda vez que ele compra novas figuras, ele confere todas que já possui no álbum e joga fora os refugos.
+
+Ajude Zuao a conferir o seu álbum nesse final de semana de novas compras.","A entrada traz apenas um caso de teste.
+
+A primeira linha da entrada traz o número $N$, $(5 \le N \le 100)$, representando o número de figuras compradas por Zuao.
+
+Seguem $N$ linhas, cada uma com um inteiro $f$, $1 \le f \le 1000$, representando uma figura comprada por Zuao.","A cada figura comprada, caso Zuao já possua esta figura no álbum, seu programa deve imprimir uma linha com todas as figuras que Zuao possui, sem repetição, na ordem que foram comppradas.
+
+Caso Zuao não possua esta figura, o programa não precisa imprimir nada.",,Dicas&Dicas,2023 - Aquecimento Maratona 2023,Implementação,judge.submission,2888,1.0,118.0,202320712429512,Python3,Accepted,0.0,"N = int(input())
+
+L = []
+for _ in range(N):
+    x = int(input())
+    if x in L:
+        print( *L )
+    else:
+        L.append(x)"
+judge.problem,119,Yona e o Dicionário,P0116,diff,"Yona sempre amou as palavras! Por conta disso, desde que começou a ter seu próprio dinheiro, com tenros 27 anos, ela começou a colecionar Dicionários, Enciclopédias e Enciclopédias Galácticas!
+
+Em um certo momento, Yona percebeu que o seu dinheiro não seria suficiente para manter seu Hobbie... então, para suprir esse grande vazio, ela começou a decorar o número da página em que cada palavra aparecia. Deu super certo.
+
+Agora que Yona já decorou todos os seus livros, ela te pediu para escrever um programa para testar sua memória. Dado um livro e uma sequência de perguntas, ela gostaria que você respondesse em qual página está cada palavra perguntada. Será que você pode ajudá-la?","A primeira linha da entrada possui 2 inteiros, $N$ e $M$, separados por espaço, representando, respectivamente, o número de páginas do livro e o número de palavras em cada página.
+
+Seguem $N$ linhas, cada um com $M$ palavras separadas por espaço. Cada linha representa uma página do dicionário, começando pela página $1$, até a página $N$.
+
+Como em qualquer dicionário, todas as palavras estão ordenadas lexicograficamente.
+
+A próxima linha traz um inteiro $Q$, indicando o número de perguntas que Yona fará.
+
+Cada uma das $Q$ linhas seguintes traz uma pergunta, que é uma palavra contida no livro apresentado acima.
+
+> Considere $1 \le N \le 100$.
+
+> Considere $1 \le M \le 10$.
+
+> Considere $1 \le Q \le N \times M$.
+
+> Considere que toda palavra possuem entre $1$ e $20$ letras minúsculas.","Para cada pergunta, seu programa de imprimir uma linha com a palavra buscada e número da página em que ela aparece no livro, separados por espaço.",,Dicas&Dicas,2023 - Maratona POP Feminina,"Busca Binária, Hashing, Estruturas de Dados",judge.submission,3130,1.0,119.0,202321240726454,Python3,Accepted,0.0,"N, M = map( int, input().split() )
+DB = [ input().split() for _ in range(N) ]
+Q = int(input())
+for _ in range(Q):
+    q = input()
+    for i,L in enumerate(DB, start=1):
+        if q in L:
+            print(q, i)
+            break"
+judge.problem,123,X Operações,P0119,diff,"Depois de 3 séculos ensinando a mesma disciplina, o professor descobriu que uma das maiores dificuldades dos alunos é perceber, na prática, o crescimento das funções...
+
+Perguntou a si mesmo, será que isto realmente faz diferença?
+
+Bom, nada melhor do que testar! A sua tarefa neste problema é: dado um intervalo fechado $[ l, r ]$, imprimir o valor de cada uma das funções escolhidas para cada valor inteiro $x$, tal que $l \le x \le r$.
+
+Seguem as funções:
+
+* $f_1(x) = x$
+* $f_2(x) = log_2(x)$
+* $f_3(x) = sqrt(x)$
+* $f_4(x) = x log_2(x)$
+* $f_5(x) = x^2$
+* $f_6(x) = x^3$
+* $f_7(x) = 2^x$
+* $f_8(x) = factorial(x)$","A primeira linha da entrada tras 2 inteiros, $l$ e $r$, de modo que $1 \le l \le r \le 10000$.
+
+A segunda linha da entrada traz $8$ números binários $a_1, a_2, \cdots, a_8$, separados por espaço.
+
+Apenas caso $a_i$ seja $1$, o valor da função $f_i(x)$ deve ser impresso.","Para cada valor de $x$ entre $l$ e $r$ ($l \le x \le r$) seu programa deve imprimir uma linha.
+
+Para cada linha, seu programa deve imprimir todos os valores das funções $f_i(x)$ especificadas acima, em uma única linha, separados por espaço. Observe que só é necessário imprimir o valor de cada $f_i$ que tenha valor $a_i=1$.
+
+Por fim, como temos algumas funções que crescem muito rápido, caso o valor de $f_i(x)$ seja maior que $9999999$, seu programa deve imprimir $9999999$.
+
+> Atenção! Estamos usando apenas números inteiros, então devemos arredondar para baixo os resultados.
+
+> Atenção 2! Lembre de arredondar apenas depois de fazer todas as multiplicações... eu mesmo errei isto uma vez (rsrsrsrs)",,Dicas&Dicas,2023 - TAP,Implementação,judge.submission,3570,1.0,123.0,202321943923292,Python3,Accepted,0.0,"import math
+
+i, j = map(int, input().split())
+S = input().split()
+
+def nice_append(L,x):
+    if x < 10_000_000: L.append(x)
+    else: L.append( 9999999 )
+
+for x in range(i,j+1):
+  L = []
+  for i,alg in enumerate(S):
+    if alg == '0': continue
+
+    if i==0: nice_append( L, x )
+    if i==1: nice_append( L, int(math.log2(x)) )
+    if i==2: nice_append( L, int(math.sqrt(x)) )
+    if i==3: nice_append( L, int(x*math.log2(x)) )
+    if i==4: nice_append( L, x*x )
+    if i==5: nice_append( L, x*x*x )
+    if i==6: nice_append( L, 2**x )
+    if i==7: nice_append( L, math.factorial(x) )
+
+  print(*L)"
+judge.problem,125,Bot do POP,P0121,diff,"Valéria, muito astuta, fez um concurso entre bots para escolher o nome do novo bot do POP.
+
+Bard? Nam... GPT? Watson? Nem... O vencedor foi: C3P-POP. (risos)
+
+As inscrições para Maratona POP 2023 estão abertas e a MAIOR das preocupações é que haja coffee break para todos!! Então, a primeira missão do C3P-POP é bem simples:
+
+Dado o número de kits de coffee break comprados (cada kit alimenta exatamente uma pessoa) e o número de times inscritos até aqui (com exatamente 3 pessoas por time), C3P-POP deve manter as inscrições abertas ou fechá-las imediatamente?","A entrada é composta por duas linhas.
+
+A primeira linha da entrada traz um número inteiro $N$, representando o número de kits de coffee break comprados.
+
+A segunda linha apresenta o número inteiro $T$, representando o número de times inscritos.
+
+> Considere  $(30 \le N \le 100)$ e $(0 \le T \le  30)$.","Caso o número de kits comprados permita que mais times se inscrevam (e todos do time sejam alimentados, logicamente), seu programa deve imprimir `MANTER ABERTAS`
+
+Caso o número times já tenha passado do limite (itxa.... times vão ficar com fome) ou tenha chegado exatamente ao limite, seu programa deve imprimir `FECHAR IMEDIATAMENTE`
+
+> Não esqueça de imprimir tudo em letras maiúsculas.",,Dicas&Dicas,2023 - 1ª Maratona Feminina de programação,Implementação,judge.submission,3688,1.0,125.0,202322612841718,Python3,Accepted,0.0,"N = int(input())
+T = int(input())
+
+if 3*T >= N: print('FECHAR IMEDIATAMENTE')
+else: print('MANTER ABERTAS')"
+judge.problem,164,A: Sirene,P0159,diff,"Thiago viajou com a família para descansar. Eles procuraram um lugar sossegado, tranquilo e frio. Então, foram para Gramado, no Rio Grande do Sul.
+
+Ao chegarem no hotel, Thiago percebeu que havia uma fábrica de chocolates ao lado e ficou preocupado ... “será que eles usam sirene para emitir avisos, por exemplo, hora do almoço?”. A preocupação de Thiago era pertinente, a sirene disparou várias vezes ao longo do dia!
+
+Ele então pensou ... “durante o dia dá para aguentar, após as 20h é inaceitável!”. Acredita que disparou durante a noite também? Pois é, essa fábrica é 24h, não para!
+
+Thiago então decidiu contar quantas vezes a sirene disparou das 18h até 08h do dia seguinte. Foram 32 vezes! Ele anotou tudo!
+
+Ajude Thiago agora a analisar suas anotações. Escreva um programa para ler o tempo (hora, minuto e segundo) de cada disparo da sirene e exiba quantas vezes ela disparou no intervalo a partir das 22h (inclusive) até antes 06h (não inclusa).
+
+> Atenção! Thiago estava com muito sono, então ele pode ter anotado alguns valores inválidos para o tempo, nesse caso, desconsidere! Ou seja, não vale!","A entrada possui 32 linhas, cada linha possui um tempo no formado `H:M:S`, onde: H (hora), M (minuto) e S (segundo). H, M e S são números inteiros positivos (incluindo o zero).",A saída contém um número inteiro correspondente ao número de vezes que a sirene disparou no intervalo especificado na descrição.,,Dicas&Dicas,2024 - Seletiva Maratona POP Medio 2024,Implementação,judge.submission,4610,1.0,164.0,202408424828535,Python3,Accepted,0.0,"sol = 0
+for _ in range(32):
+    h, m, s = map(int, input().split(':'))
+    if h<0 or h>23: continue
+    if m<0 or m>59: continue
+    if s<0 or s>59: continue
+
+    if h >= 22 or h <6: sol += 1
+
+print(sol)"
+judge.problem,165,B: Pastel,P0160,diff,"Farinha de Trigo, sal, água e óleo vegetal, são os ingredientes utilizados para fazer a massa de pastel! Super fácil e rápido ! Humm … só que não é tão simples assim!! É necessário colocar cada ingrediente na quantidade certa!
+
+Ana Maria é uma dona de casa que possui uma mesa quadra, ela sempre a utiliza para cozinhar as suas receitas. Não diferente, claro, ela vai usar sua mesa de estimação para esticar a massa do pastel. Considerando que os pasteis são todos (rigorosamente) do mesmo tamanho, ela quer esticar a massa em todo espaço disponível na mesa, para fazer o maior número de pasteis em uma única “esticada da massa”. Ou seja, ela quer usar 100% da mesa.
+
+Tem mais! Ela quer organizar a mesa distribuindo os pasteis em linhas e colunas, conforme imagem ao lado. No caso, foram cortados 16 (dezesseis) pastéis. Muito esperta, ela foi no ChatGPT e pediu para o sistema gerar as quantidades dos ingredientes para conseguir a quantidade de massa exata para esticar na mesa e conseguir esses 16 pastéis. Voilà, deu super certo!!
+
+![pastel](http://g4m3.c073.com/api/media/problem_1165/imagem/pastel.jpg)
+
+Perceba que existe uma sobra (cor cinza) da massa na mesa. O objetivo dela agora é descobrir quantos pastéis ela consegue fazer com essa massa que restou. É aí que você entra na jogada! Escreva um programa para ler as medidas da mesa (no caso, lado, lembre que a mesa é quadrada) e o tamanho (diâmetro) dos pastéis que ela deseja fazer. Ao final seu programa deverá exibir a quantidade de pastéis que ela consegue fazer na primeira rodada.
+
+> Atenção! Considere que os pastéis devem possuir a mesma espessura de massa!","A entrada possui uma única linha contendo um número inteiro $L$ $(10 \le L \le 1000)$, representando a medida da mesa e outro número inteiro $D$ $(1 \le D \le 1000)$, representando o diâmetro dos pastéis.",A saída contém um número inteiro correspondente ao número de pastéis contidos na primeira rodada.,,Dicas&Dicas,2024 - Seletiva Maratona POP Medio 2024,Matemática,judge.submission,4611,1.0,165.0,202408431267109,Python3,Accepted,0.0,"a, b = map(int, input().split())
+
+print( (a//b)*(a//b) )"
+judge.problem,166,C: Imagem,P0161,diff,"Uma imagem é classificada como RGB quando possuir pixels codificados apenas com as cores vermelha (R), verde (G) e azul (B). Uma imagem é definida como RGBX quando for RGB e a borda possuir uma única cor e esta não está presente dentro da imagem.
+
+![img](http://g4m3.c073.com/api/media/problem_1166/imagem/img.jpg)
+
+Acima temos um exemplo de uma imagem RGBX, perceba que a imagem possui apenas as cores vermelha (R), verde (G) e Azul (B) e a cor da borda (azul) não está presente dentro da imagem.
+
+Escreva um programa para ler a resolução da imagem (altura e largura) e o código das cores de cada pixel. Analise a imagem e informe se é RGBX. Ou seja, verifique se possui apenas cores RGB (e branca) e a cor da borda não está presente dentro da imagem.
+
+Cada cor é definida por um código hexadecimal, com 06 dígitos. Considere `FF0000` para vermelha, `00FF00` para verde, `0000FF` para azul e `FFFFFF` para branca (cor neutra). Qualquer outro código é uma cor não RGB.","A primeira linha contém dois números inteiros, $X$ $(3 \le X \le 20)$ e $Y$ $(3 \le Y \le 20)$, separados por um espaço em branco, representando a resolução (linhas e colunas) da imagem.
+
+A seguir terão $X \times Y$ linhas contendo cada linha o código RGB das cores de cada pixel, que são preenchidos da esquerda para direita, de cima para baixo.","A saída terá um `S`, caso a entrada seja uma imagem RGBX. Ou `N`, caso contrário.",,Dicas&Dicas,2024 - Seletiva Maratona POP Medio 2024,Matrizes,judge.submission,4612,1.0,166.0,202408457517010,Python3,Accepted,0.0,"L, C = map(int, input().split())
+
+M = [ ['' for _ in range(C)] for _ in range(L) ]
+
+def fail():
+    print('N')
+    exit(0)
+
+R, G, B, W = 'FF0000', '00FF00', '0000FF', 'FFFFFF'
+
+for l in range(L):
+    for c in range(C):
+        cor = input()
+        if not cor in [R, G, B, W]: fail()
+        M[l][c] = cor
+        if l==0 or l==L-1 or c==0 or c==C-1:
+            if M[l][c] != M[0][0]:
+                fail()
+        else:
+            if M[l][c] == M[0][0]:
+                fail()
+
+print('S')"
+judge.problem,167,D: Senha,P0162,diff,"Uma senha para ser considerada forte deve possuir:
+
+- Todos os símbolos distintos, ou seja, não repetem (são diferentes);
+- 10 caracteres, no mínimo;
+- 02 letras minúsculas, no mínimo;
+- 02 letras maiúsculas, no mínimo;
+- 02 números, no mínimo;
+- 02 caracteres especiais, no mínimo.
+
+Escreva um programa para ler uma senha e informar se esta é uma senha forte ou não.","A entrada possui uma única linha, contendo um texto com $N$ $(1 \le N \le 40)$ caracteres.","A saída terá `S`, caso seja uma senha forte. Ou `N`, caso contrário.",,Dicas&Dicas,2024 - Seletiva Maratona POP Medio 2024,Strings,judge.submission,4613,1.0,167.0,202408459158964,Python3,Accepted,0.0,"s = input()
+
+def fail():
+    print('N')
+    exit(0)
+
+if len(s) < 10: fail()
+
+M = {}
+for c in s: M[c] = 1
+if len(s) != len(M): fail()
+
+d, p, g = 0, 0, 0
+for c in s:
+    if c in '0123456789': d += 1
+    if c in 'abcdefghijklmnopqrstuvwxyz': p += 1
+    if c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ': g += 1
+
+e = len(s) - d - p - g
+if d < 2 or p < 2 or g < 2 or e < 2: fail()
+
+print('S')"
+judge.problem,168,E: Vaquinha,P0163,diff,"Um grupo de estudantes está organizando uma “Vaquinha Solidária” com objetivo de arrecadar dinheiro para aquisição de alimentos. A meta de arrecadação é de R$ 10.000,00 (dez mil reais).
+
+Escreva um programa para ler os valores das doações recebidas por várias pessoas, até que a meta seja alcançada ou superada. Ou seja, o valor arrecadado seja superior ou igual a R$ 10.000,00.
+
+Ao final, seu programa deverá calcular e exibir:
+
+- Valor total arrecadado;
+- Quantidade de doações recebidas;
+- Valor extra (caso exista) arrecadado.","A entrada contém várias linhas, cada linha contém um valor float $V$, onde: $0.01 \le V \le 10000$.","A primeira linha deve conter o valor total arrecadado. A segunda linha deve apresentar uma mensagem indicando a quantidade de doações recebidas. A terceira linha deve apresentar, caso exista, o valor extra arrecadado.",,Dicas&Dicas,2024 - Seletiva Maratona POP Medio 2024,Implementação,judge.submission,4614,1.0,168.0,202408497579694,Python3,Accepted,0.0,"d, nd = 0.0, 0
+
+while True:
+    try:
+        v = float(input())
+        nd += 1
+        d += v
+    except:
+        break
+
+    if d >= 10000.00: break
+
+ex = d - 10000
+
+print( f'''Total arrecadado: R$ {d:.2f}
+Doacoes recebidas: {nd}
+Valor extra arrecadado: R$ {ex:.2f}''')"
+judge.problem,169,F: Água,P0164,diff,"Através das doações recebidas através da ONG, foi possível organizar a distribuição de água potável para as pessoas que sofrem com a falta de água no Sertão Paraibano. Foram comprados 1000 (mil) litros de água.
+
+Cada beneficiado levou seu recipiente (balde, pote …) para receber a água. Escreva um programa para ler o volume do recipiente (em ml) apresentado por cada beneficiado, até que acabe a água!
+
+Ao final, seu programa deverá calcular e exibir:
+
+- Quantidade de beneficiados;
+- Se todos os beneficiados foram contemplados com o volume total dos seus recipientes, informar: ""Todos Satisfeitos"". Caso contrário, indicar quanto faltou (em ml) para preencher o recipiente do último beneficiado.","A entrada contém várias linhas, cada linha contém um valor inteiro $V$, onde: $1 \le V \le 10000$.","A primeira linha deve apresentar uma mensagem indicando a quantidade beneficiados. Se todos os beneficiados foram contemplados com o volume total dos seus recipientes, na segunda linha informar: ""Todos satisfeitos"". Caso contrário, informar quanto faltou (em ml) para preencher o recipiente do último beneficiado.",,Dicas&Dicas,2024 - Seletiva Maratona POP Medio 2024,Implementação,judge.submission,4615,1.0,169.0,202408498636798,Python3,Accepted,0.0,"L = 1000 * 1000 # mil litros... em ml
+R = L
+
+T, n = 0, 0
+while True:
+    try:
+        v = int(input())
+        T += v
+        if R >= 0:
+            n += 1
+            R -= v
+    except:
+        break
+
+if T > L:
+    print( f'''Beneficiados: {n}
+Faltou: {-R}ml para completar o último!''')
+else:
+    print( f'''Beneficiados: {n}
+Todos satisfeitos!''')"
+judge.problem,170,G: Conta,P0165,diff,"Um cliente analisou as movimentações em sua conta corrente para ter certeza de que estava tudo certinho. As tentativas de movimentação de saque aparecem com valor negativo, essas apenas são efetivadas se houver saldo suficiente. As movimentações de depósito aparecem com valor positivo.
+
+Um extrato sempre inicia com o valor do saldo anterior, depois são apresentadas as movimentações e, no final, o saldo atual.
+
+Escreva um programa para ler o saldo anterior e as 08 (oito) movimentações realizadas pelo cliente. Ao final exiba:
+
+- Valor do maior saque realizado;
+- Valor do maior depósito realizado;
+- Quantidade de tentativas de saque realizadas sem sucesso (não havia saldo suficiente);
+- Valor final do saldo, após as movimentações.","A primeira linha contém o valor do saldo anterior $V$, onde $(0 \lt V \le 100)$. As 8 próximas linhas apresentam o valor da tentativa de movimentação $T$, onde $(-100 \le T \le 100)$.
+
+> Antenção! Todos os números da entrada são inteiros!","A primeira linha apresenta o valor do maior saque realizado com sucesso. Caso não tenha, exibir a mensagem `SEM MOVIMENTO DE SAQUE`. A segunda linha apresenta o valor do maior depósito realizado, caso não tenha exibir a mensagem `SEM MOVIMENTO DE DEPOSITO`. A terceira linha apresenta a quantidade de erros de saque, ou seja, não havia saldo suficiente. A última linha apresenta o valor final do saldo, após as movimentações.
+
+> Atenção com as letras maiúsculas e minúsculas na saída!",,Dicas&Dicas,2024 - Seletiva Maratona POP Medio 2024,Implementação,judge.submission,4617,1.0,170.0,202408501154401,Python3,Accepted,0.0,"V = int(input())
+ms, md, f = 9999, -1, 0
+
+for _ in range(8):
+    m = int(input())
+    if m < 0: # saque
+        if V + m < 0:
+            f += 1
+        else:
+            V = V + m
+            ms = min(ms, m)
+    else:     # deposito
+        md = max(md, m)
+        V += m
+
+if ms == 9999:
+    print( ""SEM MOVIMENTO DE SAQUE"" )
+else:
+    print( f'Maior saque: {-ms}.00' )
+
+if md == -1:
+    print( ""SEM MOVIMENTO DE DEPOSITO"" )
+else:
+    print( f'Maior deposito: {md}.00' )
+
+print( f'Erros de saque: {f}' )
+print( f'Saldo final: R$ {V}.00' )"
+judge.problem,171,H: Hipoteticamente,P0166,diff,"Essa é a questão mais fácil! Você deve apenas ler dois valores e exibir o maior entre eles. Se os úmeros forem iguais, exiba a mensagem `PEGADINHA`.","A primeira linha tem um valor $V$, onde $(-1000 \le V \le 1000)$. A segunda linha possui um valor $N$, onde $(-1000 \le N \le 1000)$.","Apresente o maior valor entre eles. Caso os dois valores sejam iguais, deve apresentar a mensagem `PEGADINHA`.
+
+> Atenção, todas as letras da palavra PEGADINHA devem ser impressas em maiúsculas!",,Dicas&Dicas,2024 - Seletiva Maratona POP Medio 2024,Implementação,judge.submission,4618,1.0,171.0,202408502543478,Python3,Accepted,0.0,"a = int(input())
+b = int(input())
+
+if a==b:
+    print('PEGADINHA')
+    exit(0)
+
+print( max(a,b) )"
+judge.problem,171,H: Hipoteticamente,P0166,diff,"Essa é a questão mais fácil! Você deve apenas ler dois valores e exibir o maior entre eles. Se os úmeros forem iguais, exiba a mensagem `PEGADINHA`.","A primeira linha tem um valor $V$, onde $(-1000 \le V \le 1000)$. A segunda linha possui um valor $N$, onde $(-1000 \le N \le 1000)$.","Apresente o maior valor entre eles. Caso os dois valores sejam iguais, deve apresentar a mensagem `PEGADINHA`.
+
+> Atenção, todas as letras da palavra PEGADINHA devem ser impressas em maiúsculas!",,Dicas&Dicas,2024 - Seletiva Maratona POP Medio 2024,Implementação,judge.submission,4813,1.0,171.0,202410573785392,Python3,Accepted,0.0,"x= int(input(''))
+y=int(input(''))
+
+if x > y:
+  print (x)
+if x<y:
+  print(y)
+if x==y:
+  print('PEGADINHA')"
+judge.problem,194,Duas Cidadezinhas,P0189,diff,"> A Declaração Universal dos Direitos Humanos é um documento que delimita os direitos fundamentais do ser humano. Foi estabelecida em 10 de dezembro de 1948 pela Organização das Nações Unidas (ONU), à época composta por 58 Estados-membros, entre eles o Brasil.
+
+> Em seu Artigo XXV: Toda pessoa tem direito a um padrão de vida capaz de assegurar a si e a sua família saúde e bem-estar, inclusive alimentação, vestuário, habitação, cuidados médicos e os serviços sociais indispensáveis [...]
+
+> Fonte: https://brasilescola.uol.com.br/geografia/declaracao-universal-dos-direitos-humanos.htm
+
+Nestes termos, visando o combate à fome em um certo país de um certo continente, uma certa organização não governamental (doravante denominada ONG) preparou um evento para angariar doações de alimentos e levar para duas cidades em situação de vulnerabilidade alimentar.
+
+A ONG disponibilizou um trem com $N$ vagões na estação base e as pessoas voluntariamente colocavam as doações no vagão que escolhessem. No final do dia, o trem partiria, passando inicialmente pela cidade `A` e depois pela cidade `B`.
+
+Para que o processo fosse o mais rápido possível (afinal a fome não espera!), a ONG decidiu que não iria esperar os vagões serem descarregados, mas sim, iria apenas soltar os últimos $x$ vagões do trem e liberá-lo para seguir para a próxima cidade.
+
+Como não há como controlar a quantidade de alimentos que será posta em cada vagão, a ONG pediu a sua ajuda para escolher o número de vagões que deve ser liberados na cidade `A` de modo que a diferença do total de alimentos doados às cidades `A` e `B` seja a menor possível.","A primeira linha da entrada traz dois inteiros: $N$ e $T$, representando, respectivamente, o número de vagões do trem e a soma total dos alimentos considerando todos os vagões.
+
+Seguem $N$ linhas, cada uma com um inteiro $x_i$ $(1 \le x_i \le 100)$, representando a quantidade de alimentos no vagão $i$.
+
+> Considere $(1 \le N \le 100)$.
+
+> Considere $(N \le T \le 100 \times N)$.","Seu programa deve imprimir um inteiro positivo representado a menor diferença possível de ser obtida ao liberar os $x$ primeiros vagões com alimentos para a cidade `A`, restando os últimos $N-x$ vagões para a cidade `B`.",,Dicas&Dicas,TAP 2024,Implementação,judge.submission,6046,1.0,194.0,202425372682526,Python3,Accepted,0.0,"N, tot = map( int, input().split() )
+
+best = tot
+right = tot
+left = 0
+
+for i in range(N):
+  x = int((input()))
+  left += x
+  right -= x
+  dif = abs(left-right)
+  best = min( dif, best )
+
+print(best)"

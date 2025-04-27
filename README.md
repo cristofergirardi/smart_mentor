@@ -12,7 +12,7 @@ It goes to terminal and run
 python -m smart_mentor.config.config_helper
 ```
 
-### Running tutor
+### Running tutor to execute a single scenario and a question.
 ```shell
 python -m smart_mentor.tutor
 ```
@@ -23,12 +23,12 @@ python -m smart_mentor.tutor
 python -m smart_mentor.observability.vectordb_creator
 ```
 
-#### Running Evaluation
+#### Running Evaluation 
 ```shell
 python -m smart_mentor.evaluation.evaluation_models
 ```
 
-#### Running Evaluation median
+#### Running Evaluation harmonic meean
 ```shell
 python -m smart_mentor.evaluation.evaluation_graphs
 ```

@@ -7,13 +7,13 @@ class PromptSkeleton():
     @property
     def first_think(self):
         return '''
-            Regarding the user question:
-            - Extract the main question;
-            - There are some tips called "Dicas";
-            - There are some input data, on that user need to add in this question;
-            - Which kind of question it is;
-            - What output is expected;
-            - What goal is expected.
+        Regarding the user question:
+        - Extract the main question;
+        - There are some tips called “Dicas”;
+        - There are some input data, that the user needs to add in this question;
+        - Which kind of question is it?
+        - What output is expected?
+        - What goal is expected?
         '''
     
     @property
