@@ -40,6 +40,7 @@ python -m smart_mentor.evaluation.evaluation_graphs
 ```
 
 ### Structure of folder
+```
 smart_mentor                            # Root directory
 ├── smart_mentor/                       # Source code directory
 |   ├── config/                         # Configuration files
@@ -89,5 +90,5 @@ smart_mentor                            # Root directory
 ├── .gitignore                          # Specifies ignored files for Git
 ├── README.md                           # Project overview
 └── requirements.txt                    # Production dependencies
-
+```
 
