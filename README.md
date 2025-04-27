@@ -81,8 +81,9 @@ smart_mentor                            # Root directory
 |   ├── resources/                      # Resource files
 |   |   ├── ground_truth_data.csv       # Ground truth data
 |   |   └── random_numbers.csv          # Random numbers
-|   ├── statistics_evaluation/          # Statistics modules
-|   |   └── statistics_test.ipynb       # Jupyter notebook for statistics evaluation
+|   ├── jupiter_notebook/               # Tools for Jupyter notebooks
+|   |   ├── statistics_test.ipynb       # Jupyter notebook for statistics evaluation
+|   |   └── check_database_ifpb.ipynb   # Jupyter notebook for creating dataset
 |   ├── vectordb/                       # VectorDB modules
 |   |   ├── vectorDatabase.py           # VectorDB class
 |   ├── tutor.py                        # Main script to execute scenarios/questions
