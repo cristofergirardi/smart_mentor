@@ -1,4 +1,4 @@
-from ..modelos_api.openai.embedding_openAi import EmbeddingOpenAi
+from ..models_api.openai.embedding_openAi import EmbeddingOpenAi
 from ..vectordb.vectorDatabase import VectorDatabase
 from ..config import logging_config
 import pandas as pd
