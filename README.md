@@ -83,6 +83,7 @@ smart_mentor                            # Root directory
 |   |   └── random_numbers.csv          # Random numbers
 |   ├── jupiter_notebook/               # Tools for Jupyter notebooks
 |   |   ├── statistics_test.ipynb       # Jupyter notebook for statistics evaluation
+|   |   ├── graphs_scenarios.ipynb      # Jupyter notebook for generating graphs
 |   |   └── check_database_ifpb.ipynb   # Jupyter notebook for creating dataset
 |   ├── vectordb/                       # VectorDB modules
 |   |   ├── vectorDatabase.py           # VectorDB class
